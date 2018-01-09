@@ -8,15 +8,20 @@
 package org.usfirst.frc.team2976.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+
+import org.usfirst.frc.team2976.robot.OI;
 import org.usfirst.frc.team2976.robot.Robot;
 
 /**
  * An example command.  You can replace me with your own command.
  */
-public class ExampleCommand extends Command {
-	public ExampleCommand() {
+public class DriveWithJoystick extends Command {
+	double leftSpeed = 0;
+	double rightSpeed = 0;
+	
+	public DriveWithJoystick() {
 		// Use requires() here to declare subsystem dependencies
-		//requires();
+		requires(Robot.drivetrain);
 	}
 
 	// Called just before this Command runs the first time
@@ -27,6 +32,9 @@ public class ExampleCommand extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
+		leftSpeed =  Robot.oi.driveStick.getRawAxis(OI.Axis.RY.getAxisNumber());
+		rightSpeed =  Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber());
+		Robot.drivetrain.drive(leftSpeed, rightSpeed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
