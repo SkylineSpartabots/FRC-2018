@@ -26,8 +26,8 @@ public class RobotArmMovementDown extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//if the limit switch is not pressed
-    	if(Robot.robotArm.getArmLimitSwitch()==false){
     		//set power to -0.6 if (to slow||too fast){ please feel free to change}
+    	if(Robot.robotArm.getArmDownLimitSwitch() == false){
     		Robot.robotArm.setPower(-0.6);    		
     	}
     }

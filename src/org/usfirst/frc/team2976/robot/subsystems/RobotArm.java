@@ -14,10 +14,11 @@ public class RobotArm extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	CANTalon robotMotorArm= new CANTalon(RobotMap.robotArmMotorPort); 
-	
-	DigitalInput RobotArmLimitSwitch= new DigitalInput(RobotMap.robotArmLimitSwitchPort);
-    
+	TalonSRX robotMotorArm= new TalonSRX(RobotMap.robotArmMotorPort); 
+	//the limit switch that is pressed when the arm goes up
+	DigitalInput robotArmLimitSwitchUp= new DigitalInput(RobotMap.robotArmLimitSwitchPortUp);
+	//the limit switch that is pressed when the arm goes down
+	DigitalInput robotArmLimitSwitchDown= new DigitalInput(RobotMap.robotArmLimitSwitchPortDown);
 	public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
@@ -25,8 +26,13 @@ public class RobotArm extends Subsystem {
 	public void setPower(double p){
 		robotMotorArm.set(p);
 	}
-	public boolean getArmLimitSwitch(){
-		boolean armSwitchState=RobotArmLimitSwitch.get();
+	
+	public boolean getArmUpLimitSwitch(){
+		boolean armSwitchState = robotArmLimitSwitchUp.get();
+		return armSwitchState;
+	}
+	public boolean getArmDownLimitSwitch(){
+		boolean armSwitchState = robotArmLimitSwitchDown.get();
 		return armSwitchState;
 	}
 }

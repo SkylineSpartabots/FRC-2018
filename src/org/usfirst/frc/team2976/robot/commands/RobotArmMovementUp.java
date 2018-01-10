@@ -26,7 +26,7 @@ public class RobotArmMovementUp extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//if the limit switch is not pressed
-    	if(Robot.robotArm.getArmLimitSwitch()==false){
+    	if(Robot.robotArm.getArmUpLimitSwitch()==false){
     		//set power to 0.6 if (to slow||too fast){ please feel free to change}
     		Robot.robotArm.setPower(0.6);    		
     	}
