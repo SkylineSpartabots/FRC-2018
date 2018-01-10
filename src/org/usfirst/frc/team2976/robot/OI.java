@@ -7,7 +7,12 @@
 
 package org.usfirst.frc.team2976.robot;
 
+import org.usfirst.frc.team2976.robot.commands.RobotArmMovementDown;
+import org.usfirst.frc.team2976.robot.commands.RobotArmMovementUp;
+
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -40,5 +45,12 @@ public Joystick driveStick;
 		public int getAxisNumber() {
 			return number;
 		}
+	}
+	public OI(){
+		driveStick = new Joystick(0);
+		new JoystickButton(driveStick, Axis.RTrigger.getAxisNumber()).whileHeld(new RobotArmMovementUp()); 
+		
+		new JoystickButton(driveStick, Axis.LTrigger.getAxisNumber()).whileHeld(new RobotArmMovementDown());
+		
 	}
 } 
