@@ -3,6 +3,7 @@ package org.usfirst.frc.team2976.robot.subsystems;
 import org.usfirst.frc.team2976.robot.RobotMap;
 
 import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -24,7 +25,7 @@ public class RobotArm extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
 	public void setPower(double p){
-		robotMotorArm.set(p);
+//		robotMotorArm.set(p);
 	}
 	
 	public boolean getArmUpLimitSwitch(){
