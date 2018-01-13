@@ -27,4 +27,8 @@ public class RobotMap {
 	public static final int rightBackDriveMotor = 1;
 	public static final int leftFrontDriveMotor = 2;
 	public static final int leftBackDriveMotor = 3;
+	public static final int robotArmMotorPort = 4;
+	public static final int robotArmLimitSwitchPortUp = 5;
+	public static int robotArmLimitSwitchPortDown = 6;
+	
 }
