@@ -22,32 +22,24 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class DriveTrain extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-	SpeedController leftFront, leftBack, rightFront, rightBack;
+	TalonSRX leftFront, leftBack, rightFront, rightBack;
 	SpeedControllerGroup left, right;
 
 	DifferentialDrive m_drive;
 	
 	public DriveTrain() {
-		leftFront = (SpeedController) new TalonSRX(RobotMap.leftFrontDriveMotor);
-		leftBack = (SpeedController) new TalonSRX(RobotMap.leftBackDriveMotor);
-		rightFront = (SpeedController) new TalonSRX(RobotMap.rightFrontDriveMotor);
-		rightBack = (SpeedController) new TalonSRX(RobotMap.rightBackDriveMotor);
-		
-		left = new SpeedControllerGroup(leftFront, leftBack);
-		right = new SpeedControllerGroup(rightFront, rightBack);
-		
-		m_drive = new DifferentialDrive(left, right);
-		
+		leftFront = new TalonSRX(RobotMap.leftFrontDriveMotor);
+		leftBack =  new TalonSRX(RobotMap.leftBackDriveMotor);
+		rightFront =  new TalonSRX(RobotMap.rightFrontDriveMotor);
+		rightBack = new TalonSRX(RobotMap.rightBackDriveMotor);
+	
 	}
 	
 	public void drive(double leftSpeed, double rightSpeed) {
 		left.set(leftSpeed);
 		right.set(rightSpeed);
 	}
-	
-	public void tankDrive(double leftSpeed, double rightSpeed) {
-		m_drive.tankDrive(leftSpeed, rightSpeed);
-	}
+
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());

@@ -25,6 +25,7 @@ import org.usfirst.frc.team2976.robot.subsystems.ExampleSubsystem;
  */
 public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
+	public static I2C_ColorSensor colorsensor;
 	public static OI oi;
 
 	Command m_autonomousCommand;
@@ -37,6 +38,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		drivetrain = new DriveTrain();
+		colorsensor = new I2C_ColorSensor();
 		oi = new OI();
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -91,6 +93,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		int color = colorsensor.getColor();
+		SmartDashboard.putNumber("Color sensor", color);
 		Scheduler.getInstance().run();
 	}
 
