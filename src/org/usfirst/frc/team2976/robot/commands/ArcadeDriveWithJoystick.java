@@ -15,11 +15,11 @@ import org.usfirst.frc.team2976.robot.Robot;
 /**
  * An example command.  You can replace me with your own command.
  */
-public class DriveWithJoystick extends Command {
-	double leftSpeed = 0;
-	double rightSpeed = 0;
+public class ArcadeDriveWithJoystick extends Command {
+	double speed = 0;
+	double rotation = 0;
 	
-	public DriveWithJoystick() {
+	public ArcadeDriveWithJoystick() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.drivetrain);
 	}
@@ -32,9 +32,9 @@ public class DriveWithJoystick extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		leftSpeed =  Robot.oi.driveStick.getRawAxis(OI.Axis.RY.getAxisNumber());
-		rightSpeed =  Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber());
-		Robot.drivetrain.drive(leftSpeed, rightSpeed);
+		speed =  Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber());
+		rotation =  Robot.oi.driveStick.getRawAxis(OI.Axis.RX.getAxisNumber());
+		Robot.drivetrain.drive(speed, rotation);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
