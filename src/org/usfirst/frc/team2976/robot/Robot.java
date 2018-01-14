@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import util.RPS;
+
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2976.robot.subsystems.ExampleSubsystem;
@@ -28,6 +30,7 @@ public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static OI oi;
 	public static RobotArm robotArm;
+	public static RPS rps;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -40,7 +43,8 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		drivetrain = new DriveTrain();
 		oi = new OI();
-		robotArm= new RobotArm();
+		rps = new RPS(0, 0);
+		robotArm = new RobotArm(2,0,0); //TODO add actual PID values here ASAP
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
