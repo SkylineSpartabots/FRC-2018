@@ -28,10 +28,11 @@ public class EncoderTest extends Subsystem {
 	public EncoderTest() {
 		
 		enc = new Encoder(7, 8, false, Encoder.EncodingType.k4X);
-		
+		setEncoderParameters();
+		resetEncoder();
 	}
 	
-	public void setEncParameters() {
+	public void setEncoderParameters() {
 		enc.setMaxPeriod(.1);
 		enc.setMinRate(10);
 		enc.setDistancePerPulse(5);
@@ -43,25 +44,33 @@ public class EncoderTest extends Subsystem {
 		return enc.toString();
 	}
 	
-	public void resetEnc() {
+	public void resetEncoder() {
 		enc.reset();
 	}
-	
-	public void getValues() {
-		int count = enc.get();
-		double distance = enc.getRaw();
-		distance = enc.getDistance();
-		//double period = enc.getPeriod();
-		double rate = enc.getRate();
-		boolean direction = enc.getDirection();
-		boolean stopped = enc.getStopped();
 
-	}
-	
 	public int getCount() {
 		return enc.get();
 	}
+	
+	public double getDistance() {
+		return enc.getDistance();
+	}
+	
+	public double getRawDistance() {
+		return enc.getRaw();
+	}
+	
+	public double getRate() {
+		return enc.getRate();
+	}
+	
+	public boolean getDirection() {
+		return enc.getDirection();
+	}
 
+	public boolean getStopped() {
+		return enc.getStopped();
+	}
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
