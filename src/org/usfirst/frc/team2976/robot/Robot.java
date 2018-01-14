@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2976.robot.subsystems.EncoderTest;
 import org.usfirst.frc.team2976.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
 
@@ -27,9 +28,12 @@ import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
 public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static I2C_ColorSensor colorsensor;
+	public static EncoderTest encoder;
 	public static OI oi;
 	public static RobotArm robotArm;
 
+	int encoderValue;
+	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -41,8 +45,10 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		drivetrain = new DriveTrain();
 		colorsensor = new I2C_ColorSensor();
-		oi = new OI();
+		encoder = new EncoderTest();
 		robotArm= new RobotArm();
+		oi = new OI();
+		
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -98,6 +104,14 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		int color = colorsensor.getColor();
 		SmartDashboard.putNumber("Color sensor", color);
+		encoderValue = encoder.getCount();
+		
+		if(encoder != null) {
+			SmartDashboard.putBoolean("Encoder null", false);
+		} else {
+			SmartDashboard.putBoolean("Encoder null", true);
+		}
+		SmartDashboard.putNumber("Encoder", encoderValue);
 		Scheduler.getInstance().run();
 	}
 
