@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import util.RPS;
 
 import org.usfirst.frc.team2976.robot.commands.Autonomous;
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 	public static EncoderTest encoder;
 	public static OI oi;
 	public static RobotArm robotArm;
+	public static RPS rps;
 
 	int encoderValue;
 	
@@ -46,11 +48,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		drivetrain = new DriveTrain();
+
+		rps = new RPS(0, 0);
+		robotArm = new RobotArm(2,0,0); //TODO add actual PID values here
 		colorsensor = new I2C_ColorSensor();
 		encoder = new EncoderTest();
-		robotArm= new RobotArm();
 		oi = new OI();
-		
+	
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
