@@ -12,10 +12,16 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+<<<<<<< HEAD
 import util.RPS;
 
+=======
+
+import org.usfirst.frc.team2976.robot.commands.Autonomous;
+>>>>>>> master
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team2976.robot.subsystems.EncoderTest;
 import org.usfirst.frc.team2976.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
 
@@ -28,10 +34,14 @@ import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
  */
 public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
+	public static I2C_ColorSensor colorsensor;
+	public static EncoderTest encoder;
 	public static OI oi;
 	public static RobotArm robotArm;
 	public static RPS rps;
 
+	int encoderValue;
+	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -42,9 +52,17 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		drivetrain = new DriveTrain();
+<<<<<<< HEAD
 		oi = new OI();
 		rps = new RPS(0, 0);
 		robotArm = new RobotArm(2,0,0); //TODO add actual PID values here
+=======
+		colorsensor = new I2C_ColorSensor();
+		encoder = new EncoderTest();
+		robotArm= new RobotArm();
+		oi = new OI();
+		
+>>>>>>> master
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -78,8 +96,9 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
-
+		//m_autonomousCommand = m_chooser.getSelected();
+		m_autonomousCommand = new Autonomous();
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -98,6 +117,16 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		int color = colorsensor.getColor();
+		SmartDashboard.putNumber("Color sensor", color);
+		encoderValue = encoder.getCount();
+		
+		if(encoder != null) {
+			SmartDashboard.putBoolean("Encoder null", false);
+		} else {
+			SmartDashboard.putBoolean("Encoder null", true);
+		}
+		SmartDashboard.putNumber("Encoder", encoderValue);
 		Scheduler.getInstance().run();
 	}
 

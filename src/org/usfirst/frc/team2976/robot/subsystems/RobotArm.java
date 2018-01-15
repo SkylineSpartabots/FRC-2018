@@ -3,7 +3,12 @@ package org.usfirst.frc.team2976.robot.subsystems;
 import org.usfirst.frc.team2976.robot.RobotMap;
 
 import com.ctre.CANTalon;
+<<<<<<< HEAD
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+=======
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+>>>>>>> master
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -33,7 +38,11 @@ public class RobotArm extends PIDSubsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
 	public void setPower(double p){
+<<<<<<< HEAD
 		//robotMotorArm.set(p);
+=======
+		robotMotorArm.set(ControlMode.PercentOutput, p);
+>>>>>>> master
 	}
 	
 	public boolean getArmUpLimitSwitch(){
