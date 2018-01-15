@@ -3,7 +3,7 @@ package org.usfirst.frc.team2976.robot.subsystems;
 import org.usfirst.frc.team2976.robot.RobotMap;
 
 import com.ctre.CANTalon;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -20,7 +20,7 @@ public class RobotArm extends PIDSubsystem {
 	}
 	// Put methods for controlling this subsystem
     // here. Call these from Commands.
-	TalonSRX robotMotorArm= new TalonSRX(RobotMap.robotArmMotorPort); 
+	WPI_TalonSRX robotMotorArm= new WPI_TalonSRX(RobotMap.robotArmMotorPort); 
 	//the limit switch that is pressed when the arm goes up
 	DigitalInput robotArmLimitSwitchUp= new DigitalInput(RobotMap.robotArmLimitSwitchPortUp);
 	//the limit switch that is pressed when the arm goes down
@@ -51,7 +51,7 @@ public class RobotArm extends PIDSubsystem {
 	}
 	
 	@Override
-	protected void usePIDOutput(double output) { //FIX THIS
+	protected void usePIDOutput(double output) { 
 		
 		if (getArmUpLimitSwitch() == true && output > 0) { //up > 0
 			robotMotorArm.set(robotMotorArm.getControlMode(),1); //some small power so the arm doesn't fall down

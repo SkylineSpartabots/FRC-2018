@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
 		drivetrain = new DriveTrain();
 		oi = new OI();
 		rps = new RPS(0, 0);
-		robotArm = new RobotArm(2,0,0); //TODO add actual PID values here ASAP
+		robotArm = new RobotArm(2,0,0); //TODO add actual PID values here
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
