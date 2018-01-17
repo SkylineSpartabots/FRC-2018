@@ -95,6 +95,10 @@ private Rect rRect;
 	
 	public double getYDistance() { //always positive
 		double yDistance = 15.3/12 * yRes/(2 * lRect.height* Math.tan(verticalVAngle/2)) ;
+		yDistance = (yDistance + 7.501)/8.125;
+		yDistance = Math.log(yDistance)/Math.log(1.05116);
+
+		//don't ask don't tell...too lazy to do image correction this is what i came up with (by comparing actual v. calculated on samples)
 		return yDistance;
 	}
 	
