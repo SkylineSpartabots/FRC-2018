@@ -1,4 +1,4 @@
-package org.usfirst.frc.team2976.robot.subsystems;
+package Vision;
 
 /*
  * README
@@ -57,7 +57,7 @@ private boolean switchControl; //from field management system, drive autonomous 
 		
 		Mat mat = Imgcodecs.imread(input);
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HSV);  //BlueGreenRed to HueSaturationValue
-		Core.inRange(mat, new Scalar(0, 0, 250), new Scalar(180, 200, 255), mat); //specific HSV range between the Scalars, use GRIP 
+		Core.inRange(mat, new Scalar(40, 0, 250), new Scalar(90, 220, 255), mat); //specific HSV range between the Scalars, use GRIP 
 		
 		contours = new ArrayList<MatOfPoint>();
 		hierarchy = new Mat(); //empty
@@ -76,8 +76,8 @@ private boolean switchControl; //from field management system, drive autonomous 
 		}
 		for(int i = 0; i < boundingRects.size(); i++) {
 			for(int j = i + 1; j < boundingRects.size(); j++) {
-				if(boundingRects.get(i).height > 30 && boundingRects.get(j).height > 30) { //filter out tiny rects that couldn't be viable target
-					if(boundingRects.get(i).width > 4 && boundingRects.get(j).width > 4) {
+				if(boundingRects.get(i).height > 37 && boundingRects.get(j).height > 37) { //filter out tiny rects that couldn't be viable target
+					if(boundingRects.get(i).width > 5 && boundingRects.get(j).width > 5) {
 						if(boundingRects.get(i).x > boundingRects.get(j).x) { //i is right of j
 							targets.add(new Target(boundingRects.get(j), boundingRects.get(i), xRes, yRes, horizontalVAngle, verticalVAngle));
 						}else { //i is left of j
@@ -95,12 +95,10 @@ private boolean switchControl; //from field management system, drive autonomous 
 		int targetIndex = 0;
 
 		for(int i = 0; i < targets.size(); i++) { //here's the real "algorithm"
-			if(targets.get(i).getEdgeRatio() > 2.5 && targets.get(i).getEdgeRatio() < 3.5) {
-				if(targets.get(i).getHeightRatio() < 0.5 && targets.get(i).getWidthRatio() < 0.5) {
-					if(targets.get(i).getDimensionRatio() < lowestSelectedRatio) {
-						lowestSelectedRatio = targets.get(i).getDimensionRatio();
-						targetIndex = i;
-					}
+			if(targets.get(i).getSpaceRatio() > 0) {
+				if(targets.get(i).getDimensionRatio() < lowestSelectedRatio) {
+					lowestSelectedRatio = targets.get(i).getDimensionRatio();
+					targetIndex = i;
 				}
 			}
 		}
@@ -109,11 +107,26 @@ private boolean switchControl; //from field management system, drive autonomous 
 	
 	public void outputImage(String sourceLocation, String outputLocation) {
 		Mat mat = Imgcodecs.imread(sourceLocation);
-		Scalar color = new Scalar(255, 0, 255); //color picking depends on source image
-		Imgproc.rectangle(mat, new Point(currentTarget.getLRect().x, currentTarget.getLRect().y), 
-				new Point(currentTarget.getRRect().x + currentTarget.getRRect().width, currentTarget.getRRect().y + currentTarget.getRRect().height), color, 2);
-		Imgproc.line(mat, new Point(getXRes()/2 - 50, yRes/2), new Point(getXRes()/2 + 50, yRes/2), color, 2);
-		Imgproc.line(mat, new Point(getXRes()/2, yRes/2 - 50), new Point(getXRes()/2, yRes/2 + 50), color, 2);
+		Scalar color1 = new Scalar(0, 255, 0); //color picking depends on source image
+		Scalar color2 = new Scalar(255, 0, 0);
+		
+		Imgproc.rectangle(mat, //overall target
+				new Point(currentTarget.getLRect().x, currentTarget.getLRect().y), 
+				new Point(currentTarget.getRRect().x + currentTarget.getRRect().width, currentTarget.getRRect().y + currentTarget.getRRect().height), 
+				color1, 2);
+		Imgproc.rectangle(mat, 
+				new Point(currentTarget.getLRect().x, currentTarget.getLRect().y), 
+				new Point(currentTarget.getLRect().x + currentTarget.getLRect().width, currentTarget.getLRect().y + currentTarget.getLRect().height),
+				color2,2);
+		Imgproc.rectangle(mat, //left tape
+				new Point(currentTarget.getRRect().x, currentTarget.getRRect().y), 
+				new Point(currentTarget.getRRect().x + currentTarget.getRRect().width, currentTarget.getRRect().y + currentTarget.getRRect().height),
+				color2,2); 
+		
+		//crosshairs
+		Imgproc.line(mat, new Point(getXRes()/2 - 40, yRes/2), new Point(getXRes()/2 + 40, yRes/2), color1, 2);
+		Imgproc.line(mat, new Point(getXRes()/2, yRes/2 - 40), new Point(getXRes()/2, yRes/2 + 40), color1, 2);
+		
 		Imgcodecs.imwrite(outputLocation, mat);
 	}
 	

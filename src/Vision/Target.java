@@ -1,4 +1,5 @@
-package org.usfirst.frc.team2976.robot.subsystems;
+package Vision;
+
 
 
 
@@ -12,7 +13,7 @@ private static int ID = 1;
 private static int xRes; //CHECK THESE WITH CAMERA USED
 private static int yRes;
 private static double horizontalVAngle;
-private static double verticalVAngle; //radian
+private static double verticalVAngle; //radians
 private Rect lRect;
 private Rect rRect;
 
@@ -39,7 +40,7 @@ private Rect rRect;
 	}
 	
 	public double getWidthRatio() {
-		double widthRatio = 0;
+		double widthRatio = -1;
 		if(lRect.width >= rRect.width) {
 			widthRatio = Math.abs(lRect.width - rRect.width)/rRect.width;
 		}else {
@@ -48,9 +49,20 @@ private Rect rRect;
 		return widthRatio;
 	}
 	
-	public double getHeightRatio() {
-		double heightRatio = 0;
-		if(lRect.height >= rRect.width) {
+	public double getSpaceRatio() {
+		
+		double leftRatio = (rRect.x - lRect.x - lRect.width)/lRect.width;
+		double rightRatio = (rRect.x - lRect.x - lRect.width)/rRect.width;
+		if(leftRatio > rightRatio) {
+			return rightRatio;
+		}else {
+			return leftRatio;
+		}
+	}
+	
+	public double getHeightRatio() { //should be small
+		double heightRatio = -1;
+		if(lRect.height >= rRect.height) {
 			heightRatio = (double)Math.abs(lRect.height - rRect.height)/rRect.height;
 		}else {
 			 heightRatio = (double)Math.abs(lRect.height - rRect.height)/lRect.height;
@@ -59,24 +71,12 @@ private Rect rRect;
 		return heightRatio;
 	}
 	
-	public double getDimensionRatio() {
+	public double getDimensionRatio() { //should be close to target dimensions
 		double dimensionRatio = Math.abs((15/2 - lRect.height/rRect.width)) + Math.abs((15/2 - rRect.height/lRect.width)); 
 		//dimension ratio cross-match
 		return dimensionRatio;
 	}
 	
-	public double getEdgeRatio() {
-		double edgeRatio = distanceF(new Point(lRect.x, lRect.y), new Point(rRect.x, rRect.y))/lRect.width; 
-		//The distance between the two left edges should be small relative to width
-		return edgeRatio;
-	}
-	
-	public double getTrigRatio() {
-		
-		double trigRatio = 0.5 - Math.tanh(lRect.height/(lRect.width + rRect.width 
-					           + (distanceF(new Point(lRect.x, lRect.y), new Point(rRect.x, rRect.y)) + rRect.width)));
-		return trigRatio;
-	}
 	/*ratios:
 	target is 15.3 inches tall
 	target is 2 inches wide
@@ -94,13 +94,23 @@ private Rect rRect;
 	}
 	
 	public double getYDistance() { //always positive
-		double yDistance = 15.3/12 * yRes/(2 * lRect.height* Math.tan(verticalVAngle/2)) ;
-		yDistance = (yDistance + 7.501)/8.125;
-		yDistance = Math.log(yDistance)/Math.log(1.05116);
-
+		double yDistance = -1;
+		if((lRect.width + rRect.width)/2 > 80) {
+			yDistance = 2.0/12.0 * xRes/(2.0 * (lRect.width + lRect.width)/2.0 * Math.tan(horizontalVAngle/2));
+		}else {
+			yDistance = 15.3/12.0 * yRes/(2.0 * (lRect.height + rRect.height)/2.0 * Math.tan(verticalVAngle/2));
+		}
+		
+		
 		//don't ask don't tell...too lazy to do image correction this is what i came up with (by comparing actual v. calculated on samples)
 		return yDistance;
 	}
+	
+	public double getHeading() {
+		double heading = -1;
+		return heading;
+	}
+	
 	
 	public String toString() {
 		String s = "Forward Distance, Sideways Distance: " + getYDistance() +  ", " + getXDistance();

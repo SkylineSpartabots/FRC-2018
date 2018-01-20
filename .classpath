@@ -11,14 +11,5 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/CTRLib.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/NetworkTables.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/slf4j-api-1.7.2.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/slf4j-nop-1.7.16.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/TalonSRXLibJava.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/v4l4j-0.9.1-r507.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/Vision17_2.jar"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/webcam-capture-0.3.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
-	<classpathentry kind="var" path="USERLIBS_DIR/bridj-0.6.2.jar"/>
 </classpath>
