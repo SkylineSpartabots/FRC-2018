@@ -100,14 +100,17 @@ private Rect rRect;
 		}else {
 			yDistance = 15.3/12.0 * yRes/(2.0 * (lRect.height + rRect.height)/2.0 * Math.tan(verticalVAngle/2));
 		}
-		
-		
-		//don't ask don't tell...too lazy to do image correction this is what i came up with (by comparing actual v. calculated on samples)
 		return yDistance;
 	}
 	
-	public double getHeading() {
+	public double getHeading() { //right relative to robot is positive, degrees
 		double heading = -1;
+		if(getXDistance() < 0) {
+			heading = Math.atan(getXDistance()/getYDistance()) * 180 / Math.PI;
+		}else {
+			heading = Math.atan(getXDistance()/getYDistance()) * 180 / Math.PI;
+		}
+		
 		return heading;
 	}
 	

@@ -4,11 +4,10 @@ package Vision;
  * README
  * How to use this class: 
  * - Must have Target in package or imported
- * - set I/O
- * - Run initialize() ONLY ONCE
- * - repeatedly call initDefaultCommand to constantly refresh current Target
- * - to get target info/distance call getCurrentTarget() and assorted object methods
- * - outputImage() is useful to see where the target is in the picture
+ * - Call initialize() ONLY ONCE
+ * - Call targeting() with param to constantly refresh current Target 
+ * - Getting target info/distance call getCurrentTarget() and assorted object methods
+ * - getOutput() is useful to see where the target is in the picture
  */
 import java.util.ArrayList;
 
@@ -21,15 +20,15 @@ import org.opencv.core.Scalar;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
-public class VisionProcessingImage{
+public class VisionProcess{
 
 private int xRes;
 private int yRes;
 private double horizontalVAngle;
 private double verticalVAngle;
 private double aspectRatio;
-private String input;
-private String output;
+
+private Mat output;
 private ArrayList<MatOfPoint> contours;
 private Mat hierarchy;
 private ArrayList<Target> targets;
@@ -37,7 +36,7 @@ private Target currentTarget;
 
 private boolean switchControl; //from field management system, drive autonomous should determine correct target
 
-	public VisionProcessingImage(int xRes, int yRes, double horizontalVAngle, double verticalVAngle, double aspectRatio) {
+	public VisionProcess(int xRes, int yRes, double horizontalVAngle, double verticalVAngle, double aspectRatio) {
 		this.xRes = xRes;
 		this.yRes = yRes;
 		this.horizontalVAngle = horizontalVAngle;
@@ -45,17 +44,15 @@ private boolean switchControl; //from field management system, drive autonomous 
 		this.aspectRatio = aspectRatio;
 	}
 	
-	public VisionProcessingImage() {
-		
-	}
-	
 	public void initialize() {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
 	
-	public void initDefaultCommand() {
+	public void targeting(Mat input) {
 		
-		Mat mat = Imgcodecs.imread(input);
+		Mat mat = input;
+		output = input;
+		
 		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HSV);  //BlueGreenRed to HueSaturationValue
 		Core.inRange(mat, new Scalar(40, 0, 250), new Scalar(90, 220, 255), mat); //specific HSV range between the Scalars, use GRIP 
 		
@@ -105,45 +102,29 @@ private boolean switchControl; //from field management system, drive autonomous 
 		currentTarget = targets.get(targetIndex);
 	}
 	
-	public void outputImage(String sourceLocation, String outputLocation) {
-		Mat mat = Imgcodecs.imread(sourceLocation);
+	public Mat getOutput(Mat input) {
+		
+		this.output = input;
 		Scalar color1 = new Scalar(0, 255, 0); //color picking depends on source image
 		Scalar color2 = new Scalar(255, 0, 0);
 		
-		Imgproc.rectangle(mat, //overall target
+		Imgproc.rectangle(this.output, //overall target
 				new Point(currentTarget.getLRect().x, currentTarget.getLRect().y), 
 				new Point(currentTarget.getRRect().x + currentTarget.getRRect().width, currentTarget.getRRect().y + currentTarget.getRRect().height), 
 				color1, 2);
-		Imgproc.rectangle(mat, 
+		Imgproc.rectangle(this.output, 
 				new Point(currentTarget.getLRect().x, currentTarget.getLRect().y), 
 				new Point(currentTarget.getLRect().x + currentTarget.getLRect().width, currentTarget.getLRect().y + currentTarget.getLRect().height),
 				color2,2);
-		Imgproc.rectangle(mat, //left tape
+		Imgproc.rectangle(this.output, //left tape
 				new Point(currentTarget.getRRect().x, currentTarget.getRRect().y), 
 				new Point(currentTarget.getRRect().x + currentTarget.getRRect().width, currentTarget.getRRect().y + currentTarget.getRRect().height),
 				color2,2); 
 		
 		//crosshairs
-		Imgproc.line(mat, new Point(getXRes()/2 - 40, yRes/2), new Point(getXRes()/2 + 40, yRes/2), color1, 2);
-		Imgproc.line(mat, new Point(getXRes()/2, yRes/2 - 40), new Point(getXRes()/2, yRes/2 + 40), color1, 2);
-		
-		Imgcodecs.imwrite(outputLocation, mat);
-	}
-	
-	public void setInput(String input) {
-		this.input = input;
-	}
-	
-	public void setOutput(String output) {
-		this.output = output;
-	}
-	
-	public String getOutput() {
+		Imgproc.line(this.output, new Point(getXRes()/2 - 40, yRes/2), new Point(getXRes()/2 + 40, yRes/2), color1, 2);
+		Imgproc.line(this.output, new Point(getXRes()/2, yRes/2 - 40), new Point(getXRes()/2, yRes/2 + 40), color1, 2);
 		return output;
-	}
-	
-	public String getInput() {
-		return input;
 	}
 	
 	public int getXRes() {
