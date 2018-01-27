@@ -21,8 +21,6 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * An example subsystem.  You can replace me with your own Subsystem.
  */
 public class DriveTrain extends Subsystem {
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
 	WPI_TalonSRX leftFront, leftBack, rightFront, rightBack;
 	SpeedControllerGroup left, right;
 
