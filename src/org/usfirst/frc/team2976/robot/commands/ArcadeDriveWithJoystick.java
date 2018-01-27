@@ -20,7 +20,6 @@ public class ArcadeDriveWithJoystick extends Command {
 	double rotation = 0;
 	
 	public ArcadeDriveWithJoystick() {
-		// Use requires() here to declare subsystem dependencies
 		requires(Robot.drivetrain);
 	}
 
