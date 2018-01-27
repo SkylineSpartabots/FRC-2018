@@ -32,8 +32,6 @@ public class RobotArm extends PIDSubsystem {
 	Encoder armEncoder = new Encoder(0,1); //TODO FIX PORTS
 	
 	public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     }
 	public void setPower(double p){
 		robotMotorArm.set(ControlMode.PercentOutput, p);
