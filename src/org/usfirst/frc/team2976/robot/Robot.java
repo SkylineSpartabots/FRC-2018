@@ -16,6 +16,7 @@ import util.RPS;
 
 import org.usfirst.frc.team2976.robot.commands.Autonomous;
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2976.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2976.robot.subsystems.EncoderTest;
 import org.usfirst.frc.team2976.robot.subsystems.ExampleSubsystem;
@@ -35,7 +36,7 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static RobotArm robotArm;
 	public static RPS rps;
-
+	public static ClampSubsystem ClampSub;
 	int encoderValue;
 	
 	Command m_autonomousCommand;

@@ -21,5 +21,7 @@ public class RobotMap {
 	public static final int robotArmMotorPort = 4;
 	public static final int robotArmLimitSwitchPortUp = 5;
 	public static int robotArmLimitSwitchPortDown = 6;
+	 public static final int solenoidPort = 9;
+
 	
 }
