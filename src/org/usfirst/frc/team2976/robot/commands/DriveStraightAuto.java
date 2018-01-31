@@ -1,50 +1,46 @@
 package org.usfirst.frc.team2976.robot.commands;
 
 import org.usfirst.frc.team2976.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
-public class RobotArmMovementUp extends Command {
+public class DriveStraightAuto extends Command {
+	long m_duration;
+	long initialTime;
+	long finalTime;
+	double power;
 
-    public RobotArmMovementUp() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(Robot.robotArm);
+    public DriveStraightAuto(long duration) {
+    	m_duration=duration;
+        requires(Robot.drivetrain);
+        //power of the motors
+      power = .5;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//setting motor off
-   
-    	Robot.robotArm.setPower(0.0);
-    	
+    	initialTime= System.currentTimeMillis();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//if the limit switch is not pressed
-    	if(Robot.robotArm.getArmUpLimitSwitch()==false){
-    		//set power to 0.6 if (to slow||too fast){ please feel free to change}
-    		Robot.robotArm.setPower(0.6);    		
-    	}
+    	Robot.drivetrain.tankDrive(power, power);
+    	finalTime=System.currentTimeMillis();
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    
-        return false;
+        return finalTime-initialTime>m_duration;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.robotArm.setPower(0.0);
+    	Robot.drivetrain.tankDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }
