@@ -1,40 +1,14 @@
 package org.usfirst.frc.team2976.robot.commands;
 
-import org.usfirst.frc.team2976.robot.Robot;
-
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class DriveToSwitch extends Command {
-	// 1 for right 2 for center 3 for left
-	int robotLocation;
-	boolean finished;
-	String switchLocation;
+public class DriveToSwitch extends CommandGroup {
 
-	public DriveToSwitch(int AutonomousLocation, String switchSide) {
-		robotLocation = AutonomousLocation;
-		requires(Robot.drivetrain);
-		switchLocation = switchSide;
-	}
-
-	// Called just before this Command runs the first time
-	protected void initialize() {
-		Robot.drivetrain.drive(0.0, 0.0);
-	}
-
-	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
-		// every rotation wheel goes 18.8 inches 1 raw distance= 0.06 inches
+    public DriveToSwitch(String switchLocation, int robotLocation) {
 		if (switchLocation == "L" & robotLocation == 1) {
-			//go forward
-			//the desired time is in seconds 
-			long desiredTime=5;
-			long initialTime= System.currentTimeMillis();
-			while(desiredTime/1000>System.currentTimeMillis()-initialTime){
-				
-			}
 
 		} else if (switchLocation == "L" & robotLocation == 2) {
 
@@ -48,19 +22,22 @@ public class DriveToSwitch extends Command {
 		} else if (switchLocation == "R" & robotLocation == 3) {
 
 		}
-	}
 
-	// Make this return true when this Command no longer needs to run execute()
-	protected boolean isFinished() {
-		return finished;
-	}
+        // Add Commands here:
+        // e.g. addSequential(new Command1());
+        //      addSequential(new Command2());
+        // these will run in order.
 
-	// Called once after isFinished returns true
-	protected void end() {
-	}
+        // To run multiple commands at the same time,
+        // use addParallel()
+        // e.g. addParallel(new Command1());
+        //      addSequential(new Command2());
+        // Command1 and Command2 will run in parallel.
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	protected void interrupted() {
-	}
+        // A command group will require all of the subsystems that each member
+        // would require.
+        // e.g. if Command1 requires chassis, and Command2 requires arm,
+        // a CommandGroup containing them would require both the chassis and the
+        // arm.
+    }
 }

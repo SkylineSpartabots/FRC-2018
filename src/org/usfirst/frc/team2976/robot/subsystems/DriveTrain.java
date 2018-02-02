@@ -61,6 +61,11 @@ public class DriveTrain extends Subsystem {
 		return encoderRight.getRate();
 
 	}
+	public void resetEncoders(){
+		encoderLeft.reset();
+		encoderRight.reset();
+		
+	}
 
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		left.set(leftSpeed);
