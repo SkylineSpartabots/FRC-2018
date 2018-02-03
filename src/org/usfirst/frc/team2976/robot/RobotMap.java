@@ -20,8 +20,8 @@ public class RobotMap {
 	public static final int leftBackDriveMotor = 3;
 	public static final int robotArmMotorPort = 4;
 	public static final int robotArmLimitSwitchPortUp = 5;
-	public static int robotArmLimitSwitchPortDown = 6;
-	 public static final int solenoidPort = 9;
+	public static final int robotArmLimitSwitchPortDown = 6;
+	public static final int solenoidPort = 9;//TODO Invalid port number
 
 	
 }

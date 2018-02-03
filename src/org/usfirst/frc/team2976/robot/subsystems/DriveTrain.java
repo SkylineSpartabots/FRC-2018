@@ -27,10 +27,10 @@ public class DriveTrain extends Subsystem {
 	DifferentialDrive m_drive;
 	
 	public DriveTrain() {
-		leftFront = new WPI_TalonSRX(RobotMap.leftFrontDriveMotor);
-		leftBack =  new WPI_TalonSRX(RobotMap.leftBackDriveMotor);
-		rightFront =  new WPI_TalonSRX(RobotMap.rightFrontDriveMotor);
-		rightBack = new WPI_TalonSRX(RobotMap.rightBackDriveMotor);
+		leftFront 	= new WPI_TalonSRX(RobotMap.leftFrontDriveMotor);
+		leftBack 	= new WPI_TalonSRX(RobotMap.leftBackDriveMotor);
+		rightFront 	= new WPI_TalonSRX(RobotMap.rightFrontDriveMotor);
+		rightBack 	= new WPI_TalonSRX(RobotMap.rightBackDriveMotor);
 	
 		left = new SpeedControllerGroup(leftFront, leftBack);
 		right = new SpeedControllerGroup(rightFront, rightBack);

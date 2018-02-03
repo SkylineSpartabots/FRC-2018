@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  *
  */
 public class RobotArm extends PIDSubsystem {
-
+	public static final double DEFAULT_ARM_POWER = 0.6;
     public RobotArm(double p, double i, double d) {
 		super(p, i, d);
 	}
@@ -52,18 +52,33 @@ public class RobotArm extends PIDSubsystem {
 	}
 	
 	@Override
-	protected void usePIDOutput(double output) { 
-		
-		if (getArmUpLimitSwitch() == true && output > 0) { //up > 0
-			robotMotorArm.set(robotMotorArm.getControlMode(),1); //some small power so the arm doesn't fall down
-		} else if (getArmUpLimitSwitch() == true && 0 > output) { //up < 0
-			robotMotorArm.set(robotMotorArm.getControlMode(),output); //give output power
-		} else if (getArmDownLimitSwitch() == true && 0 < output) { //down < 0
-			robotMotorArm.set(robotMotorArm.getControlMode(), 0); //no power
-		} else if (getArmDownLimitSwitch() == true && 0 > output) { //down > 0
-			robotMotorArm.set(robotMotorArm.getControlMode(), output); //give output power
-		} else {
-			robotMotorArm.set(robotMotorArm.getControlMode(), output); //give output power
+	protected void usePIDOutput(double output) {
+		//Opened up if statements for easier maintenance
+		if (getArmUpLimitSwitch())
+		{
+			if (output > 0)
+			{
+				robotMotorArm.set(robotMotorArm.getControlMode(), 1);//Little power to keep arm up
+			}
+			else
+			{
+				robotMotorArm.set(robotMotorArm.getControlMode(), output);
+			}
+		}
+		else if (getArmDownLimitSwitch())
+		{
+			if (output < 0)
+			{
+				robotMotorArm.set(robotMotorArm.getControlMode(), 0);
+			}
+			else
+			{
+				robotMotorArm.set(robotMotorArm.getControlMode(), output);
+			}
+		}
+		else
+		{
+			robotMotorArm.set(robotMotorArm.getControlMode(), output);
 		}
 	 
 	}
