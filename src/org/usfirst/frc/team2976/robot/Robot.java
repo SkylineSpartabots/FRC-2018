@@ -90,7 +90,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		//m_autonomousCommand = m_chooser.getSelected();
-		m_autonomousCommand = new DriveToSwitch(1);
+		m_autonomousCommand = new SwitchAuto(1);
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {

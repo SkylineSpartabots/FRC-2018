@@ -6,12 +6,12 @@ import org.usfirst.frc.team2976.robot.RobotMap;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveStraightAuto extends Command {
+public class DriveStraight extends Command {
 	double power;
 	// distance is in inches
 	double distance;
 
-	public DriveStraightAuto(double displacement) {
+	public DriveStraight(double displacement) { //displacement in feet
 		requires(Robot.drivetrain);
 		// power of the motors
 		power = .5;
