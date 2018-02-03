@@ -91,6 +91,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		//m_autonomousCommand = m_chooser.getSelected();
+		//should drive straight 1 meter
 		m_autonomousCommand = new DriveStraight(36);
 
 		// schedule the autonomous command (example)
