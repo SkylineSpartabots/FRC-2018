@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import util.I2C_ColorSensor;
 import util.RPS;
 
 import org.usfirst.frc.team2976.robot.commands.Autonomous;
@@ -109,8 +110,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		int color = colorsensor.getColor();
-		SmartDashboard.putNumber("Color sensor", color);
 		encoderValue = encoder.getCount();
 		
 		if(encoder != null) {
