@@ -9,15 +9,20 @@ package util;
 
 import edu.wpi.first.wpilibj.I2C;
 
-public class I2C_ColorSensor {
+
+public class TMDColor {
+	byte[] id = new byte[1];
 	I2C m_i2c;
 	int red;
 	int blue;
 	int green;
 	int proximity;
+	
 	// Port address is 0x39
-	public I2C_ColorSensor() {
+	public TMDColor() {
 		m_i2c = new I2C(I2C.Port.kOnboard, 0x39);
+		m_i2c.read(0x80 | 0x12, 1, id);
+		System.out.println(Integer.toHexString(id[0]));
 		initSensor();
 	}
 
@@ -51,11 +56,13 @@ public class I2C_ColorSensor {
 		green = buffer[2] + buffer[3]<<8;
 		blue = buffer[4] + buffer[5]<<8;
 		proximity = buffer[6] + buffer[7]<<8;
+		System.out.println(red);
 		int maxColor = Math.max(red, Math.max(green, blue));
-		red /= maxColor;
-		green /= maxColor;
-		blue /= maxColor;
-		
+		if(maxColor != 0 )	{
+			red *= 255.0/maxColor;
+			green *= 255.0/maxColor;
+			blue *= 255.0/maxColor;
+		}
 		rgbProximity[0] = red;
 		rgbProximity[1] = green;
 		rgbProximity[2] = blue;
@@ -66,15 +73,18 @@ public class I2C_ColorSensor {
 
 	public double getRedColor() {
 		getRGB_Proximity();
+		//System.out.println(Integer.toHexString(id[0]));
 		return red;
 	}
 
 	public double getGreenColor() {
+		//System.out.println(Integer.toHexString(id[0]));
 		getRGB_Proximity();
 		return green;
 	}
 
 	public double getBlueColor() {
+		//System.out.println(Integer.toHexString(id[0]));
 		getRGB_Proximity();
 		return blue;
 	}

@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import util.I2C_ColorSensor;
+import util.TMDColor;
+import util.LidarLite;
 import util.RPS;
 
 import org.usfirst.frc.team2976.robot.commands.Autonomous;
@@ -31,12 +32,14 @@ import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
  */
 public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
-	public static I2C_ColorSensor colorsensor;
 	public static EncoderTest encoder;
 	public static OI oi;
 	public static RobotArm robotArm;
 	public static RPS rps;
 	public static ClampSubsystem ClampSub;
+	public static TMDColor colorSensor;
+	public static LidarLite lidar;
+	
 	int encoderValue;
 	
 	Command m_autonomousCommand;
@@ -48,11 +51,11 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		colorSensor = new TMDColor();
+		lidar = new LidarLite();
 		drivetrain = new DriveTrain();
-
 		rps = new RPS(0, 0);
 		robotArm = new RobotArm(2,0,0); //TODO add actual PID values here
-		colorsensor = new I2C_ColorSensor();
 		encoder = new EncoderTest();
 		oi = new OI();
 	
@@ -137,6 +140,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		//SmartDashboard.putNumber("Red", colorSensor.getRedColor());
+		//SmartDashboard.putNumber("Green", colorSensor.getGreenColor());
+		//SmartDashboard.putNumber("Blue", colorSensor.getBlueColor());
+		System.out.println(lidar.getRightDistance());
 		Scheduler.getInstance().run();
 	}
 
