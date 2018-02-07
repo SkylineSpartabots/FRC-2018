@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import util.RPS;
 
+import org.usfirst.frc.team2976.robot.commands.DriveStraight;
 import org.usfirst.frc.team2976.robot.commands.DriveToSwitch;
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2976.robot.commands.SwitchAuto;
@@ -96,8 +97,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		//m_autonomousCommand = m_chooser.getSelected();
-		m_autonomousCommand = new SwitchAuto(1);
-		CvSink cvSink = CameraServer.getInstance().getVideo();
+		//should drive straight 1 meter
+		m_autonomousCommand = new DriveStraight(36);
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
