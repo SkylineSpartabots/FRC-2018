@@ -37,7 +37,6 @@ import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
  */
 public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
-	public static I2C_ColorSensor colorsensor;
 	public static AxisCamera camera;
 	public static EncoderTest encoder;
 	public static OI oi;
