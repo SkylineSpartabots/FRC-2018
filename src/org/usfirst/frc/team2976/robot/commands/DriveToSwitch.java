@@ -1,8 +1,12 @@
 package org.usfirst.frc.team2976.robot.commands;
 
+import org.opencv.core.Mat;
 import org.usfirst.frc.team2976.robot.Robot;
 
 import Vision.VisionProcess;
+import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -14,78 +18,128 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DriveToSwitch extends CommandGroup{
 	
 	Timer timer;
-	
 	boolean switchSide;
-	VisionProcess vp = new VisionProcess(800, 640, 1.06, 0.6);
 	
-    public DriveToSwitch() {
+	UsbCamera usbCamera;
+	CvSink cvSink;
+	Mat rawImage;
+	VisionProcess vp;
+	
+    public DriveToSwitch(boolean switchSide, int position) {
+    	this.switchSide = switchSide;
     	timer = new Timer();
     	timer.start();
     	
     	requires(Robot.drivetrain);
     	requires(Robot.robotArm);
     	
-    	String gameData = DriverStation.getInstance().getGameSpecificMessage();
-    	switch(gameData.charAt(0)) {
-    	case 'L':
-    		switchSide = false;
-    	case 'R':
-    		switchSide = true; 
-    	}
-    	
     	Robot.drivetrain.tankDrive(0.0, 0.0);
+    	usbCamera = CameraServer.getInstance().startAutomaticCapture();
+    	cvSink = CameraServer.getInstance().getVideo();
+    	rawImage = new Mat();
     	
-    	if(switchSide) {
-    		rightMovement();
+    	if(position == 1) { //center auto has two options
+    		if(switchSide) {
+        		rightMovement();
+        	}else {
+        		leftMovement();
+        	}
     	}else {
-    		leftMovement();
+    		centerMovement(switchSide);
     	}
+    	
     	
     	Robot.drivetrain.tankDrive(0, 0);
 		Robot.drivetrain.resetEncoders();
     }
     
-    public void leftMovement() {
-		//grab frame
-		//vp.targeting(input);
-		double tHeading = vp.getCurrentTarget().getHeading();
-		//rotate to 20 degrees left of tHeading
-		while(true) {
-			//drivestraight, grabbing frames simultaneously
-			//vp.targeting(input);
-			tHeading = vp.getCurrentTarget().getHeading();
-			if(tHeading > 20) {
-				//rotate to even ~0 degrees with target
-				break;
+    public void centerMovement(boolean switchSide) {
+    	if(switchSide) {
+    		//rotate 20 degrees right
+    		while(true) {
+    			if(cvSink.grabFrame(rawImage) == 0) { //unsuccessful grab
+	    			
+	    		}else {
+	    			break;
+	    		}
+    		}
+    		vp.targeting(rawImage);
+			double tHeading = vp.getCurrentTarget().getHeading();
+			//rotate to 20 degrees right of tHeading
+			
+			cvSink.grabFrame(rawImage);
+			vp.targeting(rawImage);
+			while(true) {
+				addSequential(new DriveStraight(1));
+				cvSink.grabFrame(rawImage);
+				vp.targeting(rawImage);
+				tHeading = vp.getCurrentTarget().getHeading();
+				if(tHeading < -20) {
+					//rotate to even ~0 degrees with target
+					break;
+				}
 			}
-		}
-		//driveStraight, grabbing frames 
-		//vp.targeting(input)
-		//drive set distance
-		
-		//activate solenoids to hydraulic cube onto switch
-		//rotate left 90, drive 3-4 ft, rotate right 90, drive straight 3ft
-		}
+			cvSink.grabFrame(rawImage);
+			vp.targeting(rawImage);
+			addSequential(new DriveStraight(vp.getCurrentTarget().getYDistance()));
+			
+			//activate solenoids to hydraulic cube onto switch
+			
+			
+			//rotate right 90
+			addSequential(new DriveStraight(3));
+			//rotate left 90
+			addSequential(new DriveStraight(3));
+    		
+    	}else {
+	    	//rotate 20 degrees left
+	    	while(true) {
+	    		if(cvSink.grabFrame(rawImage) == 0) { //unsuccessful grab
+	    			
+	    		}else {
+	    			break;
+	    		}
+	    	}
+			vp.targeting(rawImage);
+			double tHeading = vp.getCurrentTarget().getHeading();
+			//rotate to 20 degrees left of tHeading
+			
+			cvSink.grabFrame(rawImage);
+			vp.targeting(rawImage);
+			while(true) {
+				addSequential(new DriveStraight(1));
+				cvSink.grabFrame(rawImage);
+				vp.targeting(rawImage);
+				tHeading = vp.getCurrentTarget().getHeading();
+				if(tHeading > 20) {
+					//rotate to even ~0 degrees with target
+					break;
+				}
+			}
+			cvSink.grabFrame(rawImage);
+			vp.targeting(rawImage);
+			addSequential(new DriveStraight(vp.getCurrentTarget().getYDistance()));
+			
+			//activate cube mech
+			
+			//rotate left 90 
+			addSequential(new DriveStraight(3));
+			//rotate right 90
+			addSequential(new DriveStraight(3));
+    	}
+    }
+    
+    public void leftMovement() {	
+    	addSequential(new DriveStraight(14));
+    	//rotate 90 left
+    	//activate cube mech
+    	//rotate 90 right
+	}
     
     public void rightMovement() {
-    	//grab frame
-    	//vp.target(input);
-    	double tHeading = vp.getCurrentTarget().getHeading();
-    	//rotate to 20 degrees right of tHeading
-    	while(true) {
-    		//drivestraight, grabbing frames simultaneously
-    		//vp.target(input);
-    		tHeading = vp.getCurrentTarget().getDimensionRatio();
-    		if(tHeading < -20) {
-    			//rotate to even ~0 degrees with target
-    			break;
-    		}
-    	}
-    	//driveStraight, grabbing frames 
-		//vp.targeting(input)
-		//drive set distance
-		
-		//activate solenoids to hydraulic cube onto switch
-		//rotate right 90, drive 3-4 ft, rotate left 90, drive straight 3ft
+    	addSequential(new DriveStraight(14));
+    	//rotate 90 right
+    	//activate cube mech
+    	//rotate 90 left
     }
 }

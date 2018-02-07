@@ -65,7 +65,7 @@ private boolean switchControl; //from field management system, drive autonomous 
 		rateTargets();	
 	}
 	
-	public void createTargets() {
+	private void createTargets() {
 		ArrayList<Rect> boundingRects = new ArrayList<Rect>();
 		for(int i = 0; i < contours.size(); i++) {
 			boundingRects.add(Imgproc.boundingRect(contours.get(i))); 
@@ -86,7 +86,7 @@ private boolean switchControl; //from field management system, drive autonomous 
 		}
 	}
 	
-	public void rateTargets() {
+	private void rateTargets() {
 		double lowestSelectedRatio = 1000000000;
 		int targetIndex = 0;
 

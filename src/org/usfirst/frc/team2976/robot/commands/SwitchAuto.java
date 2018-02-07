@@ -3,6 +3,7 @@ package org.usfirst.frc.team2976.robot.commands;
 import org.usfirst.frc.team2976.robot.Robot;
 
 import Vision.VisionProcess;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -12,23 +13,46 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class SwitchAuto extends CommandGroup {
 
 	Timer timer;
+	boolean switchSide; //where true is right
+	int position; //where 0 is left and 2 is right
 	
-    public SwitchAuto(int position) {
+    public SwitchAuto(int position) { 
+    	this.position = position;
     	requires(Robot.drivetrain);
     	requires(Robot.encoder);
     	requires(Robot.robotArm);
     	
     	timer = new Timer();
     	timer.start();
+    	
+    	String gameData = DriverStation.getInstance().getGameSpecificMessage();
+    	switch(gameData.charAt(0)) {
+    	case 'L':
+    		switchSide = false;
+    	case 'R':
+    		switchSide = true; 
+    	}
     	switch(position) {
     	case 0:
-    		addSequential(new DriveStraight(12));
+    		if(switchSide) {
+    			addSequential(new DriveToSwitch(switchSide, position));
+    			addSequential(new DriveStraight(12));
+    		}
     		break;
     	case 1:
-    		addSequential(new DriveToSwitch());
+    		if(switchSide) {
+    			addSequential(new DriveToSwitch(switchSide, position));
+    		}else {
+    			addSequential(new DriveToSwitch(switchSide, position));
+    		}
     		break;
     	case 2:
-    		addSequential(new DriveStraight(12));
+    		if(switchSide) {
+    			addSequential(new DriveStraight(12));
+    		}else {
+    			addSequential(new DriveToSwitch(switchSide, position));
+    		}
+    		
     		break;
     	}
     	timer.stop();
