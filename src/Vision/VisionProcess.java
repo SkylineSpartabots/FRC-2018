@@ -36,12 +36,11 @@ private Target currentTarget;
 
 private boolean switchControl; //from field management system, drive autonomous should determine correct target
 
-	public VisionProcess(int xRes, int yRes, double horizontalVAngle, double verticalVAngle, double aspectRatio) {
+	public VisionProcess(int xRes, int yRes, double horizontalVAngle, double verticalVAngle) {
 		this.xRes = xRes;
 		this.yRes = yRes;
 		this.horizontalVAngle = horizontalVAngle;
 		this.verticalVAngle = verticalVAngle;
-		this.aspectRatio = aspectRatio;
 	}
 	
 	public void initialize() {
@@ -66,7 +65,7 @@ private boolean switchControl; //from field management system, drive autonomous 
 		rateTargets();	
 	}
 	
-	public void createTargets() {
+	private void createTargets() {
 		ArrayList<Rect> boundingRects = new ArrayList<Rect>();
 		for(int i = 0; i < contours.size(); i++) {
 			boundingRects.add(Imgproc.boundingRect(contours.get(i))); 
@@ -87,7 +86,7 @@ private boolean switchControl; //from field management system, drive autonomous 
 		}
 	}
 	
-	public void rateTargets() {
+	private void rateTargets() {
 		double lowestSelectedRatio = 1000000000;
 		int targetIndex = 0;
 

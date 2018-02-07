@@ -12,41 +12,69 @@ import org.usfirst.frc.team2976.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
- * An example subsystem.  You can replace me with your own Subsystem.
+ * An example subsystem. You can replace me with your own Subsystem.
  */
 public class DriveTrain extends Subsystem {
 	WPI_TalonSRX leftFront, leftBack, rightFront, rightBack;
 	SpeedControllerGroup left, right;
-
+	Encoder encoderLeft, encoderRight;
 	DifferentialDrive m_drive;
-	
+
 	public DriveTrain() {
-		leftFront 	= new WPI_TalonSRX(RobotMap.leftFrontDriveMotor);
-		leftBack 	= new WPI_TalonSRX(RobotMap.leftBackDriveMotor);
-		rightFront 	= new WPI_TalonSRX(RobotMap.rightFrontDriveMotor);
-		rightBack 	= new WPI_TalonSRX(RobotMap.rightBackDriveMotor);
-	
+		// ports unknown
+		encoderLeft = new Encoder(0, 0);
+		encoderRight = new Encoder(0, 0);
+		leftFront = new WPI_TalonSRX(RobotMap.leftFrontDriveMotor);
+		leftBack = new WPI_TalonSRX(RobotMap.leftBackDriveMotor);
+		rightFront = new WPI_TalonSRX(RobotMap.rightFrontDriveMotor);
+		rightBack = new WPI_TalonSRX(RobotMap.rightBackDriveMotor);
+
 		left = new SpeedControllerGroup(leftFront, leftBack);
 		right = new SpeedControllerGroup(rightFront, rightBack);
-		
+
 		m_drive = new DifferentialDrive(left, right);
 	}
-	
+
+	public double getLeftEncoderDistance() {
+		return encoderLeft.getDistance();
+
+	}
+
+	public double getRightEncoderDistance() {
+		return encoderRight.getDistance();
+
+	}
+
+	public double getLeftEncoderRate() {
+		return encoderLeft.getRate();
+
+	}
+
+	public double getRightEncoderRate() {
+		return encoderRight.getRate();
+
+	}
+	public void resetEncoders(){
+		encoderLeft.reset();
+		encoderRight.reset();
+		
+	}
+
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		left.set(leftSpeed);
 		right.set(rightSpeed);
 	}
-	
+
 	public void drive(double speed, double rotation) {
 		m_drive.arcadeDrive(speed, rotation, true);
 	}
-	
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
