@@ -1,14 +1,16 @@
 package org.usfirst.frc.team2976.robot.commands;
 
+import org.usfirst.frc.team2976.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-/**
- *
- */
-public class RampExtend extends CommandGroup {
+public class RampExtend extends Command {
 
     public RampExtend() {
-    	requires(Robot.)
+    	
+    	Robot.ramp.extend();
+    	
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -26,4 +28,13 @@ public class RampExtend extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     }
+
+	@Override
+	protected boolean isFinished() {
+		if(Robot.ramp.getRampSolenoid().get()) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

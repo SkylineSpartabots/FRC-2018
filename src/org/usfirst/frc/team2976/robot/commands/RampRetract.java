@@ -1,13 +1,17 @@
 package org.usfirst.frc.team2976.robot.commands;
 
+import org.usfirst.frc.team2976.robot.Robot;
+
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *
  */
-public class RampRetract extends CommandGroup {
+public class RampRetract extends Command {
 
     public RampRetract() {
+    	Robot.ramp.retract();
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -25,4 +29,13 @@ public class RampRetract extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     }
+
+	@Override
+	protected boolean isFinished() {
+		if(!(Robot.ramp.getRampSolenoid().get())) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }
