@@ -55,7 +55,7 @@ public class DriveToSwitch extends CommandGroup{
     
     public void centerMovement(boolean switchSide) {
     	if(switchSide) {
-    		//rotate 20 degrees right
+    		addSequential(new Rotate(30)); //get other target out of FOV
     		while(true) {
     			if(cvSink.grabFrame(rawImage) == 0) { //unsuccessful grab
 	    			
@@ -63,9 +63,10 @@ public class DriveToSwitch extends CommandGroup{
 	    			break;
 	    		}
     		}
+    		
     		vp.targeting(rawImage);
 			double tHeading = vp.getCurrentTarget().getHeading();
-			//rotate to 20 degrees right of tHeading
+			addSequential(new Rotate(tHeading + 20)); //approach wide to avoid coming in sideways to wall
 			
 			cvSink.grabFrame(rawImage);
 			vp.targeting(rawImage);
@@ -74,8 +75,8 @@ public class DriveToSwitch extends CommandGroup{
 				cvSink.grabFrame(rawImage);
 				vp.targeting(rawImage);
 				tHeading = vp.getCurrentTarget().getHeading();
-				if(tHeading < -20) {
-					//rotate to even ~0 degrees with target
+				if(tHeading < -20) { //rotate even with target, come in straight
+					addSequential(new Rotate(tHeading));
 					break;
 				}
 			}
@@ -83,16 +84,15 @@ public class DriveToSwitch extends CommandGroup{
 			vp.targeting(rawImage);
 			addSequential(new DriveStraight(vp.getCurrentTarget().getYDistance()));
 			
-			//activate solenoids to hydraulic cube onto switch
+			addSequential(new RampExtend());
 			
-			
-			//rotate right 90
+			addSequential(new Rotate(90));
 			addSequential(new DriveStraight(3));
-			//rotate left 90
+			addSequential(new Rotate(-90));
 			addSequential(new DriveStraight(3));
     		
-    	}else {
-	    	//rotate 20 degrees left
+    	}else { //same but for the left side switch
+	    	addSequential(new Rotate(-20));
 	    	while(true) {
 	    		if(cvSink.grabFrame(rawImage) == 0) { //unsuccessful grab
 	    			
@@ -102,7 +102,7 @@ public class DriveToSwitch extends CommandGroup{
 	    	}
 			vp.targeting(rawImage);
 			double tHeading = vp.getCurrentTarget().getHeading();
-			//rotate to 20 degrees left of tHeading
+			addSequential(new Rotate(tHeading - 20));
 			
 			cvSink.grabFrame(rawImage);
 			vp.targeting(rawImage);
@@ -112,7 +112,7 @@ public class DriveToSwitch extends CommandGroup{
 				vp.targeting(rawImage);
 				tHeading = vp.getCurrentTarget().getHeading();
 				if(tHeading > 20) {
-					//rotate to even ~0 degrees with target
+					addSequential(new Rotate(tHeading));
 					break;
 				}
 			}
@@ -120,26 +120,26 @@ public class DriveToSwitch extends CommandGroup{
 			vp.targeting(rawImage);
 			addSequential(new DriveStraight(vp.getCurrentTarget().getYDistance()));
 			
-			//activate cube mech
+			addSequential(new RampExtend());
 			
-			//rotate left 90 
+			addSequential(new Rotate(-90));
 			addSequential(new DriveStraight(3));
-			//rotate right 90
+			addSequential(new Rotate(90));
 			addSequential(new DriveStraight(3));
     	}
     }
     
-    public void leftMovement() {	
+    public void leftMovement() { //switch is on robot's side for these
     	addSequential(new DriveStraight(14));
-    	//rotate 90 left
-    	//activate cube mech
-    	//rotate 90 right
+    	addSequential(new Rotate(-90));
+    	addSequential(new RampExtend());
+    	addSequential(new Rotate(90));
 	}
     
     public void rightMovement() {
     	addSequential(new DriveStraight(14));
-    	//rotate 90 right
-    	//activate cube mech
-    	//rotate 90 left
+    	addSequential(new Rotate(90));
+    	addSequential(new RampExtend());
+    	addSequential(new Rotate(-90));
     }
 }
