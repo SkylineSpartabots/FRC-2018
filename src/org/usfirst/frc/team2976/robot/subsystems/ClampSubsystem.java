@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class ClampSubsystem extends Subsystem {
-	Solenoid clampSolenoid = new Solenoid(RobotMap.solenoidPort);
+	Solenoid clampSolenoid = new Solenoid(RobotMap.clampSolenoidPort);
 	
 	public void clampOut() {
 		clampSolenoid.set(true);

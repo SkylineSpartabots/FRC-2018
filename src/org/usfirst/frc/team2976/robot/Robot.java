@@ -19,6 +19,7 @@ import util.TMDColor;
 import util.LidarLite;
 import util.RPS;
 
+import org.usfirst.frc.team2976.robot.OI;
 import org.usfirst.frc.team2976.robot.commands.DriveStraight;
 import org.usfirst.frc.team2976.robot.commands.DriveToSwitch;
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
@@ -41,6 +42,7 @@ public class Robot extends TimedRobot {
 	public static EncoderTest encoder;
 	public static OI oi;
 	public static RobotArm robotArm;
+	public static Ramp ramp;
 	public static RPS rps;
 	public static ClampSubsystem ClampSub;
 	public static TMDColor colorSensor;
