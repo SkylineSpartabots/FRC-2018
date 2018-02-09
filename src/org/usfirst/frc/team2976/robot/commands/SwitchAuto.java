@@ -20,7 +20,7 @@ public class SwitchAuto extends CommandGroup {
     	this.position = position;
     	requires(Robot.drivetrain);
     	requires(Robot.encoder);
-    	requires(Robot.robotArm);
+    	requires(Robot.ramp);
     	
     	timer = new Timer();
     	timer.start();
