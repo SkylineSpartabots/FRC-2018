@@ -26,15 +26,12 @@ private int xRes;
 private int yRes;
 private double horizontalVAngle;
 private double verticalVAngle;
-private double aspectRatio;
 
 private Mat output;
 private ArrayList<MatOfPoint> contours;
 private Mat hierarchy;
 private ArrayList<Target> targets;
 private Target currentTarget;
-
-private boolean switchControl; //from field management system, drive autonomous should determine correct target
 
 	public VisionProcess(int xRes, int yRes, double horizontalVAngle, double verticalVAngle) {
 		this.xRes = xRes;
