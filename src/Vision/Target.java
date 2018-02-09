@@ -3,7 +3,6 @@ package Vision;
 
 
 
-import org.opencv.*;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2976.robot.commands;
 
 import org.usfirst.frc.team2976.robot.Robot;
+import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -26,9 +27,9 @@ public class RobotArmMovementDown extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//if the limit switch is not pressed
-    		//set power to -0.6 if (to slow||too fast){ please feel free to change}
-    	if(Robot.robotArm.getArmDownLimitSwitch() == false){
-    		Robot.robotArm.setPower(-0.6);    		
+    	//set power to -0.6 if (to slow||too fast){ please feel free to change}
+    	if(!Robot.robotArm.getArmDownLimitSwitch()){
+    		Robot.robotArm.setPower(-RobotArm.DEFAULT_ARM_POWER);    		
     	}
     }
 
