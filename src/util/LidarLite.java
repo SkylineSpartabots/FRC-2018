@@ -8,10 +8,15 @@ package util;
  */
 //TODO Maybe use i2c multiplexer
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.Timer;
 
 
 public class LidarLite {
 	byte[] id = new byte[1];
+	byte[] data = new byte[2];
+	public static final int REGISTER_MEASURE = 0x00;
+	public static final int MEASURE_VALUE = 0x04;
+	public static final int REGISTER_HIGH_LOW_B = 0x8f;
 	I2C generalSensorWriteAll;
 	I2C rightSensor;
 	I2C leftSensor;
@@ -21,6 +26,21 @@ public class LidarLite {
 		generalSensorWriteAll = new I2C(I2C.Port.kOnboard, 0x62);
 		connectRightSensor();
 		//connectLeftSensor();	
+	}
+	public int getValue()
+	{
+		return (int) Integer.toUnsignedLong(data[0] << 8) + Byte.toUnsignedInt(data[1]);
+	}
+	public void update()
+	{
+		while (generalSensorWriteAll.write(REGISTER_MEASURE, MEASURE_VALUE))
+		{
+			Timer.delay(0.001);
+		}
+		while (generalSensorWriteAll.read(REGISTER_HIGH_LOW_B, 2, data))
+		{
+			Timer.delay(0.001);
+		}
 	}
 	
 	/*

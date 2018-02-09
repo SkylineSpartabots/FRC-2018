@@ -56,12 +56,8 @@ public class DriveToSwitch extends CommandGroup{
     public void centerMovement(boolean switchSide) {
     	if(switchSide) {
     		addSequential(new Rotate(30)); //get other target out of FOV
-    		while(true) {
-    			if(cvSink.grabFrame(rawImage) == 0) { //unsuccessful grab
-	    			
-	    		}else {
-	    			break;
-	    		}
+    		while(cvSink.grabFrame(rawImage)== 0) { //Get good frame
+    			
     		}
     		
     		vp.targeting(rawImage);
