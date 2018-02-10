@@ -31,7 +31,7 @@ public class ArcadeDriveWithJoystick extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		speed =  Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber());
+		speed =  -Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber());
 		rotation =  Robot.oi.driveStick.getRawAxis(OI.Axis.RX.getAxisNumber());
 		Robot.drivetrain.drive(speed, rotation);
 	}
