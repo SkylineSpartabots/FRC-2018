@@ -8,16 +8,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class RampExtend extends Command {
 
     public RampExtend() {
-    	requires(Robot.ramp);
+    	requires(Robot.switchArm);
     }
     
     public void initialize() {
-    	Robot.ramp.extend();
+    	Robot.switchArm.extend();
     }
 
 	@Override
 	protected boolean isFinished() {
-		if(Robot.ramp.getRampSolenoid().get()) {
+		if(Robot.switchArm.getRampSolenoid().get()) {
 			return true;
 		}else {
 			return false;

@@ -27,7 +27,7 @@ import org.usfirst.frc.team2976.robot.commands.SwitchAuto;
 import org.usfirst.frc.team2976.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2976.robot.subsystems.EncoderTest;
-import org.usfirst.frc.team2976.robot.subsystems.Ramp;
+import org.usfirst.frc.team2976.robot.subsystems.SwitchArm;
 import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
 
 /**
@@ -40,7 +40,7 @@ import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
 public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static RobotArm robotArm;
-	public static Ramp ramp;
+	public static SwitchArm switchArm;
 	public static ClampSubsystem ClampSub;
 	
 	public static EncoderTest encoder;
@@ -50,6 +50,8 @@ public class Robot extends TimedRobot {
 	public static AxisCamera camera;
 	public static TMDColor colorSensor;
 	public static LidarLite lidar;
+	
+	public static boolean isScale = true;
 	
 	int encoderValue;
 	
@@ -64,8 +66,12 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		
 		drivetrain = new DriveTrain();
-		robotArm = new RobotArm(2,0,0); //TODO add actual PID values here
-		ramp = new Ramp();
+		
+		if(isScale) {
+			robotArm = new RobotArm(2,0,0); //TODO add actual PID values here
+		} else {
+			switchArm = new SwitchArm();
+		}
 		
 		rps = new RPS(0, 0);
 		encoder = new EncoderTest();

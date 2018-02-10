@@ -11,16 +11,16 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class RampRetract extends Command {
 
     public RampRetract() {
-    	requires(Robot.ramp);
+    	requires(Robot.switchArm);
     }
     
     public void initialize() {
-    	Robot.ramp.retract();
+    	Robot.switchArm.retract();
     }
 
 	@Override
 	protected boolean isFinished() {
-		if(!(Robot.ramp.getRampSolenoid().get())) {
+		if(!(Robot.switchArm.getRampSolenoid().get())) {
 			return true;
 		}else {
 			return false;
