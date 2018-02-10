@@ -1,5 +1,5 @@
 package util;
-import com.kauailabs.navx.frc.AHRS;
+//import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
 
@@ -21,7 +21,7 @@ import java.util.TimerTask;
  */
 
 public class RPS {
-	public AHRS ahrs;
+	//public AHRS ahrs;
 	
 	
 	double startingX;
@@ -39,7 +39,7 @@ public class RPS {
 	}
 	
 	public RPS(double targetX, double targetY, int ultrasonicMeasurementFrequencyInMillis) {
-		ahrs = new AHRS(SPI.Port.kMXP);	
+		//ahrs = new AHRS(SPI.Port.kMXP);	
 
 		
 		this.targetX = targetX;
@@ -55,7 +55,7 @@ public class RPS {
 	}
 	*/
 	public void reset()	{
-		ahrs.reset();
+	//	ahrs.reset();
 	}
 	
 	
@@ -63,7 +63,8 @@ public class RPS {
 
 //Will return degrees
 	public double getAngle(){
-		return ahrs.getAngle();
+	//	return ahrs.getAngle();
+		return 0;
 	}
 	
 }

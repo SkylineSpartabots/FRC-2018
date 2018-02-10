@@ -21,8 +21,8 @@ public class RobotMap {
 	public static final int robotArmMotorPort = 7;
 	public static final int robotArmLimitSwitchPortUp = 5;
 	public static int robotArmLimitSwitchPortDown = 6;
-	public static final int clampSolenoidPort = 9;
-	public static final int rampSolenoidPort = 10;
+	public static final int clampSolenoidPort = 7;
+	public static final int rampSolenoidPort = 8;
 	//this sacale factor means 1 click = 0.06 inches;
 	public static final double encoderDistanceScaleFactor = 0.06;
 

@@ -43,8 +43,8 @@ public class DriveTrain extends Subsystem {
 		rightBack.setNeutralMode(NeutralMode.Brake);
 		
 		
-		encoderLeft = new Encoder(0, 0);
-		encoderRight = new Encoder(0, 0);
+		//encoderLeft = new Encoder(0, 0);
+		//encoderRight = new Encoder(0, 0);
 		left = new SpeedControllerGroup(leftFront, leftBack);
 		right = new SpeedControllerGroup(rightFront, rightBack);
 

@@ -31,7 +31,7 @@ public class DriveToSwitch extends CommandGroup{
     	timer.start();
     	
     	requires(Robot.drivetrain);
-    	requires(Robot.ramp);
+    	requires(Robot.switchArm);
     	
     	Robot.drivetrain.tankDrive(0.0, 0.0);
     	usbCamera = CameraServer.getInstance().startAutomaticCapture();

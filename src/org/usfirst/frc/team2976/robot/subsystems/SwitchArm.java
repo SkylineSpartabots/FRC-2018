@@ -8,11 +8,15 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Ramp extends Subsystem {
-	Solenoid rampSolenoid = new Solenoid(RobotMap.rampSolenoidPort);
+public class SwitchArm extends Subsystem {
+	Solenoid rampSolenoid;
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
+	public SwitchArm() {
+		rampSolenoid = new Solenoid(RobotMap.rampSolenoidPort);
+	}
+	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
