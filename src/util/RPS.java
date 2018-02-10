@@ -61,8 +61,8 @@ public class RPS {
 	
 	
 
-	
-	public double getAngle()	{
+//Will return degrees
+	public double getAngle(){
 		return ahrs.getAngle();
 	}
 	

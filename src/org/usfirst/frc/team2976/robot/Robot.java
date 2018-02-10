@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team2976.robot;
 
+import edu.wpi.cscore.AxisCamera;
+import edu.wpi.cscore.CvSink;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -16,11 +19,15 @@ import util.TMDColor;
 import util.LidarLite;
 import util.RPS;
 
-import org.usfirst.frc.team2976.robot.commands.Autonomous;
+import org.usfirst.frc.team2976.robot.OI;
+import org.usfirst.frc.team2976.robot.commands.DriveStraight;
+import org.usfirst.frc.team2976.robot.commands.DriveToSwitch;
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2976.robot.commands.SwitchAuto;
 import org.usfirst.frc.team2976.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2976.robot.subsystems.EncoderTest;
+import org.usfirst.frc.team2976.robot.subsystems.Ramp;
 import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
 
 /**
@@ -32,11 +39,15 @@ import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
  */
 public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
+	public static RobotArm robotArm;
+	public static Ramp ramp;
+	public static ClampSubsystem ClampSub;
+	
 	public static EncoderTest encoder;
 	public static OI oi;
-	public static RobotArm robotArm;
 	public static RPS rps;
-	public static ClampSubsystem ClampSub;
+	
+	public static AxisCamera camera;
 	public static TMDColor colorSensor;
 	public static LidarLite lidar;
 	
@@ -51,13 +62,19 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		colorSensor = new TMDColor();
-		lidar = new LidarLite();
+		
 		drivetrain = new DriveTrain();
-		rps = new RPS(0, 0);
 		robotArm = new RobotArm(2,0,0); //TODO add actual PID values here
+		ramp = new Ramp();
+		
+		rps = new RPS(0, 0);
 		encoder = new EncoderTest();
 		oi = new OI();
+		
+		camera = CameraServer.getInstance().addAxisCamera("axis-camera.local");
+		camera.setResolution(800, 640);
+		colorSensor = new TMDColor();
+		lidar = new LidarLite();
 	
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -93,14 +110,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		//m_autonomousCommand = m_chooser.getSelected();
-		m_autonomousCommand = new Autonomous();
-		
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		//should drive straight 1 meter
+		m_autonomousCommand = new DriveStraight(36);
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
