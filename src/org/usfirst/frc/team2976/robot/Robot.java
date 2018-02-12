@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import util.TMDColor;
-import util.LidarLite;
+import util.ArduinoSerialRead;
 import util.RPS;
 
 import org.usfirst.frc.team2976.robot.OI;
@@ -48,12 +48,11 @@ public class Robot extends TimedRobot {
 	public static RPS rps;
 	
 	public static AxisCamera camera;
-	public static TMDColor colorSensor;
-	public static LidarLite lidar;
+	
+	public static ArduinoSerialRead arduino;
 	
 	public static boolean isScale = true;
 	
-	int encoderValue;
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -64,24 +63,18 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		
-		drivetrain = new DriveTrain();
-		
+		arduino = new ArduinoSerialRead();
+		drivetrain = new DriveTrain();		
 		if(isScale) {
 			robotArm = new RobotArm(2,0,0); //TODO add actual PID values here
 		} else {
 			switchArm = new SwitchArm();
 		}
-		
 		rps = new RPS(0, 0);
 		encoder = new EncoderTest();
 		oi = new OI();
-		
 		camera = CameraServer.getInstance().addAxisCamera("axis-camera.local");
 		camera.setResolution(800, 640);
-		colorSensor = new TMDColor();
-		lidar = new LidarLite();
-	
 		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -130,14 +123,11 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		encoderValue = encoder.getCount();
-		
 		if(encoder != null) {
 			SmartDashboard.putBoolean("Encoder null", false);
 		} else {
 			SmartDashboard.putBoolean("Encoder null", true);
 		}
-		SmartDashboard.putNumber("Encoder", encoderValue);
 		Scheduler.getInstance().run();
 	}
 
@@ -160,7 +150,7 @@ public class Robot extends TimedRobot {
 		//SmartDashboard.putNumber("Red", colorSensor.getRedColor());
 		//SmartDashboard.putNumber("Green", colorSensor.getGreenColor());
 		//SmartDashboard.putNumber("Blue", colorSensor.getBlueColor());
-		System.out.println(lidar.getRightDistance());
+		//System.out.println(arduino.getDistance());
 		Scheduler.getInstance().run();
 	}
 
