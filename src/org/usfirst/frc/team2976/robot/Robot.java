@@ -26,7 +26,6 @@ import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2976.robot.commands.SwitchAuto;
 import org.usfirst.frc.team2976.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team2976.robot.subsystems.EncoderTest;
 import org.usfirst.frc.team2976.robot.subsystems.SwitchArm;
 import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
 
@@ -43,7 +42,6 @@ public class Robot extends TimedRobot {
 	public static SwitchArm switchArm;
 	public static ClampSubsystem ClampSub;
 	
-	public static EncoderTest encoder;
 	public static OI oi;
 	public static RPS rps;
 	
@@ -71,7 +69,6 @@ public class Robot extends TimedRobot {
 			switchArm = new SwitchArm();
 		}
 		rps = new RPS(0, 0);
-		encoder = new EncoderTest();
 		oi = new OI();
 		camera = CameraServer.getInstance().addAxisCamera("axis-camera.local");
 		camera.setResolution(800, 640);

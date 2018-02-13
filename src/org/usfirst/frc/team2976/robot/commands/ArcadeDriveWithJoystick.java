@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2976.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2976.robot.OI;
 import org.usfirst.frc.team2976.robot.Robot;
@@ -33,7 +34,11 @@ public class ArcadeDriveWithJoystick extends Command {
 	protected void execute() {
 		speed =  -Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber());
 		rotation =  Robot.oi.driveStick.getRawAxis(OI.Axis.RX.getAxisNumber());
-		Robot.drivetrain.drive(speed, rotation);
+		Robot.drivetrain.customRotationDrive(speed, rotation);
+		
+		SmartDashboard.putNumber("Left Encoder Count", Robot.drivetrain.getLeftEncoderCount());
+
+		SmartDashboard.putNumber("Right Encoder Count", Robot.drivetrain.getRightEncoderCount());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

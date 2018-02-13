@@ -80,7 +80,7 @@ public class DriveToSwitch extends CommandGroup{
 			vp.targeting(rawImage);
 			addSequential(new DriveStraight(vp.getCurrentTarget().getYDistance()));
 			
-			addSequential(new RampExtend());
+			addSequential(new SwitchExtend());
 			
 			addSequential(new Rotate(90));
 			addSequential(new DriveStraight(3));
@@ -116,7 +116,7 @@ public class DriveToSwitch extends CommandGroup{
 			vp.targeting(rawImage);
 			addSequential(new DriveStraight(vp.getCurrentTarget().getYDistance()));
 			
-			addSequential(new RampExtend());
+			addSequential(new SwitchExtend());
 			
 			addSequential(new Rotate(-90));
 			addSequential(new DriveStraight(3));
@@ -128,14 +128,14 @@ public class DriveToSwitch extends CommandGroup{
     public void leftMovement() { //switch is on robot's side for these
     	addSequential(new DriveStraight(14));
     	addSequential(new Rotate(-90));
-    	addSequential(new RampExtend());
+    	addSequential(new SwitchExtend());
     	addSequential(new Rotate(90));
 	}
     
     public void rightMovement() {
     	addSequential(new DriveStraight(14));
     	addSequential(new Rotate(90));
-    	addSequential(new RampExtend());
+    	addSequential(new SwitchExtend());
     	addSequential(new Rotate(-90));
     }
 }

@@ -14,16 +14,26 @@ package org.usfirst.frc.team2976.robot;
  * floating around.
  */
 public class RobotMap {
-	public static final int rightFrontDriveMotor = 3;
-	public static final int rightBackDriveMotor = 4;
 	public static final int leftFrontDriveMotor = 1;
 	public static final int leftBackDriveMotor = 2;
-	public static final int robotArmMotorPort = 7;
-	public static final int robotArmLimitSwitchPortUp = 5;
-	public static int robotArmLimitSwitchPortDown = 6;
-	public static final int clampSolenoidPort = 7;
-	public static final int rampSolenoidPort = 8;
-	//this sacale factor means 1 click = 0.06 inches;
+	public static final int rightFrontDriveMotor = 3;
+	public static final int rightBackDriveMotor = 4;
+	
+	public static final int leftDriveEncoder1 = 5;
+	public static final int leftDriveEncoder2 = 6;
+	public static final int rightDriveEncoder1 = 7;
+	public static final int rightDriveEncoder2 = 8;
+	
+	public static final int robotArmLimitSwitchPortUp = 1;
+	public static final int robotArmLimitSwitchPortDown = 2;
+	public static final int robotArmMotorPort = 3;
+	
+	//public static final int clampSolenoidPort = 4;
+	
+	public static final int switchSolenoidPort = 4;
+	
+	
+	//this scale factor means 1 click = 0.06 inches;
 	public static final double encoderDistanceScaleFactor = 0.06;
 
 }

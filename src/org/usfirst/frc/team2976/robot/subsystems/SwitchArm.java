@@ -14,7 +14,7 @@ public class SwitchArm extends Subsystem {
     // here. Call these from Commands.
 
 	public SwitchArm() {
-		rampSolenoid = new Solenoid(RobotMap.rampSolenoidPort);
+		rampSolenoid = new Solenoid(RobotMap.switchSolenoidPort);
 	}
 	
     public void initDefaultCommand() {

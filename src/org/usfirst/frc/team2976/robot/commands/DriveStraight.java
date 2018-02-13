@@ -14,7 +14,7 @@ public class DriveStraight extends Command {
 	public DriveStraight(double displacement) { //displacement in feet
 		requires(Robot.drivetrain);
 		// power of the motors
-		power = .5;
+		power = 0.5;
 		distance = displacement;
 	}
 
