@@ -11,17 +11,17 @@ public class Clamp extends Command {
     public Clamp() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.ClampSub);
+    	//requires(Robot.ClampSub);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(Robot.ClampSub.getClampState()) {
+    	/*if(Robot.ClampSub.getClampState()) {
     		Robot.ClampSub.clampIn();
     	}
     	else {
     		Robot.ClampSub.clampOut();
-    	}
+    	}*/
     }
 
     // Called repeatedly when this Command is scheduled to run

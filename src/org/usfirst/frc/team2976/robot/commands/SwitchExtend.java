@@ -5,9 +5,9 @@ import org.usfirst.frc.team2976.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class RampExtend extends Command {
+public class SwitchExtend extends Command {
 
-    public RampExtend() {
+    public SwitchExtend() {
     	requires(Robot.switchArm);
     }
     
@@ -22,5 +22,7 @@ public class RampExtend extends Command {
 		}else {
 			return false;
 		}
+		
+		//return true;
 	}
 }

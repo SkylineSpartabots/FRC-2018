@@ -9,7 +9,8 @@ package org.usfirst.frc.team2976.robot;
 
 import org.usfirst.frc.team2976.robot.commands.RobotArmMovementDown;
 import org.usfirst.frc.team2976.robot.commands.RobotArmMovementUp;
-
+import org.usfirst.frc.team2976.robot.commands.SwitchExtend;
+import org.usfirst.frc.team2976.robot.commands.SwitchRetract;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -48,9 +49,14 @@ public Joystick driveStick;
 	}
 	public OI(){
 		driveStick = new Joystick(0);
-		new JoystickButton(driveStick, Axis.RTrigger.getAxisNumber()).whileHeld(new RobotArmMovementUp()); 
 		
-		new JoystickButton(driveStick, Axis.LTrigger.getAxisNumber()).whileHeld(new RobotArmMovementDown());
+		if(Robot.isScale) {
+			new JoystickButton(driveStick, Axis.RTrigger.getAxisNumber()).whileHeld(new RobotArmMovementUp()); 	
+			new JoystickButton(driveStick, Axis.LTrigger.getAxisNumber()).whileHeld(new RobotArmMovementDown());
+		} else {
+			new JoystickButton(driveStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
+			new JoystickButton(driveStick, Button.B.getBtnNumber()).whenPressed(new SwitchRetract());
+		}
 		
 	}
 } 

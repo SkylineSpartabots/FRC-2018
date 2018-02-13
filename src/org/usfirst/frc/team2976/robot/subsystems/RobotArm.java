@@ -29,7 +29,7 @@ public class RobotArm extends PIDSubsystem {
 	//the limit switch that is pressed when the arm goes down
 	DigitalInput robotArmLimitSwitchDown= new DigitalInput(RobotMap.robotArmLimitSwitchPortDown);
 	
-	Encoder armEncoder = new Encoder(0,1); //TODO FIX PORTS
+	Encoder armEncoder = new Encoder(10,11); //TODO FIX PORTS
 	
 	public void initDefaultCommand() {
     }

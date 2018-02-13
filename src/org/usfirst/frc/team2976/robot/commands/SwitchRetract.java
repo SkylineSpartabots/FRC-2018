@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class RampRetract extends Command {
+public class SwitchRetract extends Command {
 
-    public RampRetract() {
+    public SwitchRetract() {
     	requires(Robot.switchArm);
     }
     
@@ -22,8 +22,10 @@ public class RampRetract extends Command {
 	protected boolean isFinished() {
 		if(!(Robot.switchArm.getRampSolenoid().get())) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
+		
+		//return true;
 	}
 }
