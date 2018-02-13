@@ -120,11 +120,6 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		if(encoder != null) {
-			SmartDashboard.putBoolean("Encoder null", false);
-		} else {
-			SmartDashboard.putBoolean("Encoder null", true);
-		}
 		Scheduler.getInstance().run();
 	}
 
