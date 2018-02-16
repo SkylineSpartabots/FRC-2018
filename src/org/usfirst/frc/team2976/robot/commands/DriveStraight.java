@@ -11,11 +11,11 @@ public class DriveStraight extends Command {
 	// distance is in inches
 	double distance;
 
-	public DriveStraight(double displacement) { //displacement in feet
+	public DriveStraight(double distance) { //distance in inches
 		requires(Robot.drivetrain);
 		// power of the motors
 		power = 0.5;
-		distance = displacement;
+		this.distance = distance;
 	}
 
 	// Called just before this Command runs the first time
