@@ -14,12 +14,12 @@ import org.usfirst.frc.team2976.robot.OI;
 import org.usfirst.frc.team2976.robot.Robot;
 
 /**
- * An example command.  You can replace me with your own command.
+ * An example command. You can replace me with your own command.
  */
 public class ArcadeDriveWithJoystick extends Command {
 	double speed = 0;
 	double rotation = 0;
-	
+
 	public ArcadeDriveWithJoystick() {
 		requires(Robot.drivetrain);
 	}
@@ -32,10 +32,10 @@ public class ArcadeDriveWithJoystick extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		speed =  -Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber());
-		rotation =  Robot.oi.driveStick.getRawAxis(OI.Axis.RX.getAxisNumber());
+		speed = -Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber());
+		rotation = Robot.oi.driveStick.getRawAxis(OI.Axis.RX.getAxisNumber());
 		Robot.drivetrain.customRotationDrive(speed, rotation);
-		
+
 		SmartDashboard.putNumber("Left Encoder Count", Robot.drivetrain.getLeftEncoderCount());
 
 		SmartDashboard.putNumber("Right Encoder Count", Robot.drivetrain.getRightEncoderCount());

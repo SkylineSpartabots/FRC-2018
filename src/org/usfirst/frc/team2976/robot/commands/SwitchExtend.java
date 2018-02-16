@@ -7,22 +7,22 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class SwitchExtend extends Command {
 
-    public SwitchExtend() {
-    	requires(Robot.switchArm);
-    }
-    
-    public void initialize() {
-    	Robot.switchArm.extend();
-    }
+	public SwitchExtend() {
+		requires(Robot.switchArm);
+	}
+
+	public void initialize() {
+		Robot.switchArm.extend();
+	}
 
 	@Override
 	protected boolean isFinished() {
-		if(Robot.switchArm.getRampSolenoid().get()) {
+		if (Robot.switchArm.getRampSolenoid().get()) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-		
-		//return true;
+
+		// return true;
 	}
 }

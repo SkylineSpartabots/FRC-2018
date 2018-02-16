@@ -7,19 +7,19 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class RampExtend extends Command {
 
-    public RampExtend() {
-    	requires(Robot.switchArm);
-    }
-    
-    public void initialize() {
-    	Robot.switchArm.extend();
-    }
+	public RampExtend() {
+		requires(Robot.switchArm);
+	}
+
+	public void initialize() {
+		Robot.switchArm.extend();
+	}
 
 	@Override
 	protected boolean isFinished() {
-		if(Robot.switchArm.getRampSolenoid().get()) {
+		if (Robot.switchArm.getRampSolenoid().get()) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}

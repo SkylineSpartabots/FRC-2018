@@ -1,8 +1,9 @@
 package util;
+
 /**
-*
-* @author neil
-*/
+ *
+ * @author neil
+ */
 public interface PIDSource {
 	public double getInput();
 }

@@ -17,7 +17,7 @@ public class TMDColor {
 	int blue;
 	int green;
 	int proximity;
-	
+
 	// Port address is 0x39
 	public TMDColor() {
 		m_i2c = new I2C(I2C.Port.kOnboard, 0x39);

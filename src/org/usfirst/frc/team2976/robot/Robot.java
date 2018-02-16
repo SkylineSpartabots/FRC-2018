@@ -41,17 +41,16 @@ public class Robot extends TimedRobot {
 	public static RobotArm robotArm;
 	public static SwitchArm switchArm;
 	public static ClampSubsystem ClampSub;
-	
+
 	public static OI oi;
 	public static RPS rps;
-	
+
 	public static AxisCamera camera;
-	
+
 	public static ArduinoSerialRead arduino;
-	
+
 	public static boolean isScale = true;
-	
-	
+
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -62,9 +61,9 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		arduino = new ArduinoSerialRead();
-		drivetrain = new DriveTrain();		
-		if(isScale) {
-			robotArm = new RobotArm(2,0,0); //TODO add actual PID values here
+		drivetrain = new DriveTrain();
+		if (isScale) {
+			robotArm = new RobotArm(2, 0, 0); // TODO add actual PID values here
 		} else {
 			switchArm = new SwitchArm();
 		}
@@ -99,14 +98,15 @@ public class Robot extends TimedRobot {
 	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
 	 * getString code to get the auto name from the text box below the Gyro
 	 *
-	 * <p>You can add additional auto modes by adding additional commands to the
+	 * <p>
+	 * You can add additional auto modes by adding additional commands to the
 	 * chooser code above (like the commented example) or additional comparisons
 	 * to the switch structure below with additional strings & commands.
 	 */
 	@Override
 	public void autonomousInit() {
-		//m_autonomousCommand = m_chooser.getSelected();
-		//should drive straight 1 meter
+		// m_autonomousCommand = m_chooser.getSelected();
+		// should drive straight 1 meter
 		m_autonomousCommand = new DriveStraight(36);
 
 		// schedule the autonomous command (example)
@@ -139,10 +139,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		//SmartDashboard.putNumber("Red", colorSensor.getRedColor());
-		//SmartDashboard.putNumber("Green", colorSensor.getGreenColor());
-		//SmartDashboard.putNumber("Blue", colorSensor.getBlueColor());
-		//System.out.println(arduino.getDistance());
+		// SmartDashboard.putNumber("Red", colorSensor.getRedColor());
+		// SmartDashboard.putNumber("Green", colorSensor.getGreenColor());
+		// SmartDashboard.putNumber("Blue", colorSensor.getBlueColor());
+		// System.out.println(arduino.getDistance());
 		Scheduler.getInstance().run();
 	}
 
