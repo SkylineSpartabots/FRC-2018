@@ -20,8 +20,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-public Joystick driveStick;
-	
+	public Joystick driveStick;
+
 	public enum Button {
 		RBumper(6), LBumper(5), A(1), B(2), X(3), Y(4), RightJoystickBtn(10), LeftJoystickBtn(9);
 
@@ -35,6 +35,7 @@ public Joystick driveStick;
 			return number;
 		}
 	}
+
 	public enum Axis {
 		LX(0), LY(1), LTrigger(2), RTrigger(3), RX(4), RY(5);
 		private final int number;
@@ -47,16 +48,17 @@ public Joystick driveStick;
 			return number;
 		}
 	}
-	public OI(){
+
+	public OI() {
 		driveStick = new Joystick(0);
-		
-		if(Robot.isScale) {
-			new JoystickButton(driveStick, Axis.RTrigger.getAxisNumber()).whileHeld(new RobotArmMovementUp()); 	
+
+		if (Robot.isScale) {
+			new JoystickButton(driveStick, Axis.RTrigger.getAxisNumber()).whileHeld(new RobotArmMovementUp());
 			new JoystickButton(driveStick, Axis.LTrigger.getAxisNumber()).whileHeld(new RobotArmMovementDown());
 		} else {
 			new JoystickButton(driveStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
 			new JoystickButton(driveStick, Button.B.getBtnNumber()).whenPressed(new SwitchRetract());
 		}
-		
+
 	}
-} 
+}

@@ -11,7 +11,7 @@ public class DriveStraight extends Command {
 	// distance is in inches
 	double distance;
 
-	public DriveStraight(double distance) { //distance in inches
+	public DriveStraight(double distance) { // distance in inches
 		requires(Robot.drivetrain);
 		// power of the motors
 		power = 0.5;
@@ -30,7 +30,7 @@ public class DriveStraight extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return Robot.drivetrain.getRightEncoderDistance()*RobotMap.encoderDistanceScaleFactor>=distance;
+		return Robot.drivetrain.getRightEncoderDistance() * RobotMap.encoderDistanceScaleFactor >= distance;
 	}
 
 	// Called once after isFinished returns true

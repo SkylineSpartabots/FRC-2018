@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Rotate extends Command {
 	double power = 0.5;
-	double angle; //degrees
+	double angle; // degrees
 	boolean finished;
 
 	public Rotate(double angle) {

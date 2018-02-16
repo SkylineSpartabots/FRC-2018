@@ -32,22 +32,22 @@ public class DriveTrain extends Subsystem {
 	CustomDrive m_drive;
 
 	public DriveTrain() {
-		leftFront 	= new WPI_TalonSRX(RobotMap.leftFrontDriveMotor);
-		leftBack 	= new WPI_TalonSRX(RobotMap.leftBackDriveMotor);
-		rightFront 	= new WPI_TalonSRX(RobotMap.rightFrontDriveMotor);
-		rightBack 	= new WPI_TalonSRX(RobotMap.rightBackDriveMotor);
-		
-		//Set in brake mode
+		leftFront = new WPI_TalonSRX(RobotMap.leftFrontDriveMotor);
+		leftBack = new WPI_TalonSRX(RobotMap.leftBackDriveMotor);
+		rightFront = new WPI_TalonSRX(RobotMap.rightFrontDriveMotor);
+		rightBack = new WPI_TalonSRX(RobotMap.rightBackDriveMotor);
+
+		// Set in brake mode
 		leftFront.setNeutralMode(NeutralMode.Brake);
 		leftBack.setNeutralMode(NeutralMode.Brake);
 		rightFront.setNeutralMode(NeutralMode.Brake);
 		rightBack.setNeutralMode(NeutralMode.Brake);
-		
+
 		left = new SpeedControllerGroup(leftFront, leftBack);
 		right = new SpeedControllerGroup(rightFront, rightBack);
 		encoderLeft = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
 		encoderRight = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
-		
+
 		setEncoderParameters(encoderLeft);
 		setEncoderParameters(encoderRight);
 
@@ -55,7 +55,7 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public double getLeftEncoderDistance() {
-		return encoderLeft.getDistance()/360;
+		return encoderLeft.getDistance() / 360;
 
 	}
 
@@ -63,11 +63,11 @@ public class DriveTrain extends Subsystem {
 		return encoderRight.getDistance();
 
 	}
-	
-	public double getLeftEncoderCount () {
-		return encoderLeft.get()/360;
+
+	public double getLeftEncoderCount() {
+		return encoderLeft.get() / 360;
 	}
-	
+
 	public double getRightEncoderCount() {
 		return encoderRight.get();
 	}
@@ -81,12 +81,13 @@ public class DriveTrain extends Subsystem {
 		return encoderRight.getRate();
 
 	}
-	public void resetEncoders(){
+
+	public void resetEncoders() {
 		encoderLeft.reset();
 		encoderRight.reset();
-		
+
 	}
-	
+
 	public void setEncoderParameters(Encoder enc) {
 		enc.setMaxPeriod(.1);
 		enc.setMinRate(10);
@@ -94,7 +95,6 @@ public class DriveTrain extends Subsystem {
 		enc.setReverseDirection(true);
 		enc.setSamplesToAverage(7);
 	}
-	
 
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		left.set(leftSpeed);
@@ -105,11 +105,10 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("Power", speed);
 		m_drive.arcadeDrive(speed, rotation, true);
 	}
-	
+
 	public void customRotationDrive(double speed, double rotation) {
 		m_drive.customRotationArcadeDrive(speed, rotation);
 	}
-	
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.

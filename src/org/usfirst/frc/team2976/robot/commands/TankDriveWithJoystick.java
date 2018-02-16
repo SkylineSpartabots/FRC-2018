@@ -13,29 +13,29 @@ import org.usfirst.frc.team2976.robot.OI;
 import org.usfirst.frc.team2976.robot.Robot;
 
 /**
- * An example command.  You can replace me with your own command.
+ * An example command. You can replace me with your own command.
  */
 public class TankDriveWithJoystick extends Command {
 	double leftSpeed = 0;
 	double rightSpeed = 0;
-	
+
 	public TankDriveWithJoystick() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.drivetrain);
 	}
 
 	// Called just before this Command runs the first time
-	
+
 	@Override
 	protected void initialize() {
-		
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		leftSpeed =  Robot.oi.driveStick.getRawAxis(OI.Axis.RY.getAxisNumber());
-		rightSpeed =  Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber());
+		leftSpeed = Robot.oi.driveStick.getRawAxis(OI.Axis.RY.getAxisNumber());
+		rightSpeed = Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber());
 		Robot.drivetrain.tankDrive(leftSpeed, rightSpeed);
 	}
 

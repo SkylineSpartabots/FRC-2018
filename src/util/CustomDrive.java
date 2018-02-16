@@ -17,17 +17,15 @@ public class CustomDrive extends DifferentialDrive {
 	}
 
 	public void customRotationArcadeDrive(double xSpeed, double zRotation) {
-		
-		
+
 		xSpeed = limit(xSpeed);
 		xSpeed = applyDeadband(xSpeed, m_deadband);
 
-		zRotation = logCurve(zRotation)*0.7;
-		
+		zRotation = logCurve(zRotation) * 0.7;
+
 		zRotation = limit(zRotation);
 		zRotation = applyDeadband(zRotation, m_deadband);
-		
-		
+
 		SmartDashboard.putNumber("Z Rotation", zRotation);
 		double leftMotorOutput;
 		double rightMotorOutput;
@@ -53,22 +51,22 @@ public class CustomDrive extends DifferentialDrive {
 				rightMotorOutput = xSpeed - zRotation;
 			}
 		}
-		
+
 		SmartDashboard.putNumber("X Speed", xSpeed);
 		SmartDashboard.putNumber("Left Motor Output", leftMotorOutput);
 		SmartDashboard.putNumber("Right Motor Output", rightMotorOutput);
 		tankDrive(leftMotorOutput, rightMotorOutput, false);
 	}
-	
+
 	double squared(double value) {
 		return Math.copySign(value * value, value);
 	}
-	
+
 	double logCurve(double value) {
 		SmartDashboard.putNumber("Log Curve", value);
-		double curvedValue = Math.log(38.36*Math.abs(value+0.026))*0.2654;
+		double curvedValue = Math.log(38.36 * Math.abs(value + 0.026)) * 0.2654;
 		SmartDashboard.putNumber("Log Curve post", curvedValue);
 		return Math.copySign(curvedValue, value);
-		
+
 	}
 }
