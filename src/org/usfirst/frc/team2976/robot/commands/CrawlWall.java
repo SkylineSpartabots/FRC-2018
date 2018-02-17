@@ -14,47 +14,45 @@ import util.PIDSource;
 public class CrawlWall extends Command {
 	PIDMain wallDistancePID;
 	PIDSource lidarSource;
-	double baseSpeed = 0.4;
-	int distanceFromWall = 65;
 
-	public CrawlWall() {
-		lidarSource = new PIDSource() {
-			public double getInput() {
-				int distance = Robot.arduino.getDistance();
-				return distance;
-			}
-		};
-		wallDistancePID = new PIDMain(lidarSource, distanceFromWall, 100, 0.005, 0, 0);
-		requires(Robot.drivetrain);
-	}
+	double baseSpeed = 0.5;
+	int distanceFromWall = 55;
+	double angle = 0;
 
-	// Called just before this Command runs the first time
+    public CrawlWall() {
+    	Robot.rps.reset();
+    	angle = Robot.rps.getAngle();
+    	lidarSource =  new PIDSource()	{
+    		public double getInput()	{
+    			double distance = Robot.arduino.getDistance();
+    			distance = distance * Math.cos(Math.toRadians(Robot.rps.getAngle()-angle));
+    			System.out.println(Robot.rps.getAngle());
+    			return distance;
+    		}
+    	};
+    	wallDistancePID = new PIDMain(lidarSource, distanceFromWall, 100, 0.004,0.00001,0.0);
+    	requires(Robot.drivetrain);
+    }
+    protected void execute() {
+    	SmartDashboard.putNumber("PIDout", wallDistancePID.getOutput());
+    	SmartDashboard.putNumber("AdjustedDistance", lidarSource.getInput());
+    	double output = wallDistancePID.getOutput();
+   		Robot.drivetrain.tankDrive(baseSpeed-output, baseSpeed + output);
+    }
 	protected void initialize() {
 		wallDistancePID.resetPID();
-		// Robot.drivetrain.tankDrive(0, 0);
+		Robot.drivetrain.tankDrive(0, 0);
 		wallDistancePID.enable(true);
 	}
-
-	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
-		SmartDashboard.putNumber("PIDout", wallDistancePID.getOutput());
-		Robot.drivetrain.tankDrive(baseSpeed - wallDistancePID.getOutput(), baseSpeed + wallDistancePID.getOutput());
-	}
-
-	// Make this return true when this Command no longer needs to run execute()
-	protected boolean isFinished() {
-		return false;
-	}
-
-	// Called once after isFinished returns true
-	protected void end() {
-		Robot.drivetrain.tankDrive(0, 0);
-		wallDistancePID.resetPID();
-	}
-
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	protected void interrupted() {
-		end();
-	}
+    protected boolean isFinished() {
+        return false; //lidarSource.getInput() > 250;
+    }
+    protected void end() {
+    	Robot.rps.reset();
+    	Robot.drivetrain.tankDrive(0, 0);
+    	wallDistancePID.resetPID();
+    }
+    protected void interrupted() {
+    	end();
+    }
 }
