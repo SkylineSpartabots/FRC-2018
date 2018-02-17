@@ -24,7 +24,7 @@ public class CrawlWall extends Command {
     	angle = Robot.rps.getAngle();
     	lidarSource =  new PIDSource()	{
     		public double getInput()	{
-    			double distance = Robot.arduino.getDistance();
+    			double distance = 0;//Robot.arduino.getDistance();//TODO
     			distance = distance * Math.cos(Math.toRadians(Robot.rps.getAngle()-angle));
     			System.out.println(Robot.rps.getAngle());
     			return distance;

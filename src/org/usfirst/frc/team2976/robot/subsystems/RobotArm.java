@@ -56,6 +56,5 @@ public class RobotArm extends PIDSubsystem {
 	protected void usePIDOutput(double output) {
 		// Opened up if statements for easier maintenance
 		
-
 	}
 }

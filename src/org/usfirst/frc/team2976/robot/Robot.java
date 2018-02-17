@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
 
 	public static AxisCamera camera;
 
-	public static ArduinoSerialRead arduino;
+	//public static ArduinoSerialRead arduino;
 
 	public static boolean isScale = true;
 
@@ -60,13 +60,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		arduino = new ArduinoSerialRead();
+		//arduino = new ArduinoSerialRead();
 		drivetrain = new DriveTrain();
-		if (isScale) {
-			robotArm = new RobotArm(2, 0, 0); // TODO add actual PID values here
-		} else {
-			switchArm = new SwitchArm();
-		}
+		robotArm = new RobotArm(2, 0, 0); // TODO add actual PID values here
+		switchArm = new SwitchArm();
 		intake = new Intake();
 		rps = new RPS(0, 0);
 		oi = new OI();

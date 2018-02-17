@@ -19,9 +19,10 @@ public class RobotMap {
 	public static final int rightFrontDriveMotor = 3;
 	public static final int rightBackDriveMotor = 4;
 	
-	public static final int rightIntakeMotor = 5;
-	public static final int leftIntakeMotor = 6;
+	public static final int rightIntakeMotor = 7;
+	public static final int leftIntakeMotor = 8;
 
+	
 	public static final int leftDriveEncoder1 = 5;
 	public static final int leftDriveEncoder2 = 6;
 	public static final int rightDriveEncoder1 = 7;
@@ -29,11 +30,11 @@ public class RobotMap {
 
 	public static final int robotArmLimitSwitchPortUp = 1;
 	public static final int robotArmLimitSwitchPortDown = 2;
-	public static final int robotArmMotorPort = 3;
+	
+	public static final int robotArmMotorPort = 6;
 
-	// public static final int clampSolenoidPort = 4;
 
-	public static final int switchSolenoidPort = 4;
+	public static final int switchSolenoidPort = 0;
 
 	// this scale factor means 1 click = 0.06 inches;
 	public static final double encoderDistanceScaleFactor = 0.06;

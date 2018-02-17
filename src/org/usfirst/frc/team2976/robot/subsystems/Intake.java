@@ -35,10 +35,10 @@ public class Intake extends Subsystem {
 		double power = Math.abs(abspower);
 		if(rollIn) {
 			rightIntakeMotor.set(ControlMode.PercentOutput,power);
-			leftIntakeMotor.set(ControlMode.PercentOutput,power);
+			leftIntakeMotor.set(ControlMode.PercentOutput,-power);
 		} else {
 			rightIntakeMotor.set(ControlMode.PercentOutput,-power);
-			leftIntakeMotor.set(ControlMode.PercentOutput,-power);
+			leftIntakeMotor.set(ControlMode.PercentOutput,power);
 		}		
 	}
 	
