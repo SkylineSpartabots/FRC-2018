@@ -9,6 +9,7 @@ package org.usfirst.frc.team2976.robot;
 
 import org.usfirst.frc.team2976.robot.commands.RobotArmMovementDown;
 import org.usfirst.frc.team2976.robot.commands.RobotArmMovementUp;
+import org.usfirst.frc.team2976.robot.commands.RollIntake;
 import org.usfirst.frc.team2976.robot.commands.SwitchExtend;
 import org.usfirst.frc.team2976.robot.commands.SwitchRetract;
 
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	public Joystick driveStick;
+	public Joystick secondStick;
 
 	public enum Button {
 		RBumper(6), LBumper(5), A(1), B(2), X(3), Y(4), RightJoystickBtn(10), LeftJoystickBtn(9);
@@ -51,14 +53,19 @@ public class OI {
 
 	public OI() {
 		driveStick = new Joystick(0);
+		secondStick = new Joystick(1);
 
 		if (Robot.isScale) {
-			new JoystickButton(driveStick, Axis.RTrigger.getAxisNumber()).whileHeld(new RobotArmMovementUp());
-			new JoystickButton(driveStick, Axis.LTrigger.getAxisNumber()).whileHeld(new RobotArmMovementDown());
+			new JoystickButton(secondStick, Axis.RTrigger.getAxisNumber()).whileHeld(new RobotArmMovementUp());
+			new JoystickButton(secondStick, Axis.LTrigger.getAxisNumber()).whileHeld(new RobotArmMovementDown());
 		} else {
-			new JoystickButton(driveStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
-			new JoystickButton(driveStick, Button.B.getBtnNumber()).whenPressed(new SwitchRetract());
+			new JoystickButton(secondStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
+			new JoystickButton(secondStick, Button.B.getBtnNumber()).whenPressed(new SwitchRetract());
 		}
+		
+		new JoystickButton(secondStick, Button.X.getBtnNumber()).whenPressed(new RollIntake(0.5, true));
+		new JoystickButton(secondStick, Button.Y.getBtnNumber()).whenPressed(new RollIntake(0.5, false));
+		
 
 	}
 }
