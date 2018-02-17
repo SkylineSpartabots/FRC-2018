@@ -49,33 +49,13 @@ public class RobotArm extends PIDSubsystem {
 
 	@Override
 	protected double returnPIDInput() {
-
 		return armEncoder.get();
 	}
 
 	@Override
 	protected void usePIDOutput(double output) {
 		// Opened up if statements for easier maintenance
-		if (getArmUpLimitSwitch()) {
-			if (output > 0) {
-				robotMotorArm.set(robotMotorArm.getControlMode(), 1);// Little
-																		// power
-																		// to
-																		// keep
-																		// arm
-																		// up
-			} else {
-				robotMotorArm.set(robotMotorArm.getControlMode(), output);
-			}
-		} else if (getArmDownLimitSwitch()) {
-			if (output < 0) {
-				robotMotorArm.set(robotMotorArm.getControlMode(), 0);
-			} else {
-				robotMotorArm.set(robotMotorArm.getControlMode(), output);
-			}
-		} else {
-			robotMotorArm.set(robotMotorArm.getControlMode(), output);
-		}
+		
 
 	}
 }

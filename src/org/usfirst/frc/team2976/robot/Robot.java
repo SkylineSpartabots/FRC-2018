@@ -24,7 +24,6 @@ import org.usfirst.frc.team2976.robot.commands.DriveStraight;
 import org.usfirst.frc.team2976.robot.commands.DriveToSwitch;
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2976.robot.commands.SwitchAuto;
-import org.usfirst.frc.team2976.robot.subsystems.ClampSubsystem;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2976.robot.subsystems.Intake;
 import org.usfirst.frc.team2976.robot.subsystems.SwitchArm;
@@ -41,7 +40,6 @@ public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static RobotArm robotArm;
 	public static SwitchArm switchArm;
-	public static ClampSubsystem ClampSub;
 	public static Intake intake;
 
 	public static OI oi;

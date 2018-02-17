@@ -17,12 +17,6 @@ public class SwitchExtend extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		if (Robot.switchArm.getRampSolenoid().get()) {
-			return true;
-		} else {
-			return false;
-		}
-
-		// return true;
+		return Robot.switchArm.getRampSolenoid().get();
 	}
 }

@@ -56,15 +56,16 @@ public class OI {
 		secondStick = new Joystick(1);
 
 		if (Robot.isScale) {
-			new JoystickButton(secondStick, Axis.RTrigger.getAxisNumber()).whileHeld(new RobotArmMovementUp());
-			new JoystickButton(secondStick, Axis.LTrigger.getAxisNumber()).whileHeld(new RobotArmMovementDown());
+			//new JoystickButton(secondStick, Axis.RTrigger.getAxisNumber()).whileHeld(new RobotArmMovementUp());
+			//new JoystickButton(secondStick, Axis.LTrigger.getAxisNumber()).whileHeld(new RobotArmMovementDown());
 		} else {
-			new JoystickButton(secondStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
-			new JoystickButton(secondStick, Button.B.getBtnNumber()).whenPressed(new SwitchRetract());
+			//new JoystickButton(secondStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
+			//new JoystickButton(secondStick, Button.B.getBtnNumber()).whenPressed(new SwitchRetract());
 		}
-		
-		new JoystickButton(secondStick, Button.X.getBtnNumber()).whenPressed(new RollIntake(0.5, true));
-		new JoystickButton(secondStick, Button.Y.getBtnNumber()).whenPressed(new RollIntake(0.5, false));
+		new JoystickButton(secondStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
+		new JoystickButton(secondStick, Button.B.getBtnNumber()).whenPressed(new SwitchRetract());
+		//new JoystickButton(secondStick, Button.X.getBtnNumber()).whenPressed(new RollIntake(0.5, true));
+		//new JoystickButton(secondStick, Button.Y.getBtnNumber()).whenPressed(new RollIntake(0.5, false));
 		
 
 	}

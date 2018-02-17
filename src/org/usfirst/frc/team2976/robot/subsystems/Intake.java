@@ -9,6 +9,7 @@ package org.usfirst.frc.team2976.robot.subsystems;
 
 import org.usfirst.frc.team2976.robot.RobotMap;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,14 +26,19 @@ public class Intake extends Subsystem {
 		rightIntakeMotor = new WPI_TalonSRX(RobotMap.rightIntakeMotor);
 		leftIntakeMotor = new WPI_TalonSRX(RobotMap.leftIntakeMotor);
 	}
-
-	public void setPower(double power, boolean rollIn) {
+	
+	public double getAvgCurrentDraw()	{
+		return 0.5*(rightIntakeMotor.getOutputCurrent() + leftIntakeMotor.getOutputCurrent());
+	}
+	
+	public void setPower(double abspower, boolean rollIn) {
+		double power = Math.abs(abspower);
 		if(rollIn) {
-			rightIntakeMotor.set(power);
-			leftIntakeMotor.set(power);
+			rightIntakeMotor.set(ControlMode.PercentOutput,power);
+			leftIntakeMotor.set(ControlMode.PercentOutput,power);
 		} else {
-			rightIntakeMotor.set(-power);
-			leftIntakeMotor.set(-power);
+			rightIntakeMotor.set(ControlMode.PercentOutput,-power);
+			leftIntakeMotor.set(ControlMode.PercentOutput,-power);
 		}		
 	}
 	
