@@ -54,14 +54,14 @@ public class DriveToSwitch extends CommandGroup {
 
 	public void centerMovement(boolean switchSide) {
 		if (switchSide) {
-			addSequential(new Rotate(30)); // get other target out of FOV
+			addSequential(new TurnCorner(30)); // get other target out of FOV
 			while (cvSink.grabFrame(rawImage) == 0) { // Get good frame
 
 			}
 
 			vp.targeting(rawImage);
 			double tHeading = vp.getCurrentTarget().getHeading();
-			addSequential(new Rotate(tHeading + 20)); // approach wide to avoid
+			addSequential(new TurnCorner(tHeading + 20)); // approach wide to avoid
 														// coming in sideways to
 														// wall
 
@@ -74,7 +74,7 @@ public class DriveToSwitch extends CommandGroup {
 				tHeading = vp.getCurrentTarget().getHeading();
 				if (tHeading < -20) { // rotate even with target, come in
 										// straight
-					addSequential(new Rotate(tHeading));
+					addSequential(new TurnCorner(tHeading));
 					break;
 				}
 			}
@@ -84,13 +84,13 @@ public class DriveToSwitch extends CommandGroup {
 
 			addSequential(new SwitchExtend());
 
-			addSequential(new Rotate(90));
+			addSequential(new TurnCorner(90));
 			addSequential(new DriveStraight(3));
-			addSequential(new Rotate(-90));
+			addSequential(new TurnCorner(-90));
 			addSequential(new DriveStraight(3));
 
 		} else { // same but for the left side switch
-			addSequential(new Rotate(-20));
+			addSequential(new TurnCorner(-20));
 			while (true) {
 				if (cvSink.grabFrame(rawImage) == 0) { // unsuccessful grab
 
@@ -100,7 +100,7 @@ public class DriveToSwitch extends CommandGroup {
 			}
 			vp.targeting(rawImage);
 			double tHeading = vp.getCurrentTarget().getHeading();
-			addSequential(new Rotate(tHeading - 20));
+			addSequential(new TurnCorner(tHeading - 20));
 
 			cvSink.grabFrame(rawImage);
 			vp.targeting(rawImage);
@@ -110,7 +110,7 @@ public class DriveToSwitch extends CommandGroup {
 				vp.targeting(rawImage);
 				tHeading = vp.getCurrentTarget().getHeading();
 				if (tHeading > 20) {
-					addSequential(new Rotate(tHeading));
+					addSequential(new TurnCorner(tHeading));
 					break;
 				}
 			}
@@ -120,24 +120,24 @@ public class DriveToSwitch extends CommandGroup {
 
 			addSequential(new SwitchExtend());
 
-			addSequential(new Rotate(-90));
+			addSequential(new TurnCorner(-90));
 			addSequential(new DriveStraight(3));
-			addSequential(new Rotate(90));
+			addSequential(new TurnCorner(90));
 			addSequential(new DriveStraight(3));
 		}
 	}
 
 	public void leftMovement() { // switch is on robot's side for these
 		addSequential(new DriveStraight(14));
-		addSequential(new Rotate(-90));
+		addSequential(new TurnCorner(-90));
 		addSequential(new SwitchExtend());
-		addSequential(new Rotate(90));
+		addSequential(new TurnCorner(90));
 	}
 
 	public void rightMovement() {
 		addSequential(new DriveStraight(14));
-		addSequential(new Rotate(90));
+		addSequential(new TurnCorner(90));
 		addSequential(new SwitchExtend());
-		addSequential(new Rotate(-90));
+		addSequential(new TurnCorner(-90));
 	}
 }
