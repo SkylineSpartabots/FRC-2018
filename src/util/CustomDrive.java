@@ -21,8 +21,8 @@ public class CustomDrive extends DifferentialDrive {
 		xSpeed = limit(xSpeed);
 		xSpeed = applyDeadband(xSpeed, m_deadband);
 
-		zRotation = logCurve(zRotation) * 0.7;
-
+		zRotation = logCurve(zRotation)*0.5;
+		
 		zRotation = limit(zRotation);
 		zRotation = applyDeadband(zRotation, m_deadband);
 
@@ -64,7 +64,11 @@ public class CustomDrive extends DifferentialDrive {
 
 	double logCurve(double value) {
 		SmartDashboard.putNumber("Log Curve", value);
-		double curvedValue = Math.log(38.36 * Math.abs(value + 0.026)) * 0.2654;
+		double curvedValue = 0;
+		if(Math.abs(value)>0.02) {
+			curvedValue = Math.log(38.36*(Math.abs(value))+1)*0.2654;
+		} 
+		
 		SmartDashboard.putNumber("Log Curve post", curvedValue);
 		return Math.copySign(curvedValue, value);
 
