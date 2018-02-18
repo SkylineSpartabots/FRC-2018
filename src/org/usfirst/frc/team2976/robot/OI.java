@@ -55,12 +55,12 @@ public class OI {
 		driveStick = new Joystick(0);
 		secondStick = new Joystick(1);
 
-		//if (Robot.isScale) {
+		//if (Robot.isScale) {	
 			//new JoystickButton(secondStick, Axis.RTrigger.getAxisNumber()).whileHeld(new RobotArmMovementUp());
 			//new JoystickButton(secondStick, Axis.LTrigger.getAxisNumber()).whileHeld(new RobotArmMovementDown());
 		//} else {
 			//new JoystickButton(secondStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
-			//new JoystickButton(secondStick, Button.B.getBtnNumber()).whenPressed(new SwitchRetract());
+			//new JoystickButton(secondStick, Button.B.getBt																			nNumber()).whenPressed(new SwitchRetract());
 		//}
 		new JoystickButton(secondStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
 		new JoystickButton(secondStick, Button.B.getBtnNumber()).whenPressed(new SwitchRetract());
