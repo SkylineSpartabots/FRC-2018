@@ -10,6 +10,7 @@ package org.usfirst.frc.team2976.robot;
 import edu.wpi.cscore.AxisCamera;
 import edu.wpi.cscore.CvSink;
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -37,19 +38,20 @@ import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
  * project.
  */
 public class Robot extends TimedRobot {
+	Compressor c = new Compressor(0);
 	public static DriveTrain drivetrain;
 	public static RobotArm robotArm;
 	public static SwitchArm switchArm;
 	public static Intake intake;
-
+	public static TMDColor color;
 	public static OI oi;
 	public static RPS rps;
-
+	
 	public static AxisCamera camera;
 
-	//public static ArduinoSerialRead arduino;
-
-	public static boolean isScale = true;
+	public static ArduinoSerialRead arduino;
+	
+	public static boolean isLidarFunctional = true;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -60,7 +62,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		//arduino = new ArduinoSerialRead();
+		c.setClosedLoopControl(true);
+		color = new TMDColor();
+		//TODO don't crash code if no arduino try catch surround
+		arduino = new ArduinoSerialRead();
 		drivetrain = new DriveTrain();
 		robotArm = new RobotArm(2, 0, 0); // TODO add actual PID values here
 		switchArm = new SwitchArm();
@@ -80,8 +85,7 @@ public class Robot extends TimedRobot {
 	 * the robot is disabled.
 	 */
 	@Override
-	public void disabledInit() {
-
+	public void disabledInit() {;
 	}
 
 	@Override
@@ -137,11 +141,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		// SmartDashboard.putNumber("Red", colorSensor.getRedColor());
-		// SmartDashboard.putNumber("Green", colorSensor.getGreenColor());
-		// SmartDashboard.putNumber("Blue", colorSensor.getBlueColor());
-		// System.out.println(arduino.getDistance());
-		Scheduler.getInstance().run();
+		 SmartDashboard.putNumber("Red", color.getRedColor());
+		 SmartDashboard.putNumber("Green", color.getGreenColor());
+		 SmartDashboard.putNumber("Blue", color.getBlueColor());
+		 Scheduler.getInstance().run();
 	}
 
 	/**

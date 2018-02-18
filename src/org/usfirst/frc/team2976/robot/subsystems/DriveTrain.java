@@ -55,17 +55,15 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public double getLeftEncoderDistance() {
-		return encoderLeft.getDistance() / 360;
-
+		return encoderLeft.getDistance();
 	}
-
 	public double getRightEncoderDistance() {
 		return encoderRight.getDistance();
 
 	}
 
 	public double getLeftEncoderCount() {
-		return encoderLeft.get() / 360;
+		return encoderLeft.get();
 	}
 
 	public double getRightEncoderCount() {
@@ -82,6 +80,9 @@ public class DriveTrain extends Subsystem {
 
 	}
 
+	public double getAvgClicks()	{
+		return 0.5*(encoderLeft.get() + encoderRight.get()); 
+	}
 	public void resetEncoders() {
 		encoderLeft.reset();
 		encoderRight.reset();
@@ -97,8 +98,9 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void tankDrive(double leftSpeed, double rightSpeed) {
-		left.set(leftSpeed);
-		right.set(rightSpeed);
+		m_drive.tankDrive(leftSpeed, rightSpeed);
+		//left.set(leftSpeed);
+		//right.set(rightSpeed);
 	}
 
 	public void drive(double speed, double rotation) {

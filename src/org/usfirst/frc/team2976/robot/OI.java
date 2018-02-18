@@ -7,11 +7,14 @@
 
 package org.usfirst.frc.team2976.robot;
 
+import org.usfirst.frc.team2976.robot.commands.DriveStraight;
 import org.usfirst.frc.team2976.robot.commands.RobotArmMovementDown;
 import org.usfirst.frc.team2976.robot.commands.RobotArmMovementUp;
 import org.usfirst.frc.team2976.robot.commands.RollIntake;
+import org.usfirst.frc.team2976.robot.commands.SwitchAuto;
 import org.usfirst.frc.team2976.robot.commands.SwitchExtend;
 import org.usfirst.frc.team2976.robot.commands.SwitchRetract;
+import org.usfirst.frc.team2976.robot.commands.TurnCorner;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -54,7 +57,6 @@ public class OI {
 	public OI() {
 		driveStick = new Joystick(0);
 		secondStick = new Joystick(1);
-
 		//if (Robot.isScale) {	
 			//new JoystickButton(secondStick, Axis.RTrigger.getAxisNumber()).whileHeld(new RobotArmMovementUp());
 			//new JoystickButton(secondStick, Axis.LTrigger.getAxisNumber()).whileHeld(new RobotArmMovementDown());
@@ -66,7 +68,9 @@ public class OI {
 		new JoystickButton(secondStick, Button.B.getBtnNumber()).whenPressed(new SwitchRetract());
 		new JoystickButton(secondStick, Button.X.getBtnNumber()).whileHeld(new RollIntake(0.65, true));
 		new JoystickButton(secondStick, Button.Y.getBtnNumber()).whileHeld(new RollIntake(0.65, false));
+		new JoystickButton(driveStick, Button.A.getBtnNumber()).whenPressed(new DriveStraight(3.5));
+		new JoystickButton(driveStick, Button.B.getBtnNumber()).whenPressed(new TurnCorner(-90));
 		
-
+		//new JoystickButton(driveStick, Button.A.getBtnNumber()).whileHeld(new SwitchAuto(2));
 	}
 }

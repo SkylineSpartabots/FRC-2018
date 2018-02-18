@@ -17,61 +17,35 @@ import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
-import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
 public class VisionProcess {
-
 	private int xRes;
 	private int yRes;
 	private double horizontalVAngle;
 	private double verticalVAngle;
-
 	private Mat output;
 	private ArrayList<MatOfPoint> contours;
 	private Mat hierarchy;
 	private ArrayList<Target> targets;
 	private Target currentTarget;
-
 	public VisionProcess(int xRes, int yRes, double horizontalVAngle, double verticalVAngle) {
 		this.xRes = xRes;
 		this.yRes = yRes;
 		this.horizontalVAngle = horizontalVAngle;
 		this.verticalVAngle = verticalVAngle;
 	}
-
 	public void initialize() {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 	}
-
 	public void targeting(Mat input) {
-
 		Mat mat = input;
 		output = input;
-
-		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HSV); // BlueGreenRed to
-															// HueSaturationValue
-		Core.inRange(mat, new Scalar(40, 0, 250), new Scalar(90, 220, 255), mat); // specific
-																					// HSV
-																					// range
-																					// between
-																					// the
-																					// Scalars,
-																					// use
-																					// GRIP
-
-		contours = new ArrayList<MatOfPoint>();
+		Imgproc.cvtColor(mat, mat, Imgproc.COLOR_BGR2HSV); 
+		Core.inRange(mat, new Scalar(40, 0, 250), new Scalar(90, 220, 255), mat); 	contours = new ArrayList<MatOfPoint>();
 		hierarchy = new Mat(); // empty
 		targets = new ArrayList<Target>();
-
-		Imgproc.findContours(mat, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE); // Might
-																										// want
-																										// to
-																										// tune
-																										// this
-																										// a
-																										// little
-
+		Imgproc.findContours(mat, contours, hierarchy, Imgproc.RETR_TREE, Imgproc.CHAIN_APPROX_SIMPLE); 
 		createTargets();
 		rateTargets();
 	}
@@ -82,22 +56,12 @@ public class VisionProcess {
 			boundingRects.add(Imgproc.boundingRect(contours.get(i)));
 		}
 		for (int i = 0; i < boundingRects.size(); i++) {
+			
+			
 			for (int j = i + 1; j < boundingRects.size(); j++) {
-				if (boundingRects.get(i).height > 37 && boundingRects.get(j).height > 37) { // filter
-																							// out
-																							// tiny
-																							// rects
-																							// that
-																							// couldn't
-																							// be
-																							// viable
-																							// target
+				if (boundingRects.get(i).height > 37 && boundingRects.get(j).height > 37) { 
 					if (boundingRects.get(i).width > 5 && boundingRects.get(j).width > 5) {
-						if (boundingRects.get(i).x > boundingRects.get(j).x) { // i
-																				// is
-																				// right
-																				// of
-																				// j
+						if (boundingRects.get(i).x > boundingRects.get(j).x) { 
 							targets.add(new Target(boundingRects.get(j), boundingRects.get(i), xRes, yRes,
 									horizontalVAngle, verticalVAngle));
 						} else { // i is left of j

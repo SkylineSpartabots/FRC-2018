@@ -81,9 +81,7 @@ public class DriveToSwitch extends CommandGroup {
 			cvSink.grabFrame(rawImage);
 			vp.targeting(rawImage);
 			addSequential(new DriveStraight(vp.getCurrentTarget().getYDistance()));
-
 			addSequential(new SwitchExtend());
-
 			addSequential(new TurnCorner(90));
 			addSequential(new DriveStraight(3));
 			addSequential(new TurnCorner(-90));

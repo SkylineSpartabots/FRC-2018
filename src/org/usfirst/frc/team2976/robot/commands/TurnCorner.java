@@ -19,6 +19,7 @@ public class TurnCorner extends Command {
     	this.degrees = degrees + initDegrees;
     	NAVXSource =  new PIDSource()	{
     		public double getInput()	{
+    			System.out.println("Angle" + Robot.rps.getAngle());
     			return Robot.rps.getAngle();
     		}
     	};

@@ -1,5 +1,7 @@
 package util;
 
+import org.usfirst.frc.team2976.robot.Robot;
+
 /**
  * @author NeilHazra
  * use serial to get data from arduino
@@ -12,8 +14,13 @@ public class ArduinoSerialRead {
 	int distance = 0;
 
 	public ArduinoSerialRead() {
-		arduinoPort = new SerialPort(9600, SerialPort.Port.kUSB);
-		// arduinoPort.enableTermination();
+		try	{
+			arduinoPort = new SerialPort(9600, SerialPort.Port.kUSB);
+		}	catch (Exception e)	{
+			Robot.isLidarFunctional = false;
+		}	catch (Error e)	{
+			Robot.isLidarFunctional = false;
+		}
 	}
 
 	public synchronized int getDistance() {

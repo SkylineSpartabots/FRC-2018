@@ -6,12 +6,12 @@ import Vision.VisionProcess;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
  */
 public class SwitchAuto extends CommandGroup {
-
 	Timer timer;
 	boolean switchSide; // where true is right
 	int position; // where 0 is left and 2 is right
@@ -20,11 +20,10 @@ public class SwitchAuto extends CommandGroup {
 		this.position = position;
 		requires(Robot.drivetrain);
 		requires(Robot.switchArm);
-
 		timer = new Timer();
 		timer.start();
-
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		SmartDashboard.putString("Game Message", gameData);
 		switch (gameData.charAt(0)) {
 		case 'L':
 			switchSide = false;

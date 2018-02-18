@@ -24,13 +24,16 @@ public class CrawlWall extends Command {
     	angle = Robot.rps.getAngle();
     	lidarSource =  new PIDSource()	{
     		public double getInput()	{
-    			double distance = 0;//Robot.arduino.getDistance();//TODO
+    			double distance = 0;
+    			distance = Robot.arduino.getDistance();
     			distance = distance * Math.cos(Math.toRadians(Robot.rps.getAngle()-angle));
     			System.out.println(Robot.rps.getAngle());
     			return distance;
     		}
     	};
     	wallDistancePID = new PIDMain(lidarSource, distanceFromWall, 100, 0.004,0.00001,0.0);
+    
+    	
     	requires(Robot.drivetrain);
     }
     protected void execute() {
@@ -45,7 +48,7 @@ public class CrawlWall extends Command {
 		wallDistancePID.enable(true);
 	}
     protected boolean isFinished() {
-        return false; //lidarSource.getInput() > 250;
+        return false;
     }
     protected void end() {
     	Robot.rps.reset();
