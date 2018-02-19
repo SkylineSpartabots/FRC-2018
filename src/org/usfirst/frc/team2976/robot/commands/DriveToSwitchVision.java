@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class DriveToSwitch extends CommandGroup {
+public class DriveToSwitchVision extends CommandGroup {
 
 	Timer timer;
 	boolean switchSide;
@@ -25,7 +25,7 @@ public class DriveToSwitch extends CommandGroup {
 	Mat rawImage;
 	VisionProcess vp;
 
-	public DriveToSwitch(boolean switchSide, int position) {
+	public DriveToSwitchVision(boolean switchSide, int position) {
 		this.switchSide = switchSide;
 		timer = new Timer();
 		timer.start();

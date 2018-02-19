@@ -14,10 +14,10 @@ package org.usfirst.frc.team2976.robot;
  * floating around.
  */
 public class RobotMap {
-	public static final int leftFrontDriveMotor = 1;
-	public static final int leftBackDriveMotor = 2;
-	public static final int rightFrontDriveMotor = 3;
-	public static final int rightBackDriveMotor = 4;
+	public static final int leftFrontDriveMotor = 1;//4;//1;
+	public static final int leftBackDriveMotor = 2;//5;//2;
+	public static final int rightFrontDriveMotor = 3;//1;//3;
+	public static final int rightBackDriveMotor = 4;//3;//4;
 	
 	public static final int rightIntakeMotor = 7;
 	public static final int leftIntakeMotor = 8;

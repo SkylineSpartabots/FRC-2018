@@ -3,6 +3,8 @@ package org.usfirst.frc.team2976.robot.commands;
 import org.usfirst.frc.team2976.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import util.PIDMain;
+import util.PIDSource;
 
 /**
  *@author NeilHazra
@@ -10,18 +12,28 @@ import edu.wpi.first.wpilibj.command.Command;
  *only works if facing parallel to a wall
  *probably will not use becuase I can get only one sensor working
  */
-public class DriveStraightLidar extends Command {
+public class FastDriveStraightLidarPID extends Command {
 	double power;
 	// distance is in cm
 	double distance;
-	
 	double initLidarDistance = 0; 
-
-    public DriveStraightLidar(double power, double distance) {
-        this.power = power;
+	PIDSource lidarSource;
+	PIDMain distancePID;
+		
+    public FastDriveStraightLidarPID(double distance) {
     	this.distance = distance;
     	initLidarDistance = accessDistanceInFeet(); //read and convert to feet
     	requires(Robot.drivetrain);
+    	lidarSource = new PIDSource()	{
+    		public double getInput()	{
+    			return Robot.arduino.getDistance();
+    		}
+    	};
+    	double kP = 0.03;//0.009;
+    	double kI = 0.019;//0.002;
+    	double kD = 0.05;//0.00008;
+    	
+    	distancePID = new PIDMain(lidarSource, distance, 100, kP,kI,kD); 
     }
     /*
      * Convert raw cm from lidar to feet
@@ -34,13 +46,12 @@ public class DriveStraightLidar extends Command {
     protected void initialize() {
     	Robot.drivetrain.rotationLock.resetPID();
     	Robot.drivetrain.rotationLock.setSetpoint(Robot.rps.getAngle());
-    	Robot.drivetrain.tankDrive(power, power);
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.tankDrive(power, power);
-    	//Robot.drivetrain.rotationLockTankDrive(power, power);
+    	Robot.drivetrain.tankDrive(distancePID.getOutput(), distancePID.getOutput());
     }
 
     // Make this return true when this Command no longer needs to run execute()

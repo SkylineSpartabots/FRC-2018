@@ -22,7 +22,8 @@ import util.RPS;
 
 import org.usfirst.frc.team2976.robot.OI;
 import org.usfirst.frc.team2976.robot.commands.TimedDrive;
-import org.usfirst.frc.team2976.robot.commands.DriveToSwitch;
+import org.usfirst.frc.team2976.robot.commands.DriveToSwitchVision;
+import org.usfirst.frc.team2976.robot.commands.DriveToSwitchBlindBackLidar;
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2976.robot.commands.SwitchAuto;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
@@ -62,6 +63,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		c.setClosedLoopControl(true);
+		rps = new RPS(0, 0);
+		
 		color = new TMDColor();
 		//TODO don't crash code if no arduino try catch surround
 		arduino = new ArduinoSerialRead();
@@ -69,7 +72,6 @@ public class Robot extends TimedRobot {
 		robotArm = new RobotArm(2, 0, 0); // TODO add actual PID values here
 		switchArm = new SwitchArm();
 		intake = new Intake();
-		rps = new RPS(0, 0);
 		oi = new OI();
 		camera = CameraServer.getInstance().addAxisCamera("axis-camera.local");
 		camera.setResolution(800, 640);
@@ -84,11 +86,17 @@ public class Robot extends TimedRobot {
 	 * the robot is disabled.
 	 */
 	@Override
-	public void disabledInit() {;
+	public void disabledInit() {
+		
 	}
 
 	@Override
 	public void disabledPeriodic() {
+		SmartDashboard.putNumber("EncoderDistance", drivetrain.getAvgDistance());
+		SmartDashboard.putNumber("EncoderRightDistance", drivetrain.getRightEncoderCount());
+		SmartDashboard.putNumber("EncoderLeftDistance", drivetrain.getLeftEncoderCount());
+		SmartDashboard.putNumber("LidarDistance", arduino.getDistance());
+		
 		Scheduler.getInstance().run();
 	}
 
@@ -108,7 +116,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		// m_autonomousCommand = m_chooser.getSelected();
 		// should drive straight 1 meter
-		m_autonomousCommand = new TimedDrive(36);
+		m_autonomousCommand = new DriveToSwitchBlindBackLidar();
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
@@ -126,7 +134,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Green", color.getGreenColor());
 		SmartDashboard.putNumber("Blue", color.getBlueColor());
 		SmartDashboard.putNumber("LidarDistance", arduino.getDistance());
-
 	}
 
 	@Override

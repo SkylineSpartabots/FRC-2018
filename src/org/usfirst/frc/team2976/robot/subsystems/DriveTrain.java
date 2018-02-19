@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2976.robot.subsystems;
 
 import org.usfirst.frc.team2976.robot.commands.ArcadeDriveWithJoystick;
+import org.usfirst.frc.team2976.robot.Robot;
 import org.usfirst.frc.team2976.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -21,6 +22,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import util.CustomDrive;
+import util.PIDMain;
+import util.PIDSource;
 
 /**
  * An example subsystem. You can replace me with your own Subsystem.
@@ -28,10 +31,19 @@ import util.CustomDrive;
 public class DriveTrain extends Subsystem {
 	WPI_TalonSRX leftFront, leftBack, rightFront, rightBack;
 	SpeedControllerGroup left, right;
+	public PIDMain rotationLock;
+	public PIDSource gyroSource;
 	Encoder encoderLeft, encoderRight;
 	CustomDrive m_drive;
 
 	public DriveTrain() {
+		gyroSource = new PIDSource() {
+			public double getInput() {
+				return Robot.rps.getAngle();
+			}
+		};
+		rotationLock = new PIDMain(gyroSource, (int) Robot.rps.getAngle(), 100, -0.02, -0.0006	, 0);	
+		
 		leftFront = new WPI_TalonSRX(RobotMap.leftFrontDriveMotor);
 		leftBack = new WPI_TalonSRX(RobotMap.leftBackDriveMotor);
 		rightFront = new WPI_TalonSRX(RobotMap.rightFrontDriveMotor);
@@ -53,7 +65,15 @@ public class DriveTrain extends Subsystem {
 
 		m_drive = new CustomDrive(left, right);
 	}
-
+	public void setBrake()	{
+		leftFront.neutralOutput();
+		leftBack.neutralOutput();
+		rightFront.neutralOutput();
+		rightBack.neutralOutput();
+	}
+	public void rotationLockTankDrive(double leftpower, double rightpower)	{
+		tankDrive(leftpower+rotationLock.getOutput(), rightpower -rotationLock.getOutput());
+	}
 	public double getLeftEncoderDistance() {
 		return encoderLeft.getDistance();
 	}
@@ -93,10 +113,8 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void setEncoderParameters(Encoder enc) {
-		enc.setMaxPeriod(.1);
-		enc.setMinRate(10);
-		enc.setDistancePerPulse(5);//TODO 5 is not right at all
-		enc.setReverseDirection(true);
+		enc.setDistancePerPulse(1);//TODO 5 is not right at all
+		enc.setReverseDirection(false);
 		enc.setSamplesToAverage(7);
 	}
 

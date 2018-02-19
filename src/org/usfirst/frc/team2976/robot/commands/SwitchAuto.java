@@ -33,22 +33,22 @@ public class SwitchAuto extends CommandGroup {
 		switch (position) {
 		case 0:
 			if (switchSide) {
-				addSequential(new DriveToSwitch(switchSide, position));
+				addSequential(new DriveToSwitchVision(switchSide, position));
 				addSequential(new TimedDrive(12));
 			}
 			break;
 		case 1:
 			if (switchSide) {
-				addSequential(new DriveToSwitch(switchSide, position));
+				addSequential(new DriveToSwitchVision(switchSide, position));
 			} else {
-				addSequential(new DriveToSwitch(switchSide, position));
+				addSequential(new DriveToSwitchVision(switchSide, position));
 			}
 			break;
 		case 2:
 			if (switchSide) {
 				addSequential(new TimedDrive(12));
 			} else {
-				addSequential(new DriveToSwitch(switchSide, position));
+				addSequential(new DriveToSwitchVision(switchSide, position));
 			}
 
 			break;
