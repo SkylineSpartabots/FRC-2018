@@ -40,60 +40,60 @@ public class DriveToSwitchBlind extends CommandGroup {
 	public void centerMovement(boolean switchSide) {
 		if (switchSide) {
 			//1st cube
-			addSequential(new DriveStraight(3));
+			addSequential(new TimedDrive(3));
 			addSequential(new TurnCorner(90));
-			addSequential(new DriveStraight(9));
+			addSequential(new TimedDrive(9));
 			addSequential(new TurnCorner(-90));
-			addSequential(new DriveStraight(11));
+			addSequential(new TimedDrive(11));
 			addSequential(new TurnCorner(-90));
-			addSequential(new DriveStraight(4));
+			addSequential(new TimedDrive(4));
 			addSequential(new RollIntake(0.6, false));
 			//2nd cube
-			addSequential(new DriveStraight(-4));
+			addSequential(new TimedDrive(-4));
 			addSequential(new SwitchRetract());
 			addSequential(new TurnCorner(90));
-			addSequential(new DriveStraight(5));
+			addSequential(new TimedDrive(5));
 			addSequential(new TurnCorner(-90));
-			addSequential(new DriveStraight(7));
+			addSequential(new TimedDrive(7));
 			addSequential(new TurnCorner(-90));
-			addSequential(new DriveStraight(2));
+			addSequential(new TimedDrive(2));
 			addSequential(new SwitchExtend());
-			addSequential(new DriveStraight(1));
+			addSequential(new TimedDrive(1));
 			addSequential(new RollIntake(0.6, true));
 		}else {
 			//1st cube
-			addSequential(new DriveStraight(3));
+			addSequential(new TimedDrive(3));
 			addSequential(new TurnCorner(-90));
-			addSequential(new DriveStraight(9));
+			addSequential(new TimedDrive(9));
 			addSequential(new TurnCorner(90));
-			addSequential(new DriveStraight(11));
+			addSequential(new TimedDrive(11));
 			addSequential(new TurnCorner(90));
-			addSequential(new DriveStraight(4));
+			addSequential(new TimedDrive(4));
 			addSequential(new RollIntake(0.6, false));
 			//2nd cube
-			addSequential(new DriveStraight(-4));
+			addSequential(new TimedDrive(-4));
 			addSequential(new SwitchRetract());
 			addSequential(new TurnCorner(-90));
-			addSequential(new DriveStraight(5));
+			addSequential(new TimedDrive(5));
 			addSequential(new TurnCorner(90));
-			addSequential(new DriveStraight(7));
+			addSequential(new TimedDrive(7));
 			addSequential(new TurnCorner(90));
-			addSequential(new DriveStraight(2));
+			addSequential(new TimedDrive(2));
 			addSequential(new SwitchExtend());
-			addSequential(new DriveStraight(1));
+			addSequential(new TimedDrive(1));
 			addSequential(new RollIntake(0.6, true));
 		}
 	}
 
 	public void leftMovement() { // switch is on robot's side for these
-		addSequential(new DriveStraight(14));
+		addSequential(new TimedDrive(14));
 		addSequential(new TurnCorner(-90));
 		addSequential(new RollIntake(0.6, false));
 		addSequential(new TurnCorner(90));
 	}
 
 	public void rightMovement() {
-		addSequential(new DriveStraight(14));
+		addSequential(new TimedDrive(14));
 		addSequential(new TurnCorner(90));
 		addSequential(new RollIntake(0.6, false));
 		addSequential(new TurnCorner(-90));

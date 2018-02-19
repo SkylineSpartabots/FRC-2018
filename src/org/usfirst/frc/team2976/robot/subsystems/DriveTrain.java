@@ -79,7 +79,10 @@ public class DriveTrain extends Subsystem {
 		return encoderRight.getRate();
 
 	}
-
+	
+	public double getAvgDistance()	{
+		return 0.5*(encoderLeft.getDistance() + encoderRight.getDistance()); 
+	}
 	public double getAvgClicks()	{
 		return 0.5*(encoderLeft.get() + encoderRight.get()); 
 	}
@@ -92,7 +95,7 @@ public class DriveTrain extends Subsystem {
 	public void setEncoderParameters(Encoder enc) {
 		enc.setMaxPeriod(.1);
 		enc.setMinRate(10);
-		enc.setDistancePerPulse(5);
+		enc.setDistancePerPulse(5);//TODO 5 is not right at all
 		enc.setReverseDirection(true);
 		enc.setSamplesToAverage(7);
 	}

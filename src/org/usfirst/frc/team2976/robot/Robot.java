@@ -21,7 +21,7 @@ import util.ArduinoSerialRead;
 import util.RPS;
 
 import org.usfirst.frc.team2976.robot.OI;
-import org.usfirst.frc.team2976.robot.commands.DriveStraight;
+import org.usfirst.frc.team2976.robot.commands.TimedDrive;
 import org.usfirst.frc.team2976.robot.commands.DriveToSwitch;
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2976.robot.commands.SwitchAuto;
@@ -51,7 +51,6 @@ public class Robot extends TimedRobot {
 
 	public static ArduinoSerialRead arduino;
 	
-	public static boolean isLidarFunctional = true;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -109,7 +108,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		// m_autonomousCommand = m_chooser.getSelected();
 		// should drive straight 1 meter
-		m_autonomousCommand = new DriveStraight(36);
+		m_autonomousCommand = new TimedDrive(36);
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
@@ -123,6 +122,11 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("Red", color.getRedColor());
+		SmartDashboard.putNumber("Green", color.getGreenColor());
+		SmartDashboard.putNumber("Blue", color.getBlueColor());
+		SmartDashboard.putNumber("LidarDistance", arduino.getDistance());
+
 	}
 
 	@Override
@@ -144,13 +148,18 @@ public class Robot extends TimedRobot {
 		 SmartDashboard.putNumber("Red", color.getRedColor());
 		 SmartDashboard.putNumber("Green", color.getGreenColor());
 		 SmartDashboard.putNumber("Blue", color.getBlueColor());
+		 SmartDashboard.putNumber("LidarDistance", arduino.getDistance());
 		 Scheduler.getInstance().run();
 	}
-
 	/**
 	 * This function is called periodically during test mode.
 	 */
 	@Override
 	public void testPeriodic() {
+		 SmartDashboard.putNumber("Red", color.getRedColor());
+		 SmartDashboard.putNumber("Green", color.getGreenColor());
+		 SmartDashboard.putNumber("Blue", color.getBlueColor());
+		 SmartDashboard.putNumber("LidarDistance", arduino.getDistance());
+
 	}
 }

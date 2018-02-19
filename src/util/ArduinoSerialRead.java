@@ -1,7 +1,5 @@
 package util;
 
-import org.usfirst.frc.team2976.robot.Robot;
-
 /**
  * @author NeilHazra
  * use serial to get data from arduino
@@ -12,17 +10,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ArduinoSerialRead {
 	SerialPort arduinoPort;
 	int distance = 0;
-
 	public ArduinoSerialRead() {
-		try	{
-			arduinoPort = new SerialPort(9600, SerialPort.Port.kUSB);
-		}	catch (Exception e)	{
-			Robot.isLidarFunctional = false;
-		}	catch (Error e)	{
-			Robot.isLidarFunctional = false;
-		}
+		arduinoPort = new SerialPort(9600, SerialPort.Port.kUSB);
 	}
-
 	public synchronized int getDistance() {
 		String s = arduinoPort.readString();
 		String y0 = "";
@@ -43,7 +33,6 @@ public class ArduinoSerialRead {
 		}
 
 		SmartDashboard.putNumber("LidarDista", distance);
-		// Thread.sleep(50);
 		return distance;
 	}
 }

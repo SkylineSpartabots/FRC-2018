@@ -68,7 +68,7 @@ public class DriveToSwitch extends CommandGroup {
 			cvSink.grabFrame(rawImage);
 			vp.targeting(rawImage);
 			while (true) {
-				addSequential(new DriveStraight(1));
+				addSequential(new TimedDrive(1));
 				cvSink.grabFrame(rawImage);
 				vp.targeting(rawImage);
 				tHeading = vp.getCurrentTarget().getHeading();
@@ -80,12 +80,12 @@ public class DriveToSwitch extends CommandGroup {
 			}
 			cvSink.grabFrame(rawImage);
 			vp.targeting(rawImage);
-			addSequential(new DriveStraight(vp.getCurrentTarget().getYDistance()));
+			addSequential(new TimedDrive(vp.getCurrentTarget().getYDistance()));
 			addSequential(new SwitchExtend());
 			addSequential(new TurnCorner(90));
-			addSequential(new DriveStraight(3));
+			addSequential(new TimedDrive(3));
 			addSequential(new TurnCorner(-90));
-			addSequential(new DriveStraight(3));
+			addSequential(new TimedDrive(3));
 
 		} else { // same but for the left side switch
 			addSequential(new TurnCorner(-20));
@@ -103,7 +103,7 @@ public class DriveToSwitch extends CommandGroup {
 			cvSink.grabFrame(rawImage);
 			vp.targeting(rawImage);
 			while (true) {
-				addSequential(new DriveStraight(1));
+				addSequential(new TimedDrive(1));
 				cvSink.grabFrame(rawImage);
 				vp.targeting(rawImage);
 				tHeading = vp.getCurrentTarget().getHeading();
@@ -114,26 +114,26 @@ public class DriveToSwitch extends CommandGroup {
 			}
 			cvSink.grabFrame(rawImage);
 			vp.targeting(rawImage);
-			addSequential(new DriveStraight(vp.getCurrentTarget().getYDistance()));
+			addSequential(new TimedDrive(vp.getCurrentTarget().getYDistance()));
 
 			addSequential(new SwitchExtend());
 
 			addSequential(new TurnCorner(-90));
-			addSequential(new DriveStraight(3));
+			addSequential(new TimedDrive(3));
 			addSequential(new TurnCorner(90));
-			addSequential(new DriveStraight(3));
+			addSequential(new TimedDrive(3));
 		}
 	}
 
 	public void leftMovement() { // switch is on robot's side for these
-		addSequential(new DriveStraight(14));
+		addSequential(new TimedDrive(14));
 		addSequential(new TurnCorner(-90));
 		addSequential(new SwitchExtend());
 		addSequential(new TurnCorner(90));
 	}
 
 	public void rightMovement() {
-		addSequential(new DriveStraight(14));
+		addSequential(new TimedDrive(14));
 		addSequential(new TurnCorner(90));
 		addSequential(new SwitchExtend());
 		addSequential(new TurnCorner(-90));

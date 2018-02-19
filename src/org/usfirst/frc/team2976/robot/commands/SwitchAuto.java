@@ -34,7 +34,7 @@ public class SwitchAuto extends CommandGroup {
 		case 0:
 			if (switchSide) {
 				addSequential(new DriveToSwitch(switchSide, position));
-				addSequential(new DriveStraight(12));
+				addSequential(new TimedDrive(12));
 			}
 			break;
 		case 1:
@@ -46,7 +46,7 @@ public class SwitchAuto extends CommandGroup {
 			break;
 		case 2:
 			if (switchSide) {
-				addSequential(new DriveStraight(12));
+				addSequential(new TimedDrive(12));
 			} else {
 				addSequential(new DriveToSwitch(switchSide, position));
 			}
