@@ -21,7 +21,7 @@ public class CustomDrive extends DifferentialDrive {
 		xSpeed = limit(xSpeed);
 		xSpeed = applyDeadband(xSpeed, m_deadband);
 
-		zRotation = logCurve(zRotation)*0.5;
+		zRotation = logCurve(zRotation)*0.75;
 		
 		zRotation = limit(zRotation);
 		zRotation = applyDeadband(zRotation, m_deadband);

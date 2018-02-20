@@ -23,6 +23,7 @@ import util.RPS;
 import org.usfirst.frc.team2976.robot.OI;
 import org.usfirst.frc.team2976.robot.commands.TimedDrive;
 import org.usfirst.frc.team2976.robot.commands.DriveToSwitchVision;
+
 import org.usfirst.frc.team2976.robot.commands.DriveToSwitchBlindBackLidar;
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2976.robot.commands.LeftAutoLidar;
@@ -49,7 +50,6 @@ public class Robot extends TimedRobot {
 	public static TMDColor color;
 	public static OI oi;
 	public static RPS rps;
-	
 	public static AxisCamera camera;
 
 	public static ArduinoSerialRead arduino;
@@ -66,7 +66,6 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		c.setClosedLoopControl(true);
 		rps = new RPS(0, 0);
-		
 		color = new TMDColor();
 		//TODO don't crash code if no arduino try catch surround
 		arduino = new ArduinoSerialRead();
@@ -122,7 +121,7 @@ public class Robot extends TimedRobot {
 		
 		 // should drive straight 1 meter
 		//m_autonomousCommand = new DriveToSwitchBlindBackLidar();
-		//m_autonomousCommand = new RightAutoLidar();
+		//m_autonomousCommand = new ControlLed(true);
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {

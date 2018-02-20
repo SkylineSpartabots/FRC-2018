@@ -59,12 +59,13 @@ public class OI {
 
 		new JoystickButton(secondStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
 		new JoystickButton(secondStick, Button.Y.getBtnNumber()).whenPressed(new SwitchRetract());
-		new JoystickButton(secondStick, Button.X.getBtnNumber()).whileHeld(new RollIntake(0.4, true));
-		new JoystickButton(secondStick, Button.B.getBtnNumber()).whileHeld(new RollIntake(0.4, false));
+		new JoystickButton(secondStick, Button.LBumper.getBtnNumber()).whileHeld(new RollIntake(0.4, true));
+		new JoystickButton(secondStick, Button.RBumper.getBtnNumber()).whileHeld(new RollIntake(0.4, false));
 		
 		new JoystickButton(driveStick, Button.A.getBtnNumber()).whenPressed(new TerminateCommands());
+
 		
-		new JoystickButton(driveStick, Button.B.getBtnNumber()).whenPressed(new TurnCorner(-50));
+		
 		
 		//new JoystickButton(driveStick, Button.A.getBtnNumber()).whileHeld(new SwitchAuto(2));
 	}

@@ -10,6 +10,7 @@ package org.usfirst.frc.team2976.robot.subsystems;
 import org.usfirst.frc.team2976.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -25,6 +26,8 @@ public class Intake extends Subsystem {
 	public Intake() {
 		rightIntakeMotor = new WPI_TalonSRX(RobotMap.rightIntakeMotor);
 		leftIntakeMotor = new WPI_TalonSRX(RobotMap.leftIntakeMotor);
+		rightIntakeMotor.setNeutralMode(NeutralMode.Brake);
+		leftIntakeMotor.setNeutralMode(NeutralMode.Brake);
 	}
 	
 	public double getAvgCurrentDraw()	{
