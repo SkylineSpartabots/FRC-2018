@@ -17,9 +17,9 @@ public class DriveToSwitchBlindBackLidar extends CommandGroup {
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if (gameData.charAt(0) == 'L') {
 			addParallel(new SwitchRetract());
-			addSequential(new DriveStraightLidar(0.5,120));
+			addSequential(new DriveStraightLidar(0.5,120+8));
 			addSequential(new TurnCorner(-50));
-			addSequential(new DriveStraightLidar(0.6,385));
+			addSequential(new DriveStraightLidar(0.6,385+8));
 			addSequential(new TurnCorner(50));
 			addSequential(new TimedDrive(0.2));
 			addSequential(new RollIntake(0.4,1, false));
@@ -31,9 +31,9 @@ public class DriveToSwitchBlindBackLidar extends CommandGroup {
 		} else {
 			// Put right auto code here
 			addParallel(new SwitchRetract());
-			addSequential(new DriveStraightLidar(0.5,120));
+			addSequential(new DriveStraightLidar(0.5,120+8));
 			addSequential(new TurnCorner(50));
-			addSequential(new DriveStraightLidar(0.6,370));
+			addSequential(new DriveStraightLidar(0.6,370+8));
 			addSequential(new TurnCorner(-50));
 			//addSequential(new TimedDrive(0.2));
 			addSequential(new RollIntake(0.4,1, false));

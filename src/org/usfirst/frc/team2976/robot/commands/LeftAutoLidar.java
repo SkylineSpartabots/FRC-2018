@@ -13,12 +13,12 @@ public class LeftAutoLidar extends CommandGroup {
     	String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if (gameData.charAt(0) == 'R') {
-			addSequential(new DriveStraightLidar(0.6,400));
+			addSequential(new DriveStraightLidar(0.6,400+8));
 			// Put left auto code here
 			SmartDashboard.putString("Game Data 0", "Left");
 		} else {
 			addParallel(new SwitchRetract());
-	    	addSequential(new DriveStraightLidar(0.75,337));
+	    	addSequential(new DriveStraightLidar(0.75,337+8));
 	    	addSequential(new TurnCorner(90));
 	    	addSequential(new TimedDrive(0.5));
 	    	addSequential(new RollIntake(0.4,1, false));
