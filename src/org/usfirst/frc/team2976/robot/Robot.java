@@ -25,11 +25,13 @@ import org.usfirst.frc.team2976.robot.commands.TimedDrive;
 import org.usfirst.frc.team2976.robot.commands.DriveToSwitchVision;
 import org.usfirst.frc.team2976.robot.commands.DriveToSwitchBlindBackLidar;
 import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
+import org.usfirst.frc.team2976.robot.commands.LeftAutoLidar;
 import org.usfirst.frc.team2976.robot.commands.SwitchAuto;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2976.robot.subsystems.Intake;
 import org.usfirst.frc.team2976.robot.subsystems.SwitchArm;
 import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
+import org.usfirst.frc.team2976.robot.commands.RightAutoLidar;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -75,9 +77,11 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		camera = CameraServer.getInstance().addAxisCamera("axis-camera.local");
 		camera.setResolution(800, 640);
-		m_chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		m_chooser.addDefault("CenterAuto", new DriveToSwitchBlindBackLidar());
+		m_chooser.addObject("RightAuto", new RightAutoLidar());
+		m_chooser.addObject("LeftAuto", new LeftAutoLidar());
+		
+		SmartDashboard.putData("RightAuto", m_chooser);
 	}
 
 	/**
@@ -114,9 +118,11 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		// m_autonomousCommand = m_chooser.getSelected();
-		// should drive straight 1 meter
-		m_autonomousCommand = new DriveToSwitchBlindBackLidar();
+		 m_autonomousCommand = m_chooser.getSelected();
+		
+		 // should drive straight 1 meter
+		//m_autonomousCommand = new DriveToSwitchBlindBackLidar();
+		//m_autonomousCommand = new RightAutoLidar();
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {

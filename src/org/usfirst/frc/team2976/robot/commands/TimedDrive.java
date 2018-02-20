@@ -20,12 +20,12 @@ public class TimedDrive extends Command {
 	}
 	public TimedDrive(double time) { // distance in inches
 		requires(Robot.drivetrain);
-		timer = new Timer();
 		this.power = 0.5;
 		this.time = time;
 	}
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		timer = new Timer();
 		timer.start();
 		Robot.drivetrain.tankDrive(0.0, 0.0);
 	}

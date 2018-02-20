@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team2976.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -18,16 +19,26 @@ import org.usfirst.frc.team2976.robot.Robot;
 public class RollIntake extends Command {
 	private double power = 0;
 	private boolean rollIn = true;
+	Timer timer;
+	double time = 10000000;
 	public RollIntake(double power, boolean rollIn) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.intake);
     	this.power = power;
     	this.rollIn = rollIn;
 	}
-
+	public RollIntake(double power, double time, boolean rollIn) {
+		// Use requires() here to declare subsystem dependencies
+		requires(Robot.intake);
+		this.time = time;
+    	this.power = power;
+    	this.rollIn = rollIn;
+	}
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
+		timer = new Timer();
+		timer.start();
 		Robot.intake.setPower(power, rollIn);
 	}
 
@@ -41,7 +52,7 @@ public class RollIntake extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return false;
+		return timer.hasPeriodPassed(time);
 	}
 
 	// Called once after isFinished returns true

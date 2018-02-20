@@ -16,14 +16,15 @@ public class DriveToSwitchBlindBackLidar extends CommandGroup {
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if (gameData.charAt(0) == 'L') {
-
 			addParallel(new SwitchRetract());
 			addSequential(new DriveStraightLidar(0.5,120));
 			addSequential(new TurnCorner(-50));
-			addSequential(new DriveStraightLidar(0.6,370));
+			addSequential(new DriveStraightLidar(0.6,385));
 			addSequential(new TurnCorner(50));
 			addSequential(new TimedDrive(0.2));
-			addSequential(new RollIntake(0.4, false));
+			addSequential(new RollIntake(0.4,1, false));
+			addSequential(new TimedDrive(-0.5,1));
+			addParallel(new SwitchExtend());
 			
 			// Put left auto code here
 			SmartDashboard.putString("Game Data 0", "Left");
@@ -34,9 +35,10 @@ public class DriveToSwitchBlindBackLidar extends CommandGroup {
 			addSequential(new TurnCorner(50));
 			addSequential(new DriveStraightLidar(0.6,370));
 			addSequential(new TurnCorner(-50));
-			addSequential(new TimedDrive(0.2));
-			addSequential(new RollIntake(0.4, false));
-			
+			//addSequential(new TimedDrive(0.2));
+			addSequential(new RollIntake(0.4,1, false));
+			addSequential(new TimedDrive(-0.5,1));
+			addParallel(new SwitchExtend());
 			SmartDashboard.putString("Game Data 0", "Right");
 		}
 		
