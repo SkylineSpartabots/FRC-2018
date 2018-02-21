@@ -13,12 +13,21 @@ public class ArduinoSerialRead {
 	int distance = 0;
 
 	public ArduinoSerialRead() {
-		arduinoPort = new SerialPort(9600, SerialPort.Port.kUSB);
-		// arduinoPort.enableTermination();
+		try	{
+			arduinoPort = new SerialPort(9600, SerialPort.Port.kUSB);
+		} catch(Exception e) {
+			arduinoPort = null;
+		}
+			// arduinoPort.enableTermination();
 	}
 
 	public synchronized int getDistance() {
-		String s = arduinoPort.readString();
+		String s;
+		if(arduinoPort!= null)	{
+			s = arduinoPort.readString();
+		}	else {
+			return -1;
+		}
 		//System.out.println("[" + s + "]");
 		String[] x = s.split(";");
 		if (x.length > 2) {
