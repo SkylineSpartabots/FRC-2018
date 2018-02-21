@@ -11,29 +11,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	boolean switchSide; // where true is right
 	int position; // where 0 is left and 2 is right
  */
-public class DriveToSwitchBlindBackLidar extends CommandGroup {
-	public DriveToSwitchBlindBackLidar() {
+public class CenterAutoLidar extends CommandGroup {
+	public CenterAutoLidar() {
 		String gameData;
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		if (gameData.charAt(0) == 'L') {
 			addParallel(new SwitchRetract());
-			addSequential(new DriveStraightLidar(0.5,120+8));
+			addSequential(new DriveStraightLidar(0.5,120));
 			addSequential(new TurnCorner(-50));
-			addSequential(new DriveStraightLidar(0.6,385+8));
+			addSequential(new DriveStraightLidar(0.6,385));
 			addSequential(new TurnCorner(50));
 			addSequential(new TimedDrive(0.2));
 			addSequential(new RollIntake(0.4,1, false));
 			addSequential(new TimedDrive(-0.5,1));
 			addParallel(new SwitchExtend());
-			
 			// Put left auto code here
 			SmartDashboard.putString("Game Data 0", "Left");
 		} else {
 			// Put right auto code here
 			addParallel(new SwitchRetract());
-			addSequential(new DriveStraightLidar(0.5,120+8));
+			addSequential(new DriveStraightLidar(0.5,120));
 			addSequential(new TurnCorner(50));
-			addSequential(new DriveStraightLidar(0.6,370+8));
+			addSequential(new DriveStraightLidar(0.6,370));
 			addSequential(new TurnCorner(-50));
 			//addSequential(new TimedDrive(0.2));
 			addSequential(new RollIntake(0.4,1, false));

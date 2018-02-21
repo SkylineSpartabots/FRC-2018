@@ -20,7 +20,7 @@ import util.ArduinoSerialRead;
 import util.RPS;
 
 import org.usfirst.frc.team2976.robot.OI;
-import org.usfirst.frc.team2976.robot.commands.DriveToSwitchBlindBackLidar;
+import org.usfirst.frc.team2976.robot.commands.CenterAutoLidar;
 import org.usfirst.frc.team2976.robot.commands.LeftAutoLidar;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2976.robot.subsystems.Intake;
@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
 		oi = new OI();
 		camera = CameraServer.getInstance().addAxisCamera("axis-camera.local");
 		camera.setResolution(800, 640);
-		m_chooser.addDefault("CenterAuto", new DriveToSwitchBlindBackLidar());
+		m_chooser.addDefault("CenterAuto", new CenterAutoLidar());
 		m_chooser.addObject("RightAuto", new RightAutoLidar());
 		m_chooser.addObject("LeftAuto", new LeftAutoLidar());
 		
