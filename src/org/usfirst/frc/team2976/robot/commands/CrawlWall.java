@@ -25,7 +25,7 @@ public class CrawlWall extends Command {
     	lidarSource =  new PIDSource()	{
     		public double getInput()	{
     			double distance = 0;
-    			distance = Robot.arduino.getDistance();
+    			distance = Robot.arduino.getDistance(); 
     			distance = distance * Math.cos(Math.toRadians(Robot.rps.getAngle()-angle));
     			System.out.println(Robot.rps.getAngle());
     			return distance;
@@ -37,8 +37,6 @@ public class CrawlWall extends Command {
     	requires(Robot.drivetrain);
     }
     protected void execute() {
-    	SmartDashboard.putNumber("PIDout", wallDistancePID.getOutput());
-    	SmartDashboard.putNumber("AdjustedDistance", lidarSource.getInput());
     	double output = wallDistancePID.getOutput();
    		Robot.drivetrain.tankDrive(baseSpeed-output, baseSpeed + output);
     }

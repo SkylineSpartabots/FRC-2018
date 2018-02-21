@@ -27,7 +27,8 @@ public class DriveStraightLidar extends Command {
      * Convert raw cm from lidar to feet
      */
     private double accessDistanceInFeet()	{
-    	return (Robot.arduino.getDistance());///2.54)/12.0;
+    	return (Robot.arduino.getDistance());///2.54)/12.0; 
+  
     }
 
     // Called just before this Command runs the first time

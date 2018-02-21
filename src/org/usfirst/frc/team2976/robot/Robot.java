@@ -8,7 +8,6 @@
 package org.usfirst.frc.team2976.robot;
 
 import edu.wpi.cscore.AxisCamera;
-import edu.wpi.cscore.CvSink;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -21,13 +20,8 @@ import util.ArduinoSerialRead;
 import util.RPS;
 
 import org.usfirst.frc.team2976.robot.OI;
-import org.usfirst.frc.team2976.robot.commands.TimedDrive;
-import org.usfirst.frc.team2976.robot.commands.DriveToSwitchVision;
-
 import org.usfirst.frc.team2976.robot.commands.DriveToSwitchBlindBackLidar;
-import org.usfirst.frc.team2976.robot.commands.ExampleCommand;
 import org.usfirst.frc.team2976.robot.commands.LeftAutoLidar;
-import org.usfirst.frc.team2976.robot.commands.SwitchAuto;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2976.robot.subsystems.Intake;
 import org.usfirst.frc.team2976.robot.subsystems.SwitchArm;
@@ -90,7 +84,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		
+		Robot.switchArm.retract();
 	}
 
 	@Override
@@ -118,11 +112,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		 m_autonomousCommand = m_chooser.getSelected();
-		
-		 // should drive straight 1 meter
-		//m_autonomousCommand = new DriveToSwitchBlindBackLidar();
-		//m_autonomousCommand = new ControlLed(true);
-
+		 Robot.switchArm.retract();
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
@@ -147,6 +137,7 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
+		Robot.switchArm.retract();
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
@@ -172,6 +163,5 @@ public class Robot extends TimedRobot {
 		 SmartDashboard.putNumber("Green", color.getGreenColor());
 		 SmartDashboard.putNumber("Blue", color.getBlueColor());
 		 SmartDashboard.putNumber("LidarDistance", arduino.getDistance());
-
 	}
 }

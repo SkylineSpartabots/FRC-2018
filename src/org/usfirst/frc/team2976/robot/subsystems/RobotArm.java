@@ -2,7 +2,6 @@ package org.usfirst.frc.team2976.robot.subsystems;
 
 import org.usfirst.frc.team2976.robot.RobotMap;
 
-import com.ctre.CANTalon;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 

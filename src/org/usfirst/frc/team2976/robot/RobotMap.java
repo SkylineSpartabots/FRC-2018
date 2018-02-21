@@ -31,7 +31,7 @@ public class RobotMap {
 	public static final int robotArmLimitSwitchPortUp = 1;
 	public static final int robotArmLimitSwitchPortDown = 2;
 	
-	public static final int robotArmMotorPort = 6;
+	public static final int robotArmMotorPort = 5;
 
 
 	public static final int switchSolenoidPort = 0;

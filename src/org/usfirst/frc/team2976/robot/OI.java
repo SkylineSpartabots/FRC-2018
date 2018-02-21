@@ -7,14 +7,9 @@
 
 package org.usfirst.frc.team2976.robot;
 
-import org.usfirst.frc.team2976.robot.commands.TimedDrive;
 import org.usfirst.frc.team2976.robot.commands.RollIntake;
-import org.usfirst.frc.team2976.robot.commands.SwitchAuto;
 import org.usfirst.frc.team2976.robot.commands.SwitchExtend;
 import org.usfirst.frc.team2976.robot.commands.SwitchRetract;
-import org.usfirst.frc.team2976.robot.commands.TerminateCommands;
-import org.usfirst.frc.team2976.robot.commands.TurnCorner;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -57,12 +52,19 @@ public class OI {
 		driveStick = new Joystick(0);
 		secondStick = new Joystick(1);
 
-		new JoystickButton(secondStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
-		new JoystickButton(secondStick, Button.Y.getBtnNumber()).whenPressed(new SwitchRetract());
-		new JoystickButton(secondStick, Button.LBumper.getBtnNumber()).whileHeld(new RollIntake(0.4, true));
-		new JoystickButton(secondStick, Button.RBumper.getBtnNumber()).whileHeld(new RollIntake(0.4, false));
+		new JoystickButton(driveStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
+		new JoystickButton(driveStick, Button.Y.getBtnNumber()).whenPressed(new SwitchRetract());
+		new JoystickButton(driveStick, Button.LBumper.getBtnNumber()).whileHeld(new RollIntake(0.4, true));
+		new JoystickButton(driveStick, Button.RBumper.getBtnNumber()).whileHeld(new RollIntake(0.4, false));
+
+		//new JoystickButton(secondStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
+		//new JoystickButton(secondStick, Button.Y.getBtnNumber()).whenPressed(new SwitchRetract());
+		//new JoystickButton(secondStick, Button.LBumper.getBtnNumber()).whileHeld(new RollIntake(0.4, true));
+		//new JoystickButton(secondStick, Button.RBumper.getBtnNumber()).whileHeld(new RollIntake(0.4, false));
 		
-		new JoystickButton(driveStick, Button.A.getBtnNumber()).whenPressed(new TerminateCommands());
+//		new JoystickButton(driveStick, Button.A.getBtnNumber()).whenPressed(new TerminateCommands());
+//		new JoystickButton(driveStick, Button.B.getBtnNumber()).whileHeld(new ArmTestCode(0.7));
+//		new JoystickButton(driveStick, Button.X.getBtnNumber()).whileHeld(new ArmTestCode(-0.7));
 
 		
 		

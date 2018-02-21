@@ -31,7 +31,6 @@ public class TimedDrive extends Command {
 	}
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		SmartDashboard.putNumber("EncoderDistance", Robot.drivetrain.getAvgClicks());
 		Robot.drivetrain.tankDrive(power, power);
 	}
 	// Make this return true when this Command no longer needs to run execute()
