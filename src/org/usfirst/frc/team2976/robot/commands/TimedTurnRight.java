@@ -1,13 +1,10 @@
 package org.usfirst.frc.team2976.robot.commands;
-import org.usfirst.frc.team2976.robot.AutoTargetSide;
 import org.usfirst.frc.team2976.robot.Robot;
-
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class TimedDrive extends Command {
+public class TimedTurnRight extends Command {
 	double power;
 	double time;
 	Timer timer; 
@@ -15,13 +12,13 @@ public class TimedDrive extends Command {
 	 * @param power
 	 * @param time in seconds
 	 */
-	public TimedDrive(double power, double time) { // distance in inches
+	public TimedTurnRight(double power, double time) { // distance in inches
 		requires(Robot.drivetrain);
 		timer = new Timer();
 		this.power = power;
 		this.time = time;
 	}
-	public TimedDrive(double time) { // distance in inches
+	public TimedTurnRight(double time) { // distance in inches
 		requires(Robot.drivetrain);
 		this.power = 0.5;
 		this.time = time;
@@ -34,7 +31,7 @@ public class TimedDrive extends Command {
 	}
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.drivetrain.tankDrive(power, power);
+		Robot.drivetrain.tankDrive(power, -power);
 	}
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
@@ -45,11 +42,11 @@ public class TimedDrive extends Command {
 	protected void end() {
 		timer.reset();
 		Robot.drivetrain.tankDrive(0, 0);
-		Robot.getGameData();
+
 	}
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
-		
+		end();
 	}
 }

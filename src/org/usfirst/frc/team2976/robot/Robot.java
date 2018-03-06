@@ -10,6 +10,7 @@ package org.usfirst.frc.team2976.robot;
 import edu.wpi.cscore.AxisCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -20,13 +21,13 @@ import util.ArduinoSerialRead;
 import util.RPS;
 
 import org.usfirst.frc.team2976.robot.OI;
-import org.usfirst.frc.team2976.robot.commands.CenterAutoLidar;
-import org.usfirst.frc.team2976.robot.commands.LeftAutoLidar;
 import org.usfirst.frc.team2976.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team2976.robot.subsystems.Intake;
 import org.usfirst.frc.team2976.robot.subsystems.SwitchArm;
 import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
-import org.usfirst.frc.team2976.robot.commands.RightAutoLidar;
+import org.usfirst.frc.team2976.robot.commands.Autonomous;
+import org.usfirst.frc.team2976.robot.commands.TimedDrive;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -41,46 +42,66 @@ public class Robot extends TimedRobot {
 	public static RobotArm robotArm;
 	public static SwitchArm switchArm;
 	public static Intake intake;
-	public static TMDColor color;
+	//public static TMDColor color;
 	public static OI oi;
-	public static RPS rps;
+	//public static RPS rps;
 	public static AxisCamera camera;
-
-	public static ArduinoSerialRead arduino;
-	
+	public static String gameData = "";
+	//public static ArduinoSerialRead arduino;
+	public static AutoTargetSide autoTargetSide = AutoTargetSide.Unknown;
 
 	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	//SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
+	 * This function is run when the robot is first started up and should be used
+	 * for any initialization code.
 	 */
+	public static void getGameData()	{
+		autoTargetSide = AutoTargetSide.Unknown;
+		gameData = "";
+		if(DriverStation.getInstance() != null)	{
+			gameData = DriverStation.getInstance().getGameSpecificMessage();
+		}
+		System.out.println(gameData);
+		
+		if (gameData.length() > 0) {
+			if (gameData.charAt(0) == 'L') {
+				autoTargetSide = AutoTargetSide.Left;
+			} else if (gameData.charAt(0) == 'R') {
+				autoTargetSide = AutoTargetSide.Right;
+			} else {
+				autoTargetSide = AutoTargetSide.Unknown;
+			}			
+		}
+		System.out.println("Side= " + autoTargetSide);
+		
+	}
 	@Override
 	public void robotInit() {
 		c.setClosedLoopControl(true);
-		rps = new RPS(0, 0);
-		color = new TMDColor();
-		//TODO don't crash code if no arduino try catch surround
-		arduino = new ArduinoSerialRead();
+		//rps = new RPS(0, 0);
+		//color = new TMDColor();
+		// TODO don't crash code if no arduino try catch surround
+		//arduino = new ArduinoSerialRead();
 		drivetrain = new DriveTrain();
 		robotArm = new RobotArm(2, 0, 0); // TODO add actual PID values here
 		switchArm = new SwitchArm();
 		intake = new Intake();
 		oi = new OI();
-		camera = CameraServer.getInstance().addAxisCamera("axis-camera.local");
-		camera.setResolution(800, 640);
-		m_chooser.addDefault("CenterAuto", new CenterAutoLidar());
-		m_chooser.addObject("RightAuto", new RightAutoLidar());
-		m_chooser.addObject("LeftAuto", new LeftAutoLidar());
-		
-		SmartDashboard.putData("RightAuto", m_chooser);
+		//camera = CameraServer.getInstance().addAxisCamera("axis-camera.local");
+		//camera.setResolution(800, 640);
+		//m_chooser.addDefault("CenterAuto", new CenterAutoLidar());
+		//m_chooser.addObject("RightAuto", new RightAutoLidar());
+		//m_chooser.addObject("LeftAuto", new LeftAutoLidar());
+
+		//SmartDashboard.putData("RightAuto", m_chooser);
 	}
 
 	/**
-	 * This function is called once each time the robot enters Disabled mode.
-	 * You can use it to reset any subsystem information you want to clear when
-	 * the robot is disabled.
+	 * This function is called once each time the robot enters Disabled mode. You
+	 * can use it to reset any subsystem information you want to clear when the
+	 * robot is disabled.
 	 */
 	@Override
 	public void disabledInit() {
@@ -89,30 +110,29 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void disabledPeriodic() {
-		SmartDashboard.putNumber("EncoderDistance", drivetrain.getAvgDistance());
-		SmartDashboard.putNumber("EncoderRightDistance", drivetrain.getRightEncoderCount());
-		SmartDashboard.putNumber("EncoderLeftDistance", drivetrain.getLeftEncoderCount());
-		SmartDashboard.putNumber("LidarDistance", arduino.getDistance());
 		
 		Scheduler.getInstance().run();
 	}
 
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString code to get the auto name from the text box below the Gyro
+	 * between different autonomous modes using the dashboard. The sendable chooser
+	 * code works with the Java SmartDashboard. If you prefer the LabVIEW Dashboard,
+	 * remove all of the chooser code and uncomment the getString code to get the
+	 * auto name from the text box below the Gyro
 	 *
 	 * <p>
 	 * You can add additional auto modes by adding additional commands to the
-	 * chooser code above (like the commented example) or additional comparisons
-	 * to the switch structure below with additional strings & commands.
+	 * chooser code above (like the commented example) or additional comparisons to
+	 * the switch structure below with additional strings & commands.
 	 */
 	@Override
 	public void autonomousInit() {
-		 m_autonomousCommand = m_chooser.getSelected();
-		 Robot.switchArm.retract();
+		getGameData();
+		//m_autonomousCommand = new Autonomous(true); //right side
+		m_autonomousCommand = new Autonomous(false); //left side
+		//m_autonomousCommand = new TimedDrive(0.5,5); //drive straight
+		//Robot.switchArm.retract();
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
@@ -125,10 +145,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("Red", color.getRedColor());
-		SmartDashboard.putNumber("Green", color.getGreenColor());
-		SmartDashboard.putNumber("Blue", color.getBlueColor());
-		SmartDashboard.putNumber("LidarDistance", arduino.getDistance());
+		
 	}
 
 	@Override
@@ -148,20 +165,14 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		 SmartDashboard.putNumber("Red", color.getRedColor());
-		 SmartDashboard.putNumber("Green", color.getGreenColor());
-		 SmartDashboard.putNumber("Blue", color.getBlueColor());
-		 SmartDashboard.putNumber("LidarDistance", arduino.getDistance());
-		 Scheduler.getInstance().run();
+		Scheduler.getInstance().run();
 	}
+
 	/**
 	 * This function is called periodically during test mode.
 	 */
 	@Override
 	public void testPeriodic() {
-		 SmartDashboard.putNumber("Red", color.getRedColor());
-		 SmartDashboard.putNumber("Green", color.getGreenColor());
-		 SmartDashboard.putNumber("Blue", color.getBlueColor());
-		 SmartDashboard.putNumber("LidarDistance", arduino.getDistance());
+		
 	}
 }

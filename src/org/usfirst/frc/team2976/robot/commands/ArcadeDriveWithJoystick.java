@@ -36,10 +36,12 @@ public class ArcadeDriveWithJoystick extends Command {
 		speed = -Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber());
 		rotation = Robot.oi.driveStick.getRawAxis(OI.Axis.RX.getAxisNumber());
 		Robot.drivetrain.customRotationDrive(speed, rotation);
+		
+		System.out.println("In Arcade Drive" + System.currentTimeMillis());
+		
+		//SmartDashboard.putNumber("Left Encoder Count", Robot.drivetrain.getLeftEncoderCount());
 
-		SmartDashboard.putNumber("Left Encoder Count", Robot.drivetrain.getLeftEncoderCount());
-
-		SmartDashboard.putNumber("Right Encoder Count", Robot.drivetrain.getRightEncoderCount());
+		//SmartDashboard.putNumber("Right Encoder Count", Robot.drivetrain.getRightEncoderCount());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

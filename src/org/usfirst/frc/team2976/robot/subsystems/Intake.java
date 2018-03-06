@@ -37,7 +37,7 @@ public class Intake extends Subsystem {
 	public void setPower(double abspower, boolean rollIn) {
 		double power = Math.abs(abspower);
 		if(rollIn) {
-			rightIntakeMotor.set(ControlMode.PercentOutput,power);
+			rightIntakeMotor.set(ControlMode.PercentOutput, 1.3*power);
 			leftIntakeMotor.set(ControlMode.PercentOutput,-power);
 		} else {
 			rightIntakeMotor.set(ControlMode.PercentOutput,-power);

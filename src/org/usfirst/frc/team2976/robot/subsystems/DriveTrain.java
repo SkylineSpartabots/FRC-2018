@@ -31,18 +31,11 @@ import util.PIDSource;
 public class DriveTrain extends Subsystem {
 	WPI_TalonSRX leftFront, leftBack, rightFront, rightBack;
 	SpeedControllerGroup left, right;
-	public PIDMain rotationLock;
-	public PIDSource gyroSource;
 	Encoder encoderLeft, encoderRight;
 	CustomDrive m_drive;
 
 	public DriveTrain() {
-		gyroSource = new PIDSource() {
-			public double getInput() {
-				return Robot.rps.getAngle();
-			}
-		};
-		rotationLock = new PIDMain(gyroSource, (int) Robot.rps.getAngle(), 100, -0.02, -0.0006	, 0);	
+		
 		
 		leftFront = new WPI_TalonSRX(RobotMap.leftFrontDriveMotor);
 		leftBack = new WPI_TalonSRX(RobotMap.leftBackDriveMotor);
@@ -57,12 +50,7 @@ public class DriveTrain extends Subsystem {
 
 		left = new SpeedControllerGroup(leftFront, leftBack);
 		right = new SpeedControllerGroup(rightFront, rightBack);
-		encoderLeft = new Encoder(RobotMap.leftDriveEncoder1, RobotMap.leftDriveEncoder2);
-		encoderRight = new Encoder(RobotMap.rightDriveEncoder1, RobotMap.rightDriveEncoder2);
-
-		setEncoderParameters(encoderLeft);
-		setEncoderParameters(encoderRight);
-
+	
 		m_drive = new CustomDrive(left, right);
 	}
 	public void setBrake()	{
@@ -71,54 +59,8 @@ public class DriveTrain extends Subsystem {
 		rightFront.neutralOutput();
 		rightBack.neutralOutput();
 	}
-	public void rotationLockTankDrive(double leftpower, double rightpower)	{
-		tankDrive(leftpower+rotationLock.getOutput(), rightpower -rotationLock.getOutput());
-	}
-	public double getLeftEncoderDistance() {
-		return encoderLeft.getDistance();
-	}
-	public double getRightEncoderDistance() {
-		return encoderRight.getDistance();
-
-	}
-
-	public double getLeftEncoderCount() {
-		return encoderLeft.get();
-	}
-
-	public double getRightEncoderCount() {
-		return encoderRight.get();
-	}
-
-	public double getLeftEncoderRate() {
-		return encoderLeft.getRate();
-
-	}
-
-	public double getRightEncoderRate() {
-		return encoderRight.getRate();
-
-	}
 	
-	public double getAvgDistance()	{
-		return 0.5*(encoderLeft.getDistance() + encoderRight.getDistance()); 
-	}
-	public double getAvgClicks()	{
-		return 0.5*(encoderLeft.get() + encoderRight.get()); 
-	}
-	public void resetEncoders() {
-		encoderLeft.reset();
-		encoderRight.reset();
-
-	}
-
-	public void setEncoderParameters(Encoder enc) {
-		enc.setDistancePerPulse(1);//TODO 5 is not right at all
-		enc.setReverseDirection(false);
-		enc.setSamplesToAverage(7);
-	}
-
-	public void tankDrive(double leftSpeed, double rightSpeed) {
+		public void tankDrive(double leftSpeed, double rightSpeed) {
 		m_drive.tankDrive(leftSpeed, rightSpeed);
 		//left.set(leftSpeed);
 		//right.set(rightSpeed);
