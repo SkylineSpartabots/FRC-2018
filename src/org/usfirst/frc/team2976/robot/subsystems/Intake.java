@@ -45,6 +45,14 @@ public class Intake extends Subsystem {
 		}		
 	}
 	
+	public void setPowerIndv(double power, boolean left) {
+		if(left) {
+			leftIntakeMotor.set(power);
+		} {
+			rightIntakeMotor.set(power);
+		}
+	}
+	
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());

@@ -22,8 +22,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import util.CustomDrive;
-import util.PIDMain;
-import util.PIDSource;
 
 /**
  * An example subsystem. You can replace me with your own Subsystem.
