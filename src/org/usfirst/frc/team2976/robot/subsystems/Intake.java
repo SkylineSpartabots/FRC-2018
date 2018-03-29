@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2976.robot.subsystems;
 
 import org.usfirst.frc.team2976.robot.RobotMap;
+import org.usfirst.frc.team2976.robot.commands.VariableIntake;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -37,7 +38,7 @@ public class Intake extends Subsystem {
 	public void setPower(double abspower, boolean rollIn) {
 		double power = Math.abs(abspower);
 		if(rollIn) {
-			rightIntakeMotor.set(ControlMode.PercentOutput,power*1.5);
+			rightIntakeMotor.set(ControlMode.PercentOutput,power*1.65);
 			leftIntakeMotor.set(ControlMode.PercentOutput,-power);
 		} else {
 			rightIntakeMotor.set(ControlMode.PercentOutput,-power);
@@ -48,12 +49,13 @@ public class Intake extends Subsystem {
 	public void setPowerIndv(double power, boolean left) {
 		if(left) {
 			leftIntakeMotor.set(power);
-		} {
+		} else {
 			rightIntakeMotor.set(power);
 		}
 	}
 	
 	public void initDefaultCommand() {
+		setDefaultCommand(new VariableIntake());
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 	}

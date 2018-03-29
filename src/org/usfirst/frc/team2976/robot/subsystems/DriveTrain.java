@@ -58,8 +58,13 @@ public class DriveTrain extends Subsystem {
 		rightBack.neutralOutput();
 	}
 	
-		public void tankDrive(double leftSpeed, double rightSpeed) {
+	public void tankDrive(double leftSpeed, double rightSpeed) {
 		m_drive.tankDrive(leftSpeed, rightSpeed);
+		//left.set(leftSpeed);
+		//right.set(rightSpeed);
+	}
+	public void arcadeDrive(double forward, double turn) {
+		m_drive.arcadeDrive(forward, turn);
 		//left.set(leftSpeed);
 		//right.set(rightSpeed);
 	}

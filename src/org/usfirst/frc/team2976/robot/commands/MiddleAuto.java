@@ -11,26 +11,28 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class MiddleAuto extends CommandGroup {
-	double turnPower = 0.4;
-	double turnTime = 2.3;
+	double turnPower = 0.5;
+	double turnTime = 0.5;
 	public MiddleAuto() {
-		addSequential(new TimedDrive(0.5,2));
+		addSequential(new TimedDrive(0.6,0.75));
 			if(AutoTargetSide.Right == Robot.autoTargetSide)	{
 				addSequential(new TimedTurnRight(-turnPower,turnTime));
-				addSequential(new TimedDrive(0.4,1.5));
-				addSequential(new TimedTurnRight(0.4, 1.0));
+				addSequential(new TimedDrive(0.6,2));
+				addSequential(new TimedTurnRight(turnPower,0.3));
+				addSequential(new TimedDrive(0.6,2-0.2));
 				addSequential(new RollIntake(0.4,1,false));			
 			}			
-			else  {
+			else  {	
 				if(AutoTargetSide.Left == Robot.autoTargetSide)	{
-				addSequential(new TimedTurnRight(turnPower,turnTime));
-				addSequential(new TimedDrive(0.4,1.5));
-				addSequential(new TimedTurnRight(-0.4, 1.0));
-				addSequential(new RollIntake(0.4,1,false));				
+				addSequential(new TimedTurnRight(turnPower,turnTime-0.1));
+				addSequential(new TimedDrive(0.6,2-0.25));
+				addSequential(new TimedTurnRight(-turnPower,0.3+0.07));
+				addSequential(new TimedDrive(0.7,0.25));
+				addSequential(new RollIntake(0.4,1,false));					
 			}			
-
+	
 		}
-
+		 
 		// Add Commands here:
 		// e.g. addSequential(new Command1());
 		// addSequential(new Command2());

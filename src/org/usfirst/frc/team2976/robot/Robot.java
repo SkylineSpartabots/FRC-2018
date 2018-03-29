@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2976.robot;
 
 import edu.wpi.cscore.AxisCamera;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -26,6 +27,8 @@ import org.usfirst.frc.team2976.robot.subsystems.Intake;
 import org.usfirst.frc.team2976.robot.subsystems.SwitchArm;
 import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
 import org.usfirst.frc.team2976.robot.commands.Autonomous;
+import org.usfirst.frc.team2976.robot.commands.FancyAuto;
+import org.usfirst.frc.team2976.robot.commands.MiddleAuto;
 import org.usfirst.frc.team2976.robot.commands.TimedDrive;
 
 
@@ -45,7 +48,7 @@ public class Robot extends TimedRobot {
 	//public static TMDColor color;
 	public static OI oi;
 	//public static RPS rps;
-	public static AxisCamera camera;
+	
 	public static String gameData = "";
 	//public static ArduinoSerialRead arduino;
 	public static AutoTargetSide autoTargetSide = AutoTargetSide.Unknown;
@@ -89,6 +92,10 @@ public class Robot extends TimedRobot {
 		switchArm = new SwitchArm();
 		intake = new Intake();
 		oi = new OI();
+		
+		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		// Set the resolution
+		camera.setResolution(320, 240);
 		//camera = CameraServer.getInstance().addAxisCamera("axis-camera.local");
 		//camera.setResolution(800, 640);
 		//m_chooser.addDefault("CenterAuto", new CenterAutoLidar());
@@ -130,9 +137,13 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		getGameData();
 		//m_autonomousCommand = new Autonomous(true); //right side
-		m_autonomousCommand = new Autonomous(false); //left side
+		//m_autonomousCommand = new Autonomous(false); //left side
 		//m_autonomousCommand = new TimedDrive(0.5,5); //drive straight
+		m_autonomousCommand = new MiddleAuto(); //drive straight
+		//m_autonomousCommand = new FancyAuto(1.5,0.6,4); //drive straight
 		//Robot.switchArm.retract();
+		
+		
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();

@@ -11,21 +11,23 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Autonomous extends CommandGroup {
-	double turnPower = 0.4;
-	double turnTime = 2.3;
+	double turnPower = 0.5;
+	double turnTime = 1;
 	public Autonomous(boolean onRightSide) {
-		addSequential(new TimedDrive(0.5,4.8));
+		addSequential(new TimedDrive(0.6,3.1));
+		
+		
 		if (onRightSide) {
 			if(AutoTargetSide.Right == Robot.autoTargetSide)	{
 				addSequential(new TimedTurnRight(-turnPower,turnTime));
-				addSequential(new TimedDrive(0.4,1.5));
+				addSequential(new TimedDrive(0.6,0.75));
 				addSequential(new RollIntake(0.4,1,false));			
 			}			
 			
 		} else  {
 			if(AutoTargetSide.Left == Robot.autoTargetSide)	{
 				addSequential(new TimedTurnRight(turnPower,turnTime));
-				addSequential(new TimedDrive(0.4,1.5));
+				addSequential(new TimedDrive(0.6,0.75));
 				addSequential(new RollIntake(0.4,1,false));				
 			}			
 

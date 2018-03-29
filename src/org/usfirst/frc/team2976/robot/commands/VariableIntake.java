@@ -8,6 +8,7 @@
 package org.usfirst.frc.team2976.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team2976.robot.OI;
 import org.usfirst.frc.team2976.robot.Robot;
@@ -41,17 +42,32 @@ public class VariableIntake extends Command {
 		rightSpeed = Robot.oi.secondStick.getRawAxis(OI.Axis.RX.getAxisNumber());
 		
 		powerIn = Robot.oi.secondStick.getRawAxis(OI.Axis.RTrigger.getAxisNumber());
-		powerOut = Robot.oi.secondStick.getRawAxis(OI.Axis.LTrigger.getAxisNumber());
+		powerOut = Robot.oi.secondStick.getRawAxis(OI.Axis.LTrigger.getAxisNumber())*0.75;
 		
-		if(leftSpeed > 0.05) {
-			Robot.intake.setPowerIndv(leftSpeed, true);
-		} else if (rightSpeed > 0.05) {
-			Robot.intake.setPowerIndv(rightSpeed, false);
-		} else if (powerIn > 0.05) {
-			Robot.intake.setPower(powerIn, true);
-		} else if (powerOut > 0.05) {
-			Robot.intake.setPower(powerOut, false);
+		if(Math.abs(leftSpeed) > 0.1) {
+			Robot.intake.setPowerIndv(-leftSpeed, true);
+		} 
+		
+		if (Math.abs(rightSpeed) > 0.1) {
+			Robot.intake.setPowerIndv(-rightSpeed, false);
 		}
+		
+		if (Math.abs(powerIn) > 0.05) {
+			Robot.intake.setPower(powerIn, false);
+		}  
+		
+		if (Math.abs(powerOut) > 0.05) {
+			Robot.intake.setPower(powerOut, true);
+		}
+		
+		if (Math.abs(leftSpeed)<0.1 && Math.abs(rightSpeed)<0.1 && Math.abs(powerIn) < 0.05 && Math.abs(powerOut) < 0.05) {
+			Robot.intake.setPower(0, true);
+		}
+		
+		SmartDashboard.putNumber("LeftSpeed", leftSpeed);
+		SmartDashboard.putNumber("RightSpeed", rightSpeed);
+		SmartDashboard.putNumber("PowerIn", powerIn);
+		SmartDashboard.putNumber("PowerOut", powerOut);
 	
 	}
 
