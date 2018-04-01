@@ -54,7 +54,7 @@ public class Robot extends TimedRobot {
 	public static AutoTargetSide autoTargetSide = AutoTargetSide.Unknown;
 
 	Command m_autonomousCommand;
-	//SendableChooser<Command> m_chooser = new SendableChooser<>();
+	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	/**
 	 * This function is run when the robot is first started up and should be used
@@ -101,8 +101,12 @@ public class Robot extends TimedRobot {
 		//m_chooser.addDefault("CenterAuto", new CenterAutoLidar());
 		//m_chooser.addObject("RightAuto", new RightAutoLidar());
 		//m_chooser.addObject("LeftAuto", new LeftAutoLidar());
-
-		//SmartDashboard.putData("RightAuto", m_chooser);
+		//m_chooser.addDefault("Middle Auto", new MiddleAuto());
+		//m_chooser.addObject("Right Auto", new Autonomous(true));
+		//m_chooser.addObject("Left Auto", new Autonomous(false));
+		//m_chooser.addObject("DriveStraight", new TimedDrive(0.5,5));
+		
+		SmartDashboard.putData("Auto", m_chooser);
 	}
 
 	/**
@@ -136,12 +140,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		getGameData();
+		
 		//m_autonomousCommand = new Autonomous(true); //right side
 		//m_autonomousCommand = new Autonomous(false); //left side
 		//m_autonomousCommand = new TimedDrive(0.5,5); //drive straight
 		m_autonomousCommand = new MiddleAuto(); //drive straight
-		//m_autonomousCommand = new FancyAuto(1.5,0.6,4); //drive straight
-		//Robot.switchArm.retract();
+		//m_autonomousCommand = m_chooser.getSelected();
 		
 		
 		// schedule the autonomous command (example)
@@ -155,8 +159,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		Scheduler.getInstance().run();
-		
+		Scheduler.getInstance().run();	
 	}
 
 	@Override

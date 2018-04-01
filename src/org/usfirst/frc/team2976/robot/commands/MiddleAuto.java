@@ -12,24 +12,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class MiddleAuto extends CommandGroup {
 	double turnPower = 0.5;
-	double turnTime = 0.5;
+	double turnTime = 0.7;
 	public MiddleAuto() {
 		addSequential(new TimedDrive(0.6,0.75));
+		System.out.println("MiddleAutoSide " + Robot.autoTargetSide);
 			if(AutoTargetSide.Right == Robot.autoTargetSide)	{
+				System.out.println("MiddleAutoSide " + "Right");
+				SmartDashboard.putNumber("isRight", 1);
+				addSequential(new TimedTurnRight(turnPower,turnTime));
+				addSequential(new TimedDrive(0.55,1.45));
+				addSequential(new TimedTurnRight(-turnPower,0.5));
+				addSequential(new TimedDrive(0.6,1.5));
+				addSequential(new RollIntake(0.4,2,false));			
+			}	else if(AutoTargetSide.Left == Robot.autoTargetSide)	{
+				System.out.println("MiddleAutoSide " + "Left");
+				SmartDashboard.putNumber("isRight", 0);		
 				addSequential(new TimedTurnRight(-turnPower,turnTime));
-				addSequential(new TimedDrive(0.6,2));
-				addSequential(new TimedTurnRight(turnPower,0.3));
-				addSequential(new TimedDrive(0.6,2-0.2));
-				addSequential(new RollIntake(0.4,1,false));			
-			}			
-			else  {	
-				if(AutoTargetSide.Left == Robot.autoTargetSide)	{
-				addSequential(new TimedTurnRight(turnPower,turnTime-0.1));
-				addSequential(new TimedDrive(0.6,2-0.25));
-				addSequential(new TimedTurnRight(-turnPower,0.3+0.07));
-				addSequential(new TimedDrive(0.7,0.25));
-				addSequential(new RollIntake(0.4,1,false));					
-			}			
+				addSequential(new TimedDrive(0.55,1.6));
+				addSequential(new TimedTurnRight(turnPower,0.5));
+				addSequential(new TimedDrive(0.6,1));
+				addSequential(new RollIntake(0.4,2,false));					
+			}	else {		
+				SmartDashboard.putNumber("isRight", -1);
+				
+				System.out.println("MiddleAutoSide " + "N/A");
+				addSequential(new TimedTurnRight(turnPower,turnTime));	
+				addSequential(new TimedDrive(0.6,2.5));
+			}
 	
 		}
 		 
@@ -49,5 +58,5 @@ public class MiddleAuto extends CommandGroup {
 		// e.g. if Command1 requires chassis, and Command2 requires arm,
 		// a CommandGroup containing them would require both the chassis and the
 		// arm.
-	}
+	
 }

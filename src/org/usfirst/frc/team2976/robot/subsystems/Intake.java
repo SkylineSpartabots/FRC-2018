@@ -15,6 +15,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * An example subsystem. You can replace me with your own Subsystem.
@@ -34,12 +35,19 @@ public class Intake extends Subsystem {
 	public double getAvgCurrentDraw()	{
 		return 0.5*(rightIntakeMotor.getOutputCurrent() + leftIntakeMotor.getOutputCurrent());
 	}
-	
-	public void setPower(double abspower, boolean rollIn) {
+			
+	public void setPower(double abspower,boolean direction, boolean rollIn) {
 		double power = Math.abs(abspower);
+		
 		if(rollIn) {
-			rightIntakeMotor.set(ControlMode.PercentOutput,power*1.65);
-			leftIntakeMotor.set(ControlMode.PercentOutput,-power);
+			SmartDashboard.putBoolean("Direction", direction);
+			if(direction) {
+				rightIntakeMotor.set(ControlMode.PercentOutput,power*1.65);
+				leftIntakeMotor.set(ControlMode.PercentOutput,-power);
+			}	else {
+				rightIntakeMotor.set(ControlMode.PercentOutput,power);
+				leftIntakeMotor.set(ControlMode.PercentOutput,-power*1.65);
+			}
 		} else {
 			rightIntakeMotor.set(ControlMode.PercentOutput,-power);
 			leftIntakeMotor.set(ControlMode.PercentOutput,power);

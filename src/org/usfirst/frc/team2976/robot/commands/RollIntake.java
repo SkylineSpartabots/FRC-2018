@@ -19,13 +19,17 @@ import org.usfirst.frc.team2976.robot.Robot;
 public class RollIntake extends Command {
 	private double power = 0;
 	private boolean rollIn = true;
+	private boolean direction = true;
+	
 	Timer timer;
+
 	double time = 10000000;
 	public RollIntake(double power, boolean rollIn) {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.intake);
     	this.power = power;
     	this.rollIn = rollIn;
+    	
 	}
 	public RollIntake(double power, double time, boolean rollIn) {
 		// Use requires() here to declare subsystem dependencies
@@ -39,13 +43,14 @@ public class RollIntake extends Command {
 	protected void initialize() {
 		timer = new Timer();
 		timer.start();
-		Robot.intake.setPower(power, rollIn);
+		Robot.intake.setPower(power,true, rollIn);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		Robot.intake.setPower(power, rollIn);
+		//direction = (1 == Math.round(reverseTimer.get()) % 2);
+		Robot.intake.setPower(power, direction, rollIn);
 		SmartDashboard.putNumber("IntakeCurrent", Robot.intake.getAvgCurrentDraw());
 	}
 
@@ -58,13 +63,13 @@ public class RollIntake extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.intake.setPower(0, rollIn);
+		Robot.intake.setPower(0,true, rollIn);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.intake.setPower(0, rollIn);
+		Robot.intake.setPower(0, true,rollIn);
 	}
 }

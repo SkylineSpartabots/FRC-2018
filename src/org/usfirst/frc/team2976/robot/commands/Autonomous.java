@@ -4,6 +4,7 @@ import org.usfirst.frc.team2976.robot.AutoTargetSide;
 import org.usfirst.frc.team2976.robot.Robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -14,6 +15,7 @@ public class Autonomous extends CommandGroup {
 	double turnPower = 0.5;
 	double turnTime = 1;
 	public Autonomous(boolean onRightSide) {
+		//addSequential(new Wait(9000));
 		addSequential(new TimedDrive(0.6,3.1));
 		
 		

@@ -53,15 +53,15 @@ public class VariableIntake extends Command {
 		}
 		
 		if (Math.abs(powerIn) > 0.05) {
-			Robot.intake.setPower(powerIn, false);
+			Robot.intake.setPower(powerIn, true, false);
 		}  
 		
 		if (Math.abs(powerOut) > 0.05) {
-			Robot.intake.setPower(powerOut, true);
+			Robot.intake.setPower(powerOut,true, true);
 		}
 		
 		if (Math.abs(leftSpeed)<0.1 && Math.abs(rightSpeed)<0.1 && Math.abs(powerIn) < 0.05 && Math.abs(powerOut) < 0.05) {
-			Robot.intake.setPower(0, true);
+			Robot.intake.setPower(0,true, true);
 		}
 		
 		SmartDashboard.putNumber("LeftSpeed", leftSpeed);
@@ -80,7 +80,7 @@ public class VariableIntake extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		Robot.intake.setPower(0, true);
+		Robot.intake.setPower(0,true, true);
 	}
 
 	// Called when another command which requires one or more of the same
