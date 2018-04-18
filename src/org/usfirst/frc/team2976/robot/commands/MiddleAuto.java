@@ -19,19 +19,51 @@ public class MiddleAuto extends CommandGroup {
 			if(AutoTargetSide.Right == Robot.autoTargetSide)	{
 				System.out.println("MiddleAutoSide " + "Right");
 				SmartDashboard.putNumber("isRight", 1);
-				addSequential(new TimedTurnRight(turnPower,turnTime));
-				addSequential(new TimedDrive(0.55,1.45));
-				addSequential(new TimedTurnRight(-turnPower,0.5));
+				addSequential(new PIDTurn(45));
+				addSequential(new TimedDrive(0.55,1.65));
+				addSequential(new PIDTurn(-43));
 				addSequential(new TimedDrive(0.6,1.5));
-				addSequential(new RollIntake(0.4,2,false));			
+				addSequential(new RollIntake(0.45,0.5,false));
+				///Second Cube
+				
+				addSequential(new TimedDrive(-0.6,1));
+				addSequential(new SwitchExtend());
+				addSequential(new PIDTurn(-45));//addSequential(new TimedTurnRight(-0.6,0.8));
+				
+				addParallel(new RollIntake(0.45,5,true));
+				addSequential(new TimedDrive(0.6,1.6));
+				addSequential(new TimedDrive(-0.6,1.3));
+				addSequential(new PIDTurn(40));				
+				addSequential(new SwitchRetract());
+				addSequential(new TimedDrive(0.65,1.5));
+				addSequential(new RollIntake(0.45,5,false));	
+				
+				
+				
 			}	else if(AutoTargetSide.Left == Robot.autoTargetSide)	{
+				
+				// leftleftleft
+				
 				System.out.println("MiddleAutoSide " + "Left");
 				SmartDashboard.putNumber("isRight", 0);		
-				addSequential(new TimedTurnRight(-turnPower,turnTime));
-				addSequential(new TimedDrive(0.55,1.6));
-				addSequential(new TimedTurnRight(turnPower,0.5));
-				addSequential(new TimedDrive(0.6,1));
-				addSequential(new RollIntake(0.4,2,false));					
+				addSequential(new PIDTurn(-45));
+				addSequential(new TimedDrive(0.55,1.85));
+				addSequential(new PIDTurn(45));
+				addSequential(new TimedDrive(0.6,1.2));
+				addSequential(new RollIntake(0.45,0.75,false));
+				
+				///Second Cube
+
+				addSequential(new TimedDrive(-0.6,1.1));
+				addSequential(new SwitchExtend());
+				addSequential(new PIDTurn(45));//addSequential(new TimedTurnRight(-0.6,0.8));
+				addParallel(new RollIntake(0.45,6,true));
+				addSequential(new TimedDrive(0.6,1.5));
+				addSequential(new TimedDrive(-0.65,1.3));
+				addSequential(new PIDTurn(-49));				
+				addSequential(new SwitchRetract());
+				addSequential(new TimedDrive(0.65,1.5));
+				addSequential(new RollIntake(0.45,5,false));	
 			}	else {		
 				SmartDashboard.putNumber("isRight", -1);
 				

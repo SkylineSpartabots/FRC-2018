@@ -12,26 +12,68 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class Autonomous extends CommandGroup {
-	double turnPower = 0.5;
-	double turnTime = 1;
+	double turnPower = 0.6;
+	double turnTime = 1.3;
 	public Autonomous(boolean onRightSide) {
-		//addSequential(new Wait(9000));
-		addSequential(new TimedDrive(0.6,3.1));
+
+		addSequential(new TimedDrive(0.6,3));
 		
 		
 		if (onRightSide) {
 			if(AutoTargetSide.Right == Robot.autoTargetSide)	{
+				addSequential(new PIDTurn(-90));
+				addSequential(new TimedDrive(0.6,1));
+				addSequential(new RollIntake(0.4,0.75,false));
+				//Second Cube
+				/*
+				addSequential(new TimedDrive(-0.6,0.75));
+				addSequential(new TimedTurnRight(turnPower,turnTime));
+				addSequential(new TimedDrive(0.6,1.5));
 				addSequential(new TimedTurnRight(-turnPower,turnTime));
 				addSequential(new TimedDrive(0.6,0.75));
-				addSequential(new RollIntake(0.4,1,false));			
-			}			
+				addSequential(new TimedTurnRight(-turnPower,turnTime));
+				addSequential(new SwitchExtend());
+				addParallel(new RollIntake(0.4,2.5,true));
+				addSequential(new TimedDrive(0.5,1));
+				addSequential(new TimedDrive(-0.6,0.75));
+				addSequential(new SwitchRetract());
+				addSequential(new TimedTurnRight(turnPower,0.3));		
+				addSequential(new TimedDrive(0.5,1));
+				addSequential(new RollIntake(0.4,0.75,false));				
+				*/
+			}	else	{	//drive around
+				
+			
+			}
 			
 		} else  {
 			if(AutoTargetSide.Left == Robot.autoTargetSide)	{
-				addSequential(new TimedTurnRight(turnPower,turnTime));
-				addSequential(new TimedDrive(0.6,0.75));
-				addSequential(new RollIntake(0.4,1,false));				
-			}			
+				addSequential(new PIDTurn(90));
+				addSequential(new TimedDrive(0.6,1));
+				addSequential(new RollIntake(0.4,1,false));	
+				//#2
+				/*
+				addSequential(new TimedDrive(-0.6,0.75));
+				addSequential(new TimedTurnRight(-turnPower,1.5));
+				addSequential(new TimedDrive(0.6,1.5));
+				*/
+				//addSequential(new TimedTurnRight(turnPower,turnTime));
+				//addSequential(new TimedDrive(0.6,0.75));
+				//addSequential(new TimedTurnRight(turnPower,turnTime));
+				//addSequential(new SwitchExtend());
+				//addParallel(new RollIntake(0.4,2.5,true));
+				//addSequential(new TimedDrive(0.5,1));
+				//addSequential(new TimedDrive(-0.6,0.75));
+				//addSequential(new SwitchRetract());
+				//addSequential(new TimedTurnRight(-turnPower,0.3));		
+				//addSequential(new TimedDrive(0.5,1));
+				//addSequential(new RollIntake(0.4,0.75,false));		
+			
+			}	else	{	//drive around
+				addSequential(new TimedDrive(0.6,1));
+				addSequential(new PIDTurn(90));
+				addSequential(new TimedDrive(0.6,4));
+			}
 
 		}
 

@@ -29,6 +29,7 @@ import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
 import org.usfirst.frc.team2976.robot.commands.Autonomous;
 import org.usfirst.frc.team2976.robot.commands.FancyAuto;
 import org.usfirst.frc.team2976.robot.commands.MiddleAuto;
+import org.usfirst.frc.team2976.robot.commands.PIDTurn;
 import org.usfirst.frc.team2976.robot.commands.TimedDrive;
 
 
@@ -47,7 +48,7 @@ public class Robot extends TimedRobot {
 	public static Intake intake;
 	//public static TMDColor color;
 	public static OI oi;
-	//public static RPS rps;
+	public static RPS rps;
 	
 	public static String gameData = "";
 	//public static ArduinoSerialRead arduino;
@@ -82,20 +83,17 @@ public class Robot extends TimedRobot {
 	}
 	@Override
 	public void robotInit() {
+		rps = new RPS(0,0);
 		c.setClosedLoopControl(true);
-		//rps = new RPS(0, 0);
-		//color = new TMDColor();
-		// TODO don't crash code if no arduino try catch surround
-		//arduino = new ArduinoSerialRead();
 		drivetrain = new DriveTrain();
 		robotArm = new RobotArm(2, 0, 0); // TODO add actual PID values here
 		switchArm = new SwitchArm();
 		intake = new Intake();
 		oi = new OI();
 		
-		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+		//UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 		// Set the resolution
-		camera.setResolution(320, 240);
+		//camera.setResolution(320, 240);
 		//camera = CameraServer.getInstance().addAxisCamera("axis-camera.local");
 		//camera.setResolution(800, 640);
 		//m_chooser.addDefault("CenterAuto", new CenterAutoLidar());
@@ -146,7 +144,7 @@ public class Robot extends TimedRobot {
 		//m_autonomousCommand = new TimedDrive(0.5,5); //drive straight
 		m_autonomousCommand = new MiddleAuto(); //drive straight
 		//m_autonomousCommand = m_chooser.getSelected();
-		
+		//m_autonomousCommand = new PIDTurn(-45);
 		
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {

@@ -41,6 +41,7 @@ public class TimedTurnRight extends Command {
 	// Called once after isFinished returns true
 	protected void end() {
 		timer.reset();
+    	Robot.drivetrain.setBrake();
 		Robot.drivetrain.tankDrive(0, 0);
 
 	}
