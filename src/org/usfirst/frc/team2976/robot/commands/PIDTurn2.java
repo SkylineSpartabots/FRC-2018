@@ -9,7 +9,7 @@ import util.PIDSource;
 /**
  *
  */
-public class PIDTurn extends Command {
+public class PIDTurn2 extends Command {
     PIDSource NAVXSource;
 	SimplePID turnPID;
 	double initDegrees = 0;
@@ -17,18 +17,17 @@ public class PIDTurn extends Command {
 	Timer timer;
 	boolean firstTime = true;
 	long timeStart = Long.MAX_VALUE;
-    public PIDTurn(double degrees) {	
+    public PIDTurn2(double degrees) {	
     	requires(Robot.drivetrain);
-    	Robot.rps.reset();
     	initDegrees = Robot.rps.getAngle();
-    	this.degrees = degrees + initDegrees;
+    	this.degrees = degrees;
     	NAVXSource =  new PIDSource()	{
     		public double getInput()	{
     			System.out.println("Angle" + Robot.rps.getAngle());
     			return Robot.rps.getAngle();
     		}
     	};
-    	double kP = 0.05;//0.009;
+    	double kP = 0.058;//0.009;
     	double kI = 0.00	;//0.002;
     	double kD = 0.0;//0.00008;
 	
@@ -37,33 +36,31 @@ public class PIDTurn extends Command {
     //	System.out.println("PIDTurn Constructor\n\n Angle=" + Robot.rps.getAngle() + ", Degrees=" + this.degrees + ", initDegrees=" + this.initDegrees + ",Timer=" + timer.get());
     	
     }
-    
-
     // Called just before this Command runs the first time
     protected void initialize() {
     	timer = new Timer();
     	turnPID.resetPID();
-    	Robot.rps.reset();
     	timer.start();
-    
     	//System.out.println("PIDTurn Initialize \n\n Angle=" + Robot.rps.getAngle() + ", Degrees=" + this.degrees + ", initDegrees=" + this.initDegrees + ",Timer=" + timer.get());    	
     }	
     double output = 0;
+    double lastTimeOut = 0;
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    		output = turnPID.compute();
-        	Robot.drivetrain.tankDrive(-output, output);
-        	System.out.println("Angle=" + Robot.rps.getAngle() + ", PIDError=" + turnPID.getError()+ ", PIDEoutput=" + output + ",Timer=" + timer.get());
-    	
-    
+    	output = turnPID.compute();
+    	if((Math.abs(turnPID.getError()) > 5)){
+    		lastTimeOut = timer.get();
+    	}
+    	Robot.drivetrain.tankDrive(-output, output);
+    	System.out.println("Angle=" + Robot.rps.getAngle() + ", PIDError=" + turnPID.getError()+ ", PIDEoutput=" + output + ",Timer=" + timer.get());
     }
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	SmartDashboard.putBoolean("TurnFinished", System.currentTimeMillis() - timeStart>100);
         //return System.currentTimeMillis() - timeStart > 100;
-        return timer.hasPeriodPassed(1.5) || (Math.abs(turnPID.getError()) < 2);
+    	
+        return timer.hasPeriodPassed(1) || (timer.get()-lastTimeOut>0.5);
     }
     
     // Called once after isFinished returns true

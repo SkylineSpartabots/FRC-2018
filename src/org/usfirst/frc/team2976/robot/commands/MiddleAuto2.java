@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *
  */
-public class MiddleAuto extends CommandGroup {
+public class MiddleAuto2 extends CommandGroup {
 	double turnPower = 0.5;
 	double turnTime = 0.7;
-	public MiddleAuto() {
+	public MiddleAuto2() {
 		System.out.println("AUTO BEGINS");
 		Robot.rps.reset();
 		addSequential(new TimedDrive(0.6,0.75));
@@ -21,21 +21,25 @@ public class MiddleAuto extends CommandGroup {
 			if(AutoTargetSide.Right == Robot.autoTargetSide)	{
 				System.out.println("MiddleAutoSide " + "Right");
 				SmartDashboard.putNumber("isRight", 1);
-				addSequential(new PIDTurn(43));
-				addSequential(new TimedDrive(0.55,1.3));
-				addSequential(new PIDTurn(-43));
+				addSequential(new PIDTurn2(43));
+				addSequential(new TimedDrive(0, 0.1));
+				addSequential(new TimedDrive(0.55,1.7));
+				addSequential(new PIDTurn2(0));
+				addSequential(new TimedDrive(0, 0.1));
 				addSequential(new TimedDrive(0.6,1.5));
 				addSequential(new RollIntake(0.45,0.5,false));
 				///Second Cube
 				
-				addSequential(new TimedDrive(-0.6,1.25));
+				addSequential(new TimedDrive(-0.6,1.4));
 				addSequential(new SwitchExtend());
-				addSequential(new PIDTurn(-35));//addSequential(new TimedTurnRight(-0.6,0.8));
+				addSequential(new PIDTurn2(-35));//addSequential(new TimedTurnRight(-0.6,0.8));
+				addSequential(new TimedDrive(0, 0.1));
 				
 				addParallel(new RollIntake(0.45,5,true));
 				addSequential(new TimedDrive(0.6,1.8));
 				addSequential(new TimedDrive(-0.6,1.5));
-				addSequential(new PIDTurn(35));				
+				addSequential(new PIDTurn2(0));
+				addSequential(new TimedDrive(0, 0.1));
 				addSequential(new SwitchRetract());
 				addSequential(new TimedDrive(0.65,1.5));
 				addSequential(new RollIntake(0.45,5,false));	
@@ -48,21 +52,25 @@ public class MiddleAuto extends CommandGroup {
 				
 				System.out.println("MiddleAutoSide " + "Left");
 				SmartDashboard.putNumber("isRight", 0);		
-				addSequential(new PIDTurn(-45));
-				addSequential(new TimedDrive(0.55,1.85));
-				addSequential(new PIDTurn(45));
-				addSequential(new TimedDrive(0.6,1.2));
+				addSequential(new PIDTurn2(-50));
+				addSequential(new TimedDrive(0, 0.1));
+				addSequential(new TimedDrive(0.55,1.95));
+				addSequential(new PIDTurn2(0));
+				addSequential(new TimedDrive(0, 0.1));
+				addSequential(new TimedDrive(0.6,1.5));
 				addSequential(new RollIntake(0.45,0.75,false));
 				
 				///Second Cube
 
 				addSequential(new TimedDrive(-0.6,1.1));
 				addSequential(new SwitchExtend());
-				addSequential(new PIDTurn(35));//addSequential(new TimedTurnRight(-0.6,0.8));
+				addSequential(new PIDTurn2(35));//addSequential(new TimedTurnRight(-0.6,0.8));
+				addSequential(new TimedDrive(0, 0.1));
 				addParallel(new RollIntake(0.45,6,true));
 				addSequential(new TimedDrive(0.6,1.5));
 				addSequential(new TimedDrive(-0.6, 1.2));
-				addSequential(new PIDTurn(-38));				
+				addSequential(new PIDTurn2(0));				
+				addSequential(new TimedDrive(0, 0.1));
 				addSequential(new SwitchRetract());
 				addSequential(new TimedDrive(0.65,1.5));
 				addSequential(new RollIntake(0.45,5,false));	

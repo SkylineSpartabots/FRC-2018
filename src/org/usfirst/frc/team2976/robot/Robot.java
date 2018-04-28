@@ -29,6 +29,7 @@ import org.usfirst.frc.team2976.robot.subsystems.RobotArm;
 import org.usfirst.frc.team2976.robot.commands.Autonomous;
 import org.usfirst.frc.team2976.robot.commands.FancyAuto;
 import org.usfirst.frc.team2976.robot.commands.MiddleAuto;
+import org.usfirst.frc.team2976.robot.commands.MiddleAuto2;
 import org.usfirst.frc.team2976.robot.commands.PIDTurn;
 import org.usfirst.frc.team2976.robot.commands.TimedDrive;
 
@@ -138,11 +139,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		getGameData();
+		Robot.rps.reset();
 		
 		//m_autonomousCommand = new Autonomous(true); //right side
 		//m_autonomousCommand = new Autonomous(false); //left side
 		//m_autonomousCommand = new TimedDrive(0.5,5); //drive straight
-		m_autonomousCommand = new MiddleAuto(); //drive straight
+		m_autonomousCommand = new MiddleAuto2(); //drive straight
 		//m_autonomousCommand = m_chooser.getSelected();
 		//m_autonomousCommand = new PIDTurn(-45);
 		
@@ -162,6 +164,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+
+		System.out.println("TELEOP BEGINS");
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove

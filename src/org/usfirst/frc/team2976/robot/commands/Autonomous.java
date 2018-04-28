@@ -70,9 +70,9 @@ public class Autonomous extends CommandGroup {
 				//addSequential(new RollIntake(0.4,0.75,false));		
 			
 			}	else	{	//drive around
-				addSequential(new TimedDrive(0.6,1));
-				addSequential(new PIDTurn(90));
-				addSequential(new TimedDrive(0.6,4));
+				//addSequential(new TimedDrive(0.6,1));
+				//addSequential(new PIDTurn(90));
+				//addSequential(new TimedDrive(0.6,4));
 			}
 
 		}
