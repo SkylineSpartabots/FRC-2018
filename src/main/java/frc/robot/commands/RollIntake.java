@@ -6,11 +6,8 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot.commands;
-
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import frc.robot.OI;
 import frc.robot.Robot;
 
 /**
@@ -18,58 +15,47 @@ import frc.robot.Robot;
  */
 public class RollIntake extends Command {
 	private double power = 0;
-	private boolean rollIn = true;
-	private boolean direction = true;
 	
-	Timer timer;
 
-	double time = 10000000;
-	public RollIntake(double power, boolean rollIn) {
-		// Use requires() here to declare subsystem dependencies
+	public RollIntake(double power) {
 		requires(Robot.intake);
-    	this.power = power;
-    	this.rollIn = rollIn;
-    	
+    	this.power = power;  	
 	}
-	public RollIntake(double power, double time, boolean rollIn) {
-		// Use requires() here to declare subsystem dependencies
-		requires(Robot.intake);
-		this.time = time;
-    	this.power = power;
-    	this.rollIn = rollIn;
-	}
+
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		timer = new Timer();
-		timer.start();
-		Robot.intake.setPower(power,true, rollIn);
+		Robot.intake.setPower(0);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		//direction = (1 == Math.round(reverseTimer.get()) % 2);
-		Robot.intake.setPower(power, direction, rollIn);
-		SmartDashboard.putNumber("IntakeCurrent", Robot.intake.getAvgCurrentDraw());
+		Robot.intake.setPower(power);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return timer.hasPeriodPassed(time);
+		if(power > 0) {
+			return !Robot.oi.driveStick.getRawButton(OI.Button.LBumper.getBtnNumber());
+		} else if (power < 0) {
+			return !Robot.oi.driveStick.getRawButton(OI.Button.RBumper.getBtnNumber());
+		} else {
+			return true;
+		}
 	}
 
 	// Called once after isFinished returns true
-	@Override
+	@Override 
 	protected void end() {
-		Robot.intake.setPower(0,true, rollIn);
+		Robot.intake.setPower(0);
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		Robot.intake.setPower(0, true,rollIn);
+		end();
 	}
 }

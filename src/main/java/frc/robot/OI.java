@@ -20,8 +20,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	public Joystick driveStick;
-	public Joystick secondStick;
 
+	
+	//Enum that maps readable names of buttons to their actual integer values
 	public enum Button {
 		RBumper(6), LBumper(5), A(1), B(2), X(3), Y(4), RightJoystickBtn(10), LeftJoystickBtn(9);
 
@@ -36,6 +37,8 @@ public class OI {
 		}
 	}
 
+	//Enum that maps readable names of axis to their actual integer values
+	//Axis include triggers and joysticks on controllers
 	public enum Axis {
 		LX(0), LY(1), LTrigger(2), RTrigger(3), RX(4), RY(5);
 		private final int number;
@@ -51,12 +54,12 @@ public class OI {
 
 	public OI() {
 		driveStick = new Joystick(0);
-		secondStick = new Joystick(1);
 
-		new JoystickButton(secondStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend());
-		new JoystickButton(secondStick, Button.Y.getBtnNumber()).whenPressed(new SwitchRetract());
-		new JoystickButton(secondStick, Button.LBumper.getBtnNumber()).whileHeld(new RollIntake(0.4, true));
-		new JoystickButton(secondStick, Button.B.getBtnNumber()).whileHeld(new RollIntake(0.4, false));
+		//Mapping buttons to their specific actions
+		new JoystickButton(driveStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend()); //Sets 'a' to extend arm
+		new JoystickButton(driveStick, Button.Y.getBtnNumber()).whenPressed(new SwitchRetract());// sets 'b' to retract arm
+		new JoystickButton(driveStick, Button.LBumper.getBtnNumber()).whileHeld(new RollIntake(0.4));
+		new JoystickButton(driveStick, Button.RBumper.getBtnNumber()).whileHeld(new RollIntake(-0.4));
 		
 	}
 }
