@@ -10,10 +10,13 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.OI;
 import frc.robot.Robot;
+import frc.robot.RobotMap;
 
 public class ArcadeDriveWithJoystick extends Command {
 	double speed;
 	double rotation;
+
+	
 
 	public ArcadeDriveWithJoystick() {
 		requires(Robot.driveTrain);
@@ -28,15 +31,9 @@ public class ArcadeDriveWithJoystick extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		speed = -Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber());
-		rotation = Robot.oi.driveStick.getRawAxis(OI.Axis.RX.getAxisNumber());
+		speed = -Robot.oi.driveStick.getRawAxis(OI.Axis.LY.getAxisNumber()) * RobotMap.DRIVE_SPEED_MULTIPLIER;
+		rotation = Robot.oi.driveStick.getRawAxis(OI.Axis.RX.getAxisNumber()) * RobotMap.DRIVE_SPEED_MULTIPLIER;
 		Robot.driveTrain.arcadeDrive(speed, rotation);
-		
-		//System.out.println("In Arcade Drive" + System.currentTimeMillis());
-		
-		//SmartDashboard.putNumber("Left Encoder Count", Robot.drivetrain.getLeftEncoderCount());
-
-		//SmartDashboard.putNumber("Right Encoder Count", Robot.drivetrain.getRightEncoderCount());
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

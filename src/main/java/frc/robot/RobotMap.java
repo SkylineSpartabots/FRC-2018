@@ -28,4 +28,5 @@ public class RobotMap {
 	// this scale factor means 1 click = 0.06 inches;
 	public static final double encoderDistanceScaleFactor = 0.06;
 
+	public static final double DRIVE_SPEED_MULTIPLIER = 0.75;
 }

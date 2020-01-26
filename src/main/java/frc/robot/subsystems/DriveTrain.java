@@ -62,7 +62,6 @@ public class DriveTrain extends Subsystem {
 		m_drive.arcadeDrive(forward, turn);
 	}
 
-
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
