@@ -58,8 +58,8 @@ public class OI {
 		//Mapping buttons to their specific actions
 		new JoystickButton(driveStick, Button.A.getBtnNumber()).whenPressed(new SwitchExtend()); //Sets 'a' to extend arm
 		new JoystickButton(driveStick, Button.Y.getBtnNumber()).whenPressed(new SwitchRetract());// sets 'b' to retract arm
-		new JoystickButton(driveStick, Button.LBumper.getBtnNumber()).whileHeld(new RollIntake(0.4));
-		new JoystickButton(driveStick, Button.RBumper.getBtnNumber()).whileHeld(new RollIntake(-0.4));
+		new JoystickButton(driveStick, Button.LBumper.getBtnNumber()).whileHeld(new RollIntake(0.8));
+		new JoystickButton(driveStick, Button.RBumper.getBtnNumber()).whileHeld(new RollIntake(-0.8));
 		
 	}
 }

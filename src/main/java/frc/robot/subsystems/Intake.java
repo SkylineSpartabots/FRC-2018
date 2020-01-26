@@ -11,7 +11,8 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import frc.robot.RobotMap;
-
+import frc.robot.util.TelemetryUtil;
+import frc.robot.util.TelemetryUtil.PrintStyle;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -28,6 +29,8 @@ public class Intake extends Subsystem {
 		rightIntakeMotor.setNeutralMode(NeutralMode.Brake);
 		rightIntakeMotor.setInverted(true);
 		leftIntakeMotor.setNeutralMode(NeutralMode.Brake);
+
+		TelemetryUtil.print("Intake has been initialized", PrintStyle.INFO, true);
 	}
 	
 			

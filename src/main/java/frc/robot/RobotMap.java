@@ -15,15 +15,15 @@ package frc.robot;
  */
 public class RobotMap {
 	public static final int leftFrontDriveMotor = 1;//4;//1;
-	public static final int leftBackDriveMotor = 2;//5;//2;
-	public static final int rightFrontDriveMotor = 3;//1;//3;
-	public static final int rightBackDriveMotor = 4;//3;//4;
+	public static final int leftBackDriveMotor = 3;//5;//2;
+	public static final int rightFrontDriveMotor = 5;//1;//3;
+	public static final int rightBackDriveMotor = 6;//3;//4;
 	
-	public static final int rightIntakeMotor = 7;
-	public static final int leftIntakeMotor = 8;
+	public static final int rightIntakeMotor = 4;
+	public static final int leftIntakeMotor = 2;
 
 
-	public static final int switchSolenoidPort = 0;
+	public static final int switchSolenoidPort = 4;
 
 	// this scale factor means 1 click = 0.06 inches;
 	public static final double encoderDistanceScaleFactor = 0.06;

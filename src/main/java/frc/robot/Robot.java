@@ -19,6 +19,8 @@ import frc.robot.OI;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.SwitchArm;
+import frc.robot.util.TelemetryUtil;
+import frc.robot.util.TelemetryUtil.PrintStyle;
 
 
 /**
@@ -40,13 +42,17 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void robotInit() {
-		c.setClosedLoopControl(true);
+		
 		driveTrain = new DriveTrain();
 		switchArm = new SwitchArm();
 		intake = new Intake();
 		oi = new OI();
 		
+
+		c.setClosedLoopControl(true);
 		SmartDashboard.putData("Auto", m_chooser);
+
+		TelemetryUtil.print("Robot has initialized", PrintStyle.ERROR, true);
 	}
 
 
@@ -82,6 +88,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopInit() {
 		Robot.switchArm.retract();
+		TelemetryUtil.print("Teleop has been initialized", PrintStyle.ERROR, true);
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}

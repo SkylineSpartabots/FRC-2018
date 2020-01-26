@@ -1,3 +1,4 @@
+
 /*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
@@ -8,6 +9,8 @@
 package frc.robot.subsystems;
 
 import frc.robot.commands.ArcadeDriveWithJoystick;
+import frc.robot.util.TelemetryUtil;
+import frc.robot.util.TelemetryUtil.PrintStyle;
 import frc.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -27,8 +30,6 @@ public class DriveTrain extends Subsystem {
 	DifferentialDrive m_drive;
 
 	public DriveTrain() {
-		
-		
 		leftFront = new WPI_TalonSRX(RobotMap.leftFrontDriveMotor);
 		leftBack = new WPI_TalonSRX(RobotMap.leftBackDriveMotor);
 		rightFront = new WPI_TalonSRX(RobotMap.rightFrontDriveMotor);
@@ -44,8 +45,10 @@ public class DriveTrain extends Subsystem {
 		right = new SpeedControllerGroup(rightFront, rightBack);
 	
 		m_drive = new DifferentialDrive(left, right);
+		TelemetryUtil.print("Drive has been initialized", PrintStyle.INFO, true);
 	}
 	public void setBrake()	{
+		TelemetryUtil.print("Drive has enabled brake mode", PrintStyle.ERROR, true);
 		leftFront.neutralOutput();
 		leftBack.neutralOutput();
 		rightFront.neutralOutput();
